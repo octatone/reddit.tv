@@ -1,0 +1,98 @@
+body {
+    font-family: verdana,arial,helvetica,sans-serif;
+}
+
+#content-wrapper {
+    width: 100%;
+}
+
+#content {
+    width: 740px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#channel-list {
+    padding-top: 55px;
+    width: 100px;
+    float: left;
+}
+
+#video-display {
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    width: 640px;
+    float: left;
+    background-color: #cee3f8;
+}
+
+#video-embed {
+    padding: 15px 0;
+    text-align: center;
+    min-width: 600px;
+    min-height: 326px;
+}
+
+#video-title {
+    color: white;
+    border-radius: 15px 15px 0 0;
+    -moz-border-radius: 15px 15px 0 0;
+    padding: 15px;
+    background-color: #5f99cf;
+    white-space:nowrap;
+    overflow: hidden;
+}
+
+#video-title a {
+    color: white;
+    text-decoration: none;
+}
+
+#video-nav {
+    padding: 15px;
+}
+
+#channel-list ul { /* remove bullets and list indents */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    //text-align: right;
+}
+
+#channel-list li {
+    font-variant:small-caps;
+    padding: 2px 15px;
+    margin-bottom: 5px;
+    cursor: hand;
+    cursor: pointer;
+    border-radius: 15px 0 0 15px;
+    -moz-border-radius: 15px 0 0 15px;
+}
+
+#channel-list li:hover {
+    background-color: #e0e0e0;
+}
+
+#next-button {
+    float: right;
+}
+
+.nav-button {
+    margin-bottom: 15px;
+    padding: 5px 15px;
+    color: white;
+    background-color:#5f99cf;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+
+.loading {
+    background-image: url('./loading.gif');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+a {
+    cursor: hand;
+    cursor: pointer;
+}
