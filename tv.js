@@ -66,7 +66,7 @@ var loadChannel = function loadChannel(channel) {
                   for(var x in data.data.children){
 		      if(!isEmpty(data.data.children[x].data.media_embed) 
 			 && data.data.children[x].data.media.type != 'soundcloud.com'
-			 && data.data.children[x].data.media.type != 'criagslist.org'
+			 && data.data.children[x].data.media.type != 'craigslist.org'
 			 )
 			  {
 			    videos.push(data.data.children[x].data);
