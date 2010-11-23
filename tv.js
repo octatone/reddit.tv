@@ -64,9 +64,13 @@ var loadChannel = function loadChannel(channel) {
               , function(data) {
 		  videos = new Array(); //clear out stored videos
                   for(var x in data.data.children){
-		      if(!isEmpty(data.data.children[x].data.media_embed) && data.data.children[x].data.type != 'soundcloud.com'){
-			  videos.push(data.data.children[x].data);
-		      }
+		      if(!isEmpty(data.data.children[x].data.media_embed) 
+			 && data.data.children[x].data.media.type != 'soundcloud.com'
+			 && data.data.children[x].data.media.type != 'criagslist.org'
+			 )
+			  {
+			    videos.push(data.data.children[x].data);
+			  }
 		  }
 		  cur_video = 0;
 		  var title = $.unescapifyHTML(videos[cur_video].title);
