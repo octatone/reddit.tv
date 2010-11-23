@@ -14,10 +14,9 @@ var channels = {"channels": [
   ]
 };
 
-var videos = new Array(); //will be used later to store videos from feeds
+var videos = new Array();
 var cur_video = 0;
 
-//on document load
 $().ready(function(){
 	displayChannels();
 	$('#channel-1').css('background-color', '#cee3f8');
@@ -37,7 +36,6 @@ var displayChannels = function displayChannels() {
 		 +'</ul>'
 		 );
     $channel_list.html(list);
-
     for(var x in channels.channels){
 	$('#channel-list>ul').append('<li id="channel-'+x+'">'+channels.channels[x].channel+'</li>');
 	$('#channel-'+x).bind(
@@ -81,15 +79,18 @@ var loadChannel = function loadChannel(channel) {
 }
 
 var loadVideo = function loadVideo(video) {
+    var this_video = cur_video;
     if(video == 'next' && cur_video < Object.size(videos)-1){
 	cur_video++;
     }else if (cur_video > 0 && video != 'next'){
 	cur_video--;
     }
-    var title = $.unescapifyHTML(videos[cur_video].title);
-    var permalink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_video].permalink);
-    $('#video-title').html('<a href="'+permalink+'" target="_blank">'+title+'</a>');
-    $('#video-embed').html($.unescapifyHTML(videos[cur_video].media_embed.content));
+    if(this_video != cur_video) {
+	var title = $.unescapifyHTML(videos[cur_video].title);
+	var permalink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_video].permalink);
+	$('#video-title').html('<a href="'+permalink+'" target="_blank">'+title+'</a>');
+	$('#video-embed').html($.unescapifyHTML(videos[cur_video].media_embed.content));
+    }
 }
 
 var getFeedName = function getFeedName(channel) {
