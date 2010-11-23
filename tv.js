@@ -27,6 +27,24 @@ $().ready(function(){
 	$('#prev-button').click(function() {
 		loadVideo('prev');;
 	    });
+	//bind arrow keys
+	$(document).keydown(function (e) {
+		var keyCode = e.keyCode || e.which,
+		    arrow = {left: 37, up: 38, right: 39, down: 40 }, $status = $('#status');
+ 
+		switch (keyCode) {
+		    case arrow.left:
+		        loadVideo('prev');
+			break;
+		    case arrow.up:
+			break;
+		    case arrow.right:
+			loadVideo('next');
+			break;
+		    case arrow.down:
+			break;
+		}
+	});
 });
 
 var displayChannels = function displayChannels() {

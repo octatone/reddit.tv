@@ -41,6 +41,8 @@ body {
     background-color: #5f99cf;
     white-space:nowrap;
     overflow: hidden;
+    -o-text-overflow: ellipsis;    /* Opera */
+    text-overflow:    ellipsis;
 }
 
 #video-title a {
@@ -56,7 +58,6 @@ body {
     list-style: none;
     margin: 0;
     padding: 0;
-    //text-align: right;
 }
 
 #channel-list li {
@@ -80,10 +81,16 @@ body {
 .nav-button {
     margin-bottom: 15px;
     padding: 5px 15px;
-    color: white;
+    color: blue;
     background-color:#5f99cf;
+    border: 1px solid  #cee3f8;
     border-radius: 10px;
     -moz-border-radius: 10px;
+}
+
+a.nav-button:hover {
+    border: 1px solid blue;
+    color: white;
 }
 
 .loading {
