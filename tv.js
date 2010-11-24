@@ -29,9 +29,8 @@ $().ready(function(){
 	    });
 	//bind arrow keys
 	$(document).keydown(function (e) {
-		var keyCode = e.keyCode || e.which,
-		    arrow = {left: 37, up: 38, right: 39, down: 40 }, $status = $('#status');
- 
+		var keyCode = e.keyCode || e.which;
+		var arrow = {left: 37, up: 38, right: 39, down: 40 };
 		switch (keyCode) {
 		    case arrow.left:
 		        loadVideo('prev');
