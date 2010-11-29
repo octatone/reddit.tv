@@ -16,10 +16,10 @@ var channels = {"channels": [
 
 var videos = new Array();
 var cur_video = 0;
+var cur_chan = 0;
 
 $().ready(function(){
 	displayChannels();
-	$('#channel-1').css('background-color', '#cee3f8');
 	loadChannel("Videos");
 	$('#next-button').click(function() {
 		loadVideo('next');
@@ -36,11 +36,13 @@ $().ready(function(){
 		        loadVideo('prev');
 			break;
 		    case arrow.up:
+		        chgChan('up');
 			break;
 		    case arrow.right:
 			loadVideo('next');
 			break;
 		    case arrow.down:
+		        chgChan('down');
 			break;
 		}
 	});
@@ -59,8 +61,6 @@ var displayChannels = function displayChannels() {
 			       'click'
 			       ,{channel: channels.channels[x].channel}
 			       , function(event) {
-				   $('#channel-list>ul>li').css('background-color','');
-				   $(this).css('background-color','#cee3f8');
 				   loadChannel(event.data.channel);
 			       });
     }
@@ -73,6 +73,9 @@ var loadChannel = function loadChannel(channel) {
     $video_title.html('Loading ...');
     $video_embed.addClass('loading');
     $video_embed.empty();
+    
+    $('#channel-list>ul>li').removeClass('chan-selected');
+    $('#channel-'+getChan(channel)).addClass('chan-selected');
     
     var feed = getFeedName(channel);
     $.getJSON("http://www.reddit.com"+feed+"?limit=100&jsonp=?", null
@@ -88,6 +91,7 @@ var loadChannel = function loadChannel(channel) {
 			  }
 		  }
 		  cur_video = 0;
+		  cur_chan = getChan(channel); 
 		  var title = $.unescapifyHTML(videos[cur_video].title);
 		  var permalink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_video].permalink);
 		  $video_title.html('<a href="'+permalink+'" target="_blank">'+title+'</a>');
@@ -110,11 +114,31 @@ var loadVideo = function loadVideo(video) {
     }
 }
 
+var chgChan = function chgChan(up_down) {
+    var this_chan = cur_chan;
+    if(up_down == 'up' && this_chan > 0){
+	cur_chan--;
+    }else if(up_down != 'up' && this_chan < channels.channels.length-1){
+	cur_chan++;
+    }
+    if(this_chan != cur_chan){
+	loadChannel(channels.channels[cur_chan].channel);
+    }
+}
+
 var getFeedName = function getFeedName(channel) {
     for(var x in channels.channels){
 	if(channels.channels[x].channel == channel){
 	    return channels.channels[x].feed;
 	}
+    }
+}
+
+var getChan = function getChan(channel) {
+    for(var x in channels.channels){
+        if(channels.channels[x].channel == channel){
+            return x;
+        }
     }
 }
 

@@ -78,6 +78,10 @@ body {
     float: right;
 }
 
+.chan-selected {
+    background-color: #cee3f8;
+}
+
 .nav-button {
     margin-bottom: 15px;
     padding: 5px 15px;
