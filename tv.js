@@ -17,6 +17,7 @@ var channels = {"channels": [
 var videos = new Array();
 var cur_video = 0;
 var cur_chan = 0;
+var cur_req = null;
 
 $().ready(function(){
 	displayChannels();
@@ -67,6 +68,13 @@ var displayChannels = function displayChannels() {
 }
 
 var loadChannel = function loadChannel(channel) {
+    var last_req = cur_req;
+    if(last_req != null){
+	last_req.abort();
+    }
+
+    cur_chan = getChan(channel);
+
     var $video_embed = $('#video-embed');
     var $video_title = $('#video-title');
 
@@ -78,25 +86,32 @@ var loadChannel = function loadChannel(channel) {
     $('#channel-'+getChan(channel)).addClass('chan-selected');
     
     var feed = getFeedName(channel);
-    $.getJSON("http://www.reddit.com"+feed+"?limit=100&jsonp=?", null
-              , function(data) {
-		  videos = new Array(); //clear out stored videos
-                  for(var x in data.data.children){
-		      if(!isEmpty(data.data.children[x].data.media_embed) 
-			 && data.data.children[x].data.media.type != 'soundcloud.com'
-			 && data.data.children[x].data.media.type != 'craigslist.org'
-			 )
-			  {
-			    videos.push(data.data.children[x].data);
-			  }
-		  }
-		  cur_video = 0;
-		  cur_chan = getChan(channel); 
-		  var title = $.unescapifyHTML(videos[cur_video].title);
-		  var permalink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_video].permalink);
-		  $video_title.html('<a href="'+permalink+'" target="_blank">'+title+'</a>');
-		  $video_embed.html($.unescapifyHTML(videos[0].media_embed.content));
-              });
+    cur_req = $.jsonp({
+	url: "http://www.reddit.com"+feed+"?limit=100&jsonp=callback",
+	callback: "callback",
+	success: function(data) {
+	    // This will be called in case of success no matter the callback name
+	    videos = new Array(); //clear out stored videos
+            for(var x in data.data.children){
+                if(!isEmpty(data.data.children[x].data.media_embed)
+                         && data.data.children[x].data.media.type != 'soundcloud.com'
+                         && data.data.children[x].data.media.type != 'craigslist.org'
+                  )
+                {
+                    videos.push(data.data.children[x].data);
+                }
+            }
+            cur_video = 0;
+            var title = $.unescapifyHTML(videos[cur_video].title);
+            var permalink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_video].permalink);
+            $video_title.html('<a href="'+permalink+'" target="_blank">'+title+'</a>');
+            $video_embed.html($.unescapifyHTML(videos[0].media_embed.content));
+	},
+	error: function() {
+	    // This will be called in case of error no matter the callback name
+	    alert('no data loaded');
+	}
+    });
 }
 
 var loadVideo = function loadVideo(video) {
