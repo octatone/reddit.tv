@@ -29,7 +29,6 @@ $().ready(function(){
 	        auto = ($('#auto').is(':checked')) ? true : false;
 	    });
         $('#fill').click(function() {
-	        fill = ($('#fill').is(':checked')) ? true : false;
 		fillScreen();
             });
 	$('#next-button').click(function() {
@@ -59,8 +58,10 @@ $().ready(function(){
 		        ytTogglePlay();
 		        break;
 		    case 70:
-		        $('#fill').attr('checked', true);
-		        fillScreen();
+		        if(yt_player){
+			    $('#fill').attr('checked', true);
+		            fillScreen();
+		        }
 		        break;
 		    case 27:
 		        if($('#fill').is(':checked')){
@@ -203,6 +204,7 @@ var fillScreen = function fillScreen() {
 	    $fill.attr('checked', false);
 	}else if($fill.is(':checked')){
 	    $object.addClass('fill-screen');
+	    $fill.attr('checked', true);
 	}
     }
 }
