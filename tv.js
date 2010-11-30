@@ -59,8 +59,14 @@ $().ready(function(){
 		        ytTogglePlay();
 		        break;
 		    case 70:
+		        $('#fill').attr('checked', true);
 		        fillScreen();
 		        break;
+		    case 27:
+		        if($('#fill').is(':checked')){
+			    fillScreen();
+		        }
+			break;
 		}
 	});
 });
@@ -194,9 +200,8 @@ var fillScreen = function fillScreen() {
 	if($object.hasClass('fill-screen')){
 	    $object.removeClass('fill-screen');
 	    $fill.attr('checked', false);
-	}else{
+	}else if($fill.is(':checked')){
 	    $object.addClass('fill-screen');
-	    $fill.attr('checked', true);
 	}
     }
 }
