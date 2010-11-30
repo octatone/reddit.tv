@@ -140,6 +140,7 @@ var loadVideo = function loadVideo(video) {
     }
     if(this_video != cur_video || video == 'first') {
 	var title = $.unescapifyHTML(videos[cur_video].title);
+	var esc_title = String(title).replace(/\"/g,'&quot;');
 	var embed = $.unescapifyHTML(videos[cur_video].media_embed.content);
 	if(videos[cur_video].media.type == 'youtube.com'){
 	    embed = prepYT(embed);
@@ -147,7 +148,7 @@ var loadVideo = function loadVideo(video) {
 	    yt_player = false;
 	}
 	var permalink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_video].permalink);
-	$('#video-title').html('<a href="'+permalink+'" target="_blank" title="'+videos[cur_video].title+'">'+title+'</a>');
+	$('#video-title').html('<a href="'+permalink+'" target="_blank" title="'+esc_title+'">'+title+'</a>');
 	$('#video-embed').html(embed);
 	fillScreen();
     }
@@ -247,3 +248,11 @@ Object.size = function(obj) {
     }
     return size;
 };
+
+function htmlEncode(value){ 
+    return $('<div/>').text(value).html(); 
+} 
+
+function htmlDecode(value){ 
+    return $('<div/>').html(value).text(); 
+}
