@@ -57,7 +57,7 @@ var displayChannels = function displayChannels() {
 		 );
     $channel_list.html(list);
     for(var x in channels.channels){
-	$('#channel-list>ul').append('<li id="channel-'+x+'">'+channels.channels[x].channel+'</li>');
+	$('#channel-list>ul').append('<li id="channel-'+x+'" title="'+channels.channels[x].feed.slice(0,-5)+'">'+channels.channels[x].channel+'</li>');
 	$('#channel-'+x).bind(
 			       'click'
 			       ,{channel: channels.channels[x].channel}
@@ -78,7 +78,7 @@ var loadChannel = function loadChannel(channel) {
     var $video_embed = $('#video-embed');
     var $video_title = $('#video-title');
 
-    $video_title.html('Loading ...');
+    $video_title.html('Loading '+channels.channels[cur_chan].feed.slice(0,-5)+' ...');
     $video_embed.addClass('loading');
     $video_embed.empty();
     
@@ -101,11 +101,8 @@ var loadChannel = function loadChannel(channel) {
                     videos.push(data.data.children[x].data);
                 }
             }
-            cur_video = 0;
-            var title = $.unescapifyHTML(videos[cur_video].title);
-            var permalink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_video].permalink);
-            $video_title.html('<a href="'+permalink+'" target="_blank">'+title+'</a>');
-            $video_embed.html($.unescapifyHTML(videos[0].media_embed.content));
+	    cur_video = 0;
+	    loadVideo('first');
 	},
 	error: function() {
 	    // This will be called in case of error no matter the callback name
@@ -121,10 +118,10 @@ var loadVideo = function loadVideo(video) {
     }else if (cur_video > 0 && video != 'next'){
 	cur_video--;
     }
-    if(this_video != cur_video) {
+    if(this_video != cur_video || video == 'first') {
 	var title = $.unescapifyHTML(videos[cur_video].title);
 	var permalink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_video].permalink);
-	$('#video-title').html('<a href="'+permalink+'" target="_blank">'+title+'</a>');
+	$('#video-title').html('<a href="'+permalink+'" target="_blank" title="'+videos[cur_video].title+'">'+title+'</a>');
 	$('#video-embed').html($.unescapifyHTML(videos[cur_video].media_embed.content));
     }
 }
