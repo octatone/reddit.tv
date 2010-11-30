@@ -12,7 +12,7 @@ var channels = {"channels": [
     ,{"channel": "Music", "feed": "/r/music/.json"}
     ,{"channel": "Listen", "feed": "/r/listentothis/.json"}
     ,{"channel": "Sports", "feed": "/r/sports/.json"}
-    ,{"channel": "TED", "feed": "/r/ted/.json"}
+    ,{"channel": "TED", "feed": "/domain/ted.com/.json"}
   ]
 };
 
