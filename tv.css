@@ -62,12 +62,12 @@ body {
 
 #channel-list li {
     font-variant:small-caps;
-    padding: 2px 15px;
-    margin-bottom: 5px;
+    padding: 1px 15px;
+    margin-bottom: 2px;
     cursor: hand;
     cursor: pointer;
-    border-radius: 15px 0 0 15px;
-    -moz-border-radius: 15px 0 0 15px;
+    border-radius: 10px 0 0 10px;
+    -moz-border-radius: 10px 0 0 10px;
 }
 
 #channel-list li:hover {
@@ -77,6 +77,7 @@ body {
 #header {
     margin-left: 100px;
     padding: 0 15px;
+    color: gray;
     font-size: small;
 }
 
@@ -98,6 +99,7 @@ body {
 
 .chan-selected {
     background-color: #cee3f8;
+    font-weight: bold;
 }
 
 .nav-button {

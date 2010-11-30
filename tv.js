@@ -1,6 +1,7 @@
 var channels = {"channels": [
     {"channel": "All", "feed": "/r/all/.json"}
     ,{"channel": "Videos", "feed": "/r/videos/.json"}
+    ,{"channel": "YouTube", "feed": "/domain/youtube.com/.json"}
     ,{"channel": "Funny", "feed": "/r/funny/.json"}
     ,{"channel": "Politics", "feed": "/r/politics/.json"}
     ,{"channel": "WTF", "feed": "/r/wtf/.json"}
@@ -9,6 +10,7 @@ var channels = {"channels": [
     ,{"channel": "Geek", "feed": "/r/geek/.json"}
     ,{"channel": "AWW", "feed": "/r/aww/.json"}
     ,{"channel": "Music", "feed": "/r/music/.json"}
+    ,{"channel": "Listen", "feed": "/r/listentothis/.json"}
     ,{"channel": "Sports", "feed": "/r/sports/.json"}
     ,{"channel": "TED", "feed": "/r/ted/.json"}
   ]
