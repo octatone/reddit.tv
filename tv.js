@@ -26,12 +26,12 @@ $().ready(function(){
 	displayChannels();
 	loadChannel("Videos");
         $('#auto').click(function() {
-	        if($('#auto').is(':checked')){
-		    auto =  true;
-		}else{
-		    auto = false;
-		}
+	        auto = ($('#auto').is(':checked')) ? true : false;
 	    });
+        $('#fill').click(function() {
+	        fill = ($('#fill').is(':checked')) ? true : false;
+		fillScreen();
+            });
 	$('#next-button').click(function() {
 		loadVideo('next');
 	    });
@@ -57,6 +57,9 @@ $().ready(function(){
 			break;
 		    case 32:
 		        ytTogglePlay();
+		        break;
+		    case 70:
+		        fillScreen();
 		        break;
 		}
 	});
@@ -140,6 +143,7 @@ var loadVideo = function loadVideo(video) {
 	var permalink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_video].permalink);
 	$('#video-title').html('<a href="'+permalink+'" target="_blank" title="'+videos[cur_video].title+'">'+title+'</a>');
 	$('#video-embed').html(embed);
+	fillScreen();
     }
 }
 
@@ -181,6 +185,20 @@ var prepYT = function prepYT(embed) {
     split = embed.indexOf('embed')+5;
     embed = embed.substr(0,split)+' id="ytplayer" '+embed.substr(split);
     return embed;
+}
+
+var fillScreen = function fillScreen() {
+    if(yt_player){
+	$object = $('#video-embed>object>embed');
+	$fill = $('#fill');
+	if($object.hasClass('fill-screen')){
+	    $object.removeClass('fill-screen');
+	    $fill.attr('checked', false);
+	}else{
+	    $object.addClass('fill-screen');
+	    $fill.attr('checked', true);
+	}
+    }
 }
 
 function onYouTubePlayerReady(playerId) {
