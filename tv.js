@@ -45,6 +45,9 @@ $().ready(function(){
 		    case arrow.down:
 		        chgChan('down');
 			break;
+		    case 32:
+		        ytTogglePlay();
+		        break;
 		}
 	});
 });
@@ -90,7 +93,6 @@ var loadChannel = function loadChannel(channel) {
 	url: "http://www.reddit.com"+feed+"?limit=100&jsonp=callback",
 	callback: "callback",
 	success: function(data) {
-	    // This will be called in case of success no matter the callback name
 	    videos = new Array(); //clear out stored videos
             for(var x in data.data.children){
                 if(!isEmpty(data.data.children[x].data.media_embed)
@@ -120,9 +122,15 @@ var loadVideo = function loadVideo(video) {
     }
     if(this_video != cur_video || video == 'first') {
 	var title = $.unescapifyHTML(videos[cur_video].title);
+	var embed = $.unescapifyHTML(videos[cur_video].media_embed.content);
+	if(videos[cur_video].media.type == 'youtube.com'){
+	    embed = prepYT(embed);
+	}else{
+	    yt_player = false;
+	}
 	var permalink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_video].permalink);
 	$('#video-title').html('<a href="'+permalink+'" target="_blank" title="'+videos[cur_video].title+'">'+title+'</a>');
-	$('#video-embed').html($.unescapifyHTML(videos[cur_video].media_embed.content));
+	$('#video-embed').html(embed);
     }
 }
 
@@ -151,6 +159,33 @@ var getChan = function getChan(channel) {
         if(channels.channels[x].channel == channel){
             return x;
         }
+    }
+}
+
+var prepYT = function prepYT(embed) {
+    var embed = embed;
+    var js_str = '&enablejsapi=1';
+    var split = embed.indexOf('?fs=1')+5;
+    embed = embed.substr(0,split)+js_str+embed.substr(split);
+    split = embed.indexOf('?fs=1" type="')+5;
+    embed = embed.substr(0,split)+js_str+embed.substr(split);
+    split = embed.indexOf('embed')+5;
+    embed = embed.substr(0,split)+' id="ytplayer" '+embed.substr(split);
+    return embed;
+}
+
+function onYouTubePlayerReady(playerId) {
+    yt_player = document.getElementById("ytplayer");
+}
+
+function ytTogglePlay() {
+    if (yt_player) {
+	//unstarted (-1), ended (0), playing (1), paused (2), buffering (3), video cued (5)
+	if(yt_player.getPlayerState() != 1){
+	    yt_player.playVideo();
+	}else{
+	    yt_player.pauseVideo();
+	}
     }
 }
 
