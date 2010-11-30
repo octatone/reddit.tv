@@ -74,6 +74,12 @@ body {
     background-color: #e0e0e0;
 }
 
+#header {
+    margin-left: 100px;
+    padding: 0 15px;
+    font-size: small;
+}
+
 #footer {
     color: gray;
     font-size: small;
@@ -114,6 +120,10 @@ a.nav-button:hover {
     background-image: url('./loading.gif');
     background-repeat: no-repeat;
     background-position: center center;
+}
+
+.right {
+    float: right;
 }
 
 a {

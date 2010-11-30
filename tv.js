@@ -18,10 +18,18 @@ var videos = new Array();
 var cur_video = 0;
 var cur_chan = 0;
 var cur_req = null;
+var auto = true;
 
 $().ready(function(){
 	displayChannels();
 	loadChannel("Videos");
+        $('#auto').click(function() {
+	        if($('#auto').is(':checked')){
+		    auto =  true;
+		}else{
+		    auto = false;
+		}
+	    });
 	$('#next-button').click(function() {
 		loadVideo('next');
 	    });
@@ -107,8 +115,7 @@ var loadChannel = function loadChannel(channel) {
 	    loadVideo('first');
 	},
 	error: function() {
-	    // This will be called in case of error no matter the callback name
-	    alert('no data loaded');
+	    alert('Could not load feed. Is reddit down?');
 	}
     });
 }
@@ -176,6 +183,17 @@ var prepYT = function prepYT(embed) {
 
 function onYouTubePlayerReady(playerId) {
     yt_player = document.getElementById("ytplayer");
+    yt_player.addEventListener("onStateChange", "ytAuto");
+}
+
+function ytAuto(state) {
+    if(auto){
+	if(state == 0){
+	    loadVideo('next');
+	}else if(state == 5){
+	    ytTogglePlay();
+	}
+    }
 }
 
 function ytTogglePlay() {
