@@ -24,53 +24,56 @@ var auto = true;
 var yt_player = false;
 
 $().ready(function(){
-	displayChannels();
-	loadChannel("Videos");
-        $('#auto').click(function() {
-	        auto = ($('#auto').is(':checked')) ? true : false;
-	    });
-        $('#fill').click(function() {
-		fillScreen();
-            });
-	$('#next-button').click(function() {
+    displayChannels();
+    loadChannel("Videos");
+    $("#css li a").click(function() { 
+	$("link").attr("href",$(this).attr('rel'));
+	return false;
+    });
+    $('#auto').click(function() {
+        auto = ($('#auto').is(':checked')) ? true : false;
+    });
+    $('#fill').click(function() {
+	fillScreen();
+    });
+    $('#next-button').click(function() {
+	loadVideo('next');
+    });
+    $('#prev-button').click(function() {
+	loadVideo('prev');
+    });
+    $(document).keydown(function (e) {
+	var keyCode = e.keyCode || e.which;
+	var arrow = {left: 37, up: 38, right: 39, down: 40 };
+	switch (keyCode) {
+	    case arrow.left:
+	        loadVideo('prev');
+		break;
+	    case arrow.up:
+	        chgChan('up');
+		break;
+	    case arrow.right:
 		loadVideo('next');
-	    });
-	$('#prev-button').click(function() {
-		loadVideo('prev');
-	    });
-	//bind arrow keys
-	$(document).keydown(function (e) {
-		var keyCode = e.keyCode || e.which;
-		var arrow = {left: 37, up: 38, right: 39, down: 40 };
-		switch (keyCode) {
-		    case arrow.left:
-		        loadVideo('prev');
-			break;
-		    case arrow.up:
-		        chgChan('up');
-			break;
-		    case arrow.right:
-			loadVideo('next');
-			break;
-		    case arrow.down:
-		        chgChan('down');
-			break;
-		    case 32:
-		        ytTogglePlay();
-		        break;
-		    case 70:
-		        if(yt_player){
-			    $('#fill').attr('checked', true);
-		            fillScreen();
-		        }
-		        break;
-		    case 27:
-		        if($('#fill').is(':checked')){
-			    fillScreen();
-		        }
-			break;
-		}
-	});
+		break;
+	    case arrow.down:
+	        chgChan('down');
+		break;
+	    case 32:
+                ytTogglePlay();
+	        break;
+	    case 70:
+	        if(yt_player){
+		    $('#fill').attr('checked', true);
+	            fillScreen();
+	        }
+	        break;
+	    case 27:
+	        if($('#fill').is(':checked')){
+		    fillScreen();
+	        }
+		break;
+	}
+    });
 });
 
 var displayChannels = function displayChannels() {

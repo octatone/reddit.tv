@@ -1,6 +1,6 @@
 body {
     font-family: verdana,arial,helvetica,sans-serif;
-    background-color: white;
+    background-color: black;
 }
 
 #content-wrapper {
@@ -21,14 +21,14 @@ body {
 }
 
 #video-display {
-    -moz-box-shadow: 5px 5px 5px gray;
-    -webkit-box-shadow: 5px 5px 5px gray;
-    box-shadow: 5px 5px 5px gray;
+    -moz-box-shadow: 5px 5px 5px darkblue;
+    -webkit-box-shadow: 5px 5px 5px darkblue;
+    box-shadow: 5px 5px 5px darkblue;
     border-radius: 15px;
     -moz-border-radius: 15px;
     width: 640px;
     float: left;
-    background-color: #cee3f8;
+    background-color: #575757;
 }
 
 #video-embed {
@@ -39,11 +39,11 @@ body {
 }
 
 #video-title {
-    color: white;
+    color: gray;
     border-radius: 15px 15px 0 0;
     -moz-border-radius: 15px 15px 0 0;
     padding: 15px;
-    background-color: #5f99cf;
+    background-color: #333333;
     white-space:nowrap;
     overflow: hidden;
     -o-text-overflow: ellipsis;    /* Opera */
@@ -51,7 +51,7 @@ body {
 }
 
 #video-title a {
-    color: white;
+    color: gray;
     text-decoration: none;
 }
 
@@ -77,7 +77,7 @@ body {
 
 #channel-list li:hover {
     background-color: #e0e0e0;
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(256,256,256,0.2);
 }
 
 #header {
@@ -123,10 +123,10 @@ form label {
 
 #channel-list .chan-selected {
     color: darkblue;
-    -moz-box-shadow: 5px 5px 5px gray;
-    -webkit-box-shadow: 5px 5px 5px gray;
-    box-shadow: 5px 5px 5px gray;
-    background-color: #cee3f8;
+    -moz-box-shadow: 5px 5px 5px darkblue;
+    -webkit-box-shadow: 5px 5px 5px darkblue;
+    box-shadow: 5px 5px 5px darkblue;
+    background-color: #575757;
     font-weight: bold;
 }
 
@@ -143,15 +143,15 @@ form label {
 }
 
 .nav-button {
-    -moz-box-shadow: 1px 1px 1px black, inset 1px 1px 1px white;
-    -webkit-box-shadow: 1px 1px 1px black, inset 1px 1px 1px white;
-    box-shadow: 1px 1px 1px black, inset 1px 1px 1px white;
+    -moz-box-shadow: 1px 1px 1px black, inset 1px 1px 1px gray;
+    -webkit-box-shadow: 1px 1px 1px black, inset 1px 1px 1px gray;
+    box-shadow: 1px 1px 1px black, inset 1px 1px 1px gray;
     text-shadow: 0px 1px 1px hsla(0,0%,100%,.7);
     text-align: center;
     margin-bottom: 15px;
     padding: 6px 16px;
     color: black;
-    background-color: #cee3f8;
+    background-color: #575757;
     border-radius: 10px;
     -moz-border-radius: 10px;
 }
