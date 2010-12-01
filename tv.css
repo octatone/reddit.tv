@@ -65,7 +65,6 @@ body {
 }
 
 #channel-list li {
-    //font-variant:small-caps;
     color: gray;
     padding: 1px 15px;
     margin-bottom: 2px;
@@ -131,8 +130,6 @@ a.nav-button:hover {
     border: 1px solid gray;
     color: black;
 }
-
-
 
 .loading {
     background-image: url('./loading.gif');

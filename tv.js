@@ -21,6 +21,7 @@ var cur_video = 0;
 var cur_chan = 0;
 var cur_req = null;
 var auto = true;
+var yt_player = false;
 
 $().ready(function(){
 	displayChannels();
@@ -35,7 +36,7 @@ $().ready(function(){
 		loadVideo('next');
 	    });
 	$('#prev-button').click(function() {
-		loadVideo('prev');;
+		loadVideo('prev');
 	    });
 	//bind arrow keys
 	$(document).keydown(function (e) {
@@ -74,17 +75,14 @@ $().ready(function(){
 
 var displayChannels = function displayChannels() {
     var $channel_list = $('#channel-list');
-    var list = $(
-		 '<ul>'
-		 +'</ul>'
-		 );
+    var list = $('<ul></ul>');
     $channel_list.html(list);
     for(var x in channels.channels){
 	$('#channel-list>ul').append('<li id="channel-'+x+'" title="'+channels.channels[x].feed.slice(0,-5)+'">'+channels.channels[x].channel+'</li>');
 	$('#channel-'+x).bind(
 			       'click'
 			       ,{channel: channels.channels[x].channel}
-			       , function(event) {
+			       ,function(event) {
 				   loadChannel(event.data.channel);
 			       });
     }
@@ -140,6 +138,7 @@ var loadVideo = function loadVideo(video) {
 	cur_video--;
     }
     if(this_video != cur_video || video == 'first') {
+	$('#video-embed').empty();
 	var title = $.unescapifyHTML(videos[cur_video].title);
 	var esc_title = String(title).replace(/\"/g,'&quot;');
 	var embed = $.unescapifyHTML(videos[cur_video].media_embed.content);
@@ -191,7 +190,7 @@ var prepYT = function prepYT(embed) {
     split = embed.indexOf('?fs=1" type="')+5;
     embed = embed.substr(0,split)+js_str+embed.substr(split);
     split = embed.indexOf('embed')+5;
-    embed = embed.substr(0,split)+' id="ytplayer" '+embed.substr(split);
+    embed = embed.substr(0,split)+' id="ytplayer" wmode="transparent"'+embed.substr(split);
     return embed;
 }
 
