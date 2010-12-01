@@ -105,49 +105,55 @@ var loadChannel = function loadChannel(channel) {
     
     $('#channel-list>ul>li').removeClass('chan-selected');
     $('#channel-'+getChan(channel)).addClass('chan-selected');
-    
-    var feed = getFeedName(channel);
-    cur_req = $.jsonp({
-	url: "http://www.reddit.com"+feed+"?limit=100&jsonp=callback",
-	callback: "callback",
-	success: function(data) {
-	    videos = new Array(); //clear out stored videos
-            for(var x in data.data.children){
-                if(!isEmpty(data.data.children[x].data.media_embed)
-                         && data.data.children[x].data.media.type != 'soundcloud.com'
-                         && data.data.children[x].data.media.type != 'craigslist.org'
-                  )
-                {
-                    videos.push(data.data.children[x].data);
-                }
-            }
-	    cur_video = 0;
-	    loadVideo('first');
-	},
-	error: function() {
-	    alert('Could not load feed. Is reddit down?');
-	}
-    });
+
+    if(videos[cur_chan] == undefined){
+	var feed = getFeedName(channel);
+	cur_req = $.jsonp({
+	    url: "http://www.reddit.com"+feed+"?limit=100&jsonp=callback",
+	    callback: "callback",
+	    success: function(data) {
+		videos[cur_chan] = new Object;
+		videos[cur_chan].video = new Array(); //clear out stored videos
+		for(var x in data.data.children){
+                    if(!isEmpty(data.data.children[x].data.media_embed)
+                       && data.data.children[x].data.media.type != 'soundcloud.com'
+                       && data.data.children[x].data.media.type != 'craigslist.org'
+                      )
+                    {
+			videos[cur_chan].video.push(data.data.children[x].data);
+                    }
+		}
+		cur_video = 0;
+		loadVideo('first');
+	    },
+	    error: function() {
+		alert('Could not load feed. Is reddit down?');
+	    }
+	});
+    }else{
+	cur_video = 0;
+	loadVideo('first');
+    }
 }
 
 var loadVideo = function loadVideo(video) {
     var this_video = cur_video;
-    if(video == 'next' && cur_video < Object.size(videos)-1){
+    if(video == 'next' && cur_video < Object.size(videos[cur_chan].video)-1){
 	cur_video++;
     }else if (cur_video > 0 && video != 'next'){
 	cur_video--;
     }
     if(this_video != cur_video || video == 'first') {
 	$('#video-embed').empty();
-	var title = $.unescapifyHTML(videos[cur_video].title);
+	var title = $.unescapifyHTML(videos[cur_chan].video[cur_video].title);
 	var esc_title = String(title).replace(/\"/g,'&quot;');
-	var embed = $.unescapifyHTML(videos[cur_video].media_embed.content);
-	if(videos[cur_video].media.type == 'youtube.com'){
+	var embed = $.unescapifyHTML(videos[cur_chan].video[cur_video].media_embed.content);
+	if(videos[cur_chan].video[cur_video].media.type == 'youtube.com'){
 	    embed = prepYT(embed);
 	}else{
 	    yt_player = false;
 	}
-	var permalink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_video].permalink);
+	var permalink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_chan].video[cur_video].permalink);
 	$('#video-title').html('<a href="'+permalink+'" target="_blank" title="'+esc_title+'">'+title+'</a>');
 	$('#video-embed').html(embed);
 	fillScreen();
