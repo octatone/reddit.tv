@@ -10,6 +10,7 @@ body {
     width: 740px;
     margin-left: auto;
     margin-right: auto;
+    padding-right: 100px;
 }
 
 #channel-list {
