@@ -26,8 +26,21 @@ var yt_player = false;
 $().ready(function(){
     displayChannels();
     loadChannel("Videos");
-    $("#css li a").click(function() { 
-	$("link").attr("href",$(this).attr('rel'));
+
+    $filloverlay = $('#fill-overlay');
+    $fillnav = $('#fill-nav');
+    
+    $filloverlay.mouseenter(function() {
+	$fillnav.slideDown('slow');
+    });
+    $filloverlay.mouseleave(function() {
+        $fillnav.slideUp('slow');
+    });
+    $fillnav.click(function(){
+	fillScreen();
+    });
+    $('#css li a').click(function() { 
+	$('link').attr('href',$(this).attr('rel'));
 	return false;
     });
     $('#auto').click(function() {
@@ -194,10 +207,20 @@ var getChan = function getChan(channel) {
 var prepYT = function prepYT(embed) {
     var embed = embed;
     var js_str = '&enablejsapi=1';
-    var split = embed.indexOf('?fs=1')+5;
-    embed = embed.substr(0,split)+js_str+embed.substr(split);
-    split = embed.indexOf('?fs=1" type="')+5;
-    embed = embed.substr(0,split)+js_str+embed.substr(split);
+    if(embed.indexOf('?fs=1') != -1){
+	split = embed.indexOf('?fs=1')+5;
+	embed = embed.substr(0,split)+js_str+embed.substr(split);
+    }else if(embed.indexOf('&fs=1') != -1){
+	split = embed.indexOf('&fs=1')+5;
+	embed = embed.substr(0,split)+js_str+embed.substr(split);
+    }
+    if(embed.indexOf('?fs=1" type="') != -1){
+	split = embed.indexOf('?fs=1" type="')+5;
+	embed = embed.substr(0,split)+js_str+embed.substr(split);
+    }else if(embed.indexOf('&fs=1" type="') != -1){
+	split = embed.indexOf('&fs=1" type="')+5;
+        embed = embed.substr(0,split)+js_str+embed.substr(split);
+    }
     split = embed.indexOf('embed')+5;
     embed = embed.substr(0,split)+' id="ytplayer" wmode="transparent"'+embed.substr(split);
     return embed;
@@ -207,12 +230,15 @@ var fillScreen = function fillScreen() {
     if(yt_player){
 	$object = $('#video-embed>object>embed');
 	$fill = $('#fill');
+	$filloverlay = $('#fill-overlay');
 	if($object.hasClass('fill-screen')){
-	    $object.removeClass('fill-screen');
 	    $fill.attr('checked', false);
+            $object.removeClass('fill-screen');
+	    $filloverlay.css('display', 'none');
 	}else if($fill.is(':checked')){
+            $fill.attr('checked', true);
 	    $object.addClass('fill-screen');
-	    $fill.attr('checked', true);
+	    $filloverlay.css('display', 'block');
 	}
     }
 }
