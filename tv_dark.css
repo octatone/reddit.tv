@@ -130,16 +130,25 @@ form label {
     font-weight: bold;
 }
 
-#overlay {
+#fill-overlay {
     display: none;
     z-index: 500;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: black;
+    height: 50px;
+}
+
+#fill-nav {
+    padding: 15px;
+    text-align: center;
+    background-color: white;
     opacity: .8;
+    display: none;
+    width: 640px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .nav-button {
