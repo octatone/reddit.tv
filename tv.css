@@ -114,6 +114,12 @@ form label {
     text-align: center;
 }
 
+#vote-button {
+    color: #5f99cf;
+    padding-top: 6px;
+    text-align: center;
+    vertical-align: middle;
+}
 #next-button {
     float: right;
 }

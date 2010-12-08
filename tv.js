@@ -116,6 +116,8 @@ var loadChannel = function loadChannel(channel) {
 
     cur_chan = getChan(channel);
 
+    $('#vote-button').empty();
+
     var $video_embed = $('#video-embed');
     var $video_title = $('#video-title');
 
@@ -188,6 +190,28 @@ var loadVideo = function loadVideo(video) {
 	var permalink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_chan].video[cur_video].permalink);
 	$('#video-title').html('<a href="'+permalink+'" target="_blank" title="'+esc_title+'">'+title+'</a>');
 	$('#video-embed').html(embed);
+	
+	/*
+	var reddit_string="<iframe src=\"http://www.reddit.com/static/button/button1.html?width=120";
+	//reddit_string += '&id=' + videos[cur_chan].video[cur_video].id;
+        reddit_string += '&url=' + encodeURIComponent(videos[cur_chan].video[cur_video].url.replace(/&amp;/g, "&"));
+        reddit_string += '&title=' + encodeURIComponent($.unescapifyHTML(videos[cur_chan].video[cur_video].title));
+        //reddit_string += '&sr=' + encodeURIComponent($.unescapifyHTML(videos[cur_chan].video[cur_video].subreddit));
+        //reddit_string += '&css=' + encodeURIComponent(window.reddit_css);
+        //reddit_string += '&bgcolor=' + encodeURIComponent(window.reddit_bgcolor); 
+        //reddit_string += '&bordercolor=' + encodeURIComponent(window.reddit_bordercolor); 
+        reddit_string += '&newwindow=' + encodeURIComponent('1');
+        reddit_string += "\" height=\"22\" width=\"150\" scrolling='no' frameborder='0'></iframe>";
+	*/
+
+	var reddit_string ="<a href=\"http://reddit.com"+videos[cur_chan].video[cur_video].permalink+"\" target=\"_blank\">";
+	reddit_string += videos[cur_chan].video[cur_video].score+"</a>";
+
+	var $vote_button = $('#vote-button');
+	$vote_button.fadeOut('slow', function() {
+	    $vote_button.html(reddit_string).hide().fadeIn('slow');
+	});
+
 	fillScreen();
     }
 }
