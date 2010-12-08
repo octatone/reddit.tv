@@ -81,10 +81,17 @@ body {
 }
 
 #header {
+    position: relative;
     margin-left: 100px;
     padding: 0 15px;
     color: gray;
     font-size: small;
+}
+
+#options {
+    position: absolute;
+    bottom: 0;
+    right: 15px;
 }
 
 #css {
