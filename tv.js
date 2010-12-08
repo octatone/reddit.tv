@@ -21,6 +21,7 @@ var cur_video = 0;
 var cur_chan = 0;
 var cur_req = null;
 var auto = true;
+var sfw = true;
 var yt_player = false;
 
 $().ready(function(){
@@ -45,6 +46,9 @@ $().ready(function(){
     });
     $('#auto').click(function() {
         auto = ($('#auto').is(':checked')) ? true : false;
+    });
+    $('#sfw').click(function() {
+        sfw = ($('#sfw').is(':checked')) ? true : false;
     });
     $('#fill').click(function() {
 	fillScreen();
@@ -156,8 +160,20 @@ var loadVideo = function loadVideo(video) {
     var this_video = cur_video;
     if(video == 'next' && cur_video < Object.size(videos[cur_chan].video)-1){
 	cur_video++;
+	while(over18() && cur_video < Object.size(videos[cur_chan].video)-1){
+	    cur_video++;
+	}
+	if(over18()){
+	    cur_video = this_video;
+	}
     }else if (cur_video > 0 && video != 'next'){
 	cur_video--;
+	while(over18() && cur_video > 0){
+	    cur_video--;
+	}
+	if(over18()){
+            cur_video = this_video;
+        }
     }
     if(this_video != cur_video || video == 'first') {
 	$('#video-embed').empty();
@@ -173,6 +189,14 @@ var loadVideo = function loadVideo(video) {
 	$('#video-title').html('<a href="'+permalink+'" target="_blank" title="'+esc_title+'">'+title+'</a>');
 	$('#video-embed').html(embed);
 	fillScreen();
+    }
+}
+
+var over18 = function over18() {
+    if(sfw && videos[cur_chan].video[cur_video].over_18){
+	return true;
+    }else{
+	return false;
     }
 }
 
