@@ -177,6 +177,13 @@ var loadVideo = function loadVideo(video) {
             cur_video = this_video;
         }
     }
+    if(video == 'first'){
+	if(over18()){
+            while(over18() && cur_video < Object.size(videos[cur_chan].video)-1){
+		cur_video++;
+            }
+	}
+    }
     if(this_video != cur_video || video == 'first') {
 	$('#video-embed').empty();
 	var title = $.unescapifyHTML(videos[cur_chan].video[cur_video].title);
