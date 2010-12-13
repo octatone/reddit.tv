@@ -22,9 +22,11 @@ var cur_chan = 0;
 var cur_req = null;
 var auto = true;
 var sfw = true;
+var theme = 'light';
 var yt_player = false;
 
 $().ready(function(){
+    loadSettings();
     displayChannels();
     loadChannel("Videos");
 
@@ -46,9 +48,11 @@ $().ready(function(){
     });
     $('#auto').click(function() {
         auto = ($('#auto').is(':checked')) ? true : false;
+	$.cookie('auto', auto);
     });
     $('#sfw').click(function() {
         sfw = ($('#sfw').is(':checked')) ? true : false;
+	$.cookie('sfw', sfw);
     });
     $('#fill').click(function() {
 	fillScreen();
@@ -92,6 +96,23 @@ $().ready(function(){
 	}
     });
 });
+
+var loadSettings = function loadSettings() {
+    var auto_cookie = ($.cookie('auto') == 'true') ? true : false;
+    var sfw_cookie = ($.cookie('sfw') == 'true') ? true : false;
+    var theme_cookie = $.cookie('theme');
+    if(auto_cookie != auto){
+	auto = auto_cookie;
+	$('#auto').attr('checked', auto_cookie);
+    }
+    if(sfw_cookie != sfw){
+	sfw = sfw_cookie;
+	$('#sfw').attr('checked', sfw_cookie);
+    }
+    if(theme_cookie !== null && theme_cookie != theme){
+        theme = theme_cookie;
+    }
+}
 
 var displayChannels = function displayChannels() {
     var $channel_list = $('#channel-list');
