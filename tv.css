@@ -1,6 +1,5 @@
 body {
     font-family: verdana,arial,helvetica,sans-serif;
-    background-color: white;
 }
 
 #content-wrapper {
@@ -21,14 +20,10 @@ body {
 }
 
 #video-display {
-    -moz-box-shadow: 5px 5px 5px gray;
-    -webkit-box-shadow: 5px 5px 5px gray;
-    box-shadow: 5px 5px 5px gray;
     border-radius: 15px;
     -moz-border-radius: 15px;
     width: 640px;
     float: left;
-    background-color: #cee3f8;
 }
 
 #video-embed {
@@ -39,11 +34,9 @@ body {
 }
 
 #video-title {
-    color: white;
     border-radius: 15px 15px 0 0;
     -moz-border-radius: 15px 15px 0 0;
     padding: 15px;
-    background-color: #5f99cf;
     white-space:nowrap;
     overflow: hidden;
     -o-text-overflow: ellipsis;    /* Opera */
@@ -51,7 +44,6 @@ body {
 }
 
 #video-title a {
-    color: white;
     text-decoration: none;
 }
 
@@ -66,7 +58,6 @@ body {
 }
 
 #channel-list li {
-    color: gray;
     padding: 1px 15px;
     margin-bottom: 2px;
     cursor: hand;
@@ -75,16 +66,10 @@ body {
     -moz-border-radius: 10px 0 0 10px;
 }
 
-#channel-list li:hover {
-    background-color: #e0e0e0;
-    background-color: rgba(0,0,0,0.1);
-}
-
 #header {
     position: relative;
     margin-left: 100px;
     padding: 0 15px;
-    color: gray;
     font-size: small;
 }
 
@@ -113,7 +98,6 @@ form label {
 }
 
 #footer {
-    color: gray;
     font-size: small;
     clear: both;
     padding: 15px;
@@ -122,7 +106,6 @@ form label {
 }
 
 #vote-button {
-    color: #5f99cf;
     padding-top: 6px;
     text-align: center;
     vertical-align: middle;
@@ -135,11 +118,6 @@ form label {
 }
 
 #channel-list .chan-selected {
-    color: darkblue;
-    -moz-box-shadow: 5px 5px 5px gray;
-    -webkit-box-shadow: 5px 5px 5px gray;
-    box-shadow: 5px 5px 5px gray;
-    background-color: #cee3f8;
     font-weight: bold;
 }
 
@@ -156,7 +134,6 @@ form label {
 #fill-nav {
     padding: 15px;
     text-align: center;
-    background-color: white;
     opacity: .8;
     display: none;
     width: 640px;
@@ -165,15 +142,9 @@ form label {
 }
 
 .nav-button {
-    -moz-box-shadow: 1px 1px 1px black, inset 1px 1px 1px white;
-    -webkit-box-shadow: 1px 1px 1px black, inset 1px 1px 1px white;
-    box-shadow: 1px 1px 1px black, inset 1px 1px 1px white;
-    text-shadow: 0px 1px 1px hsla(0,0%,100%,.7);
     text-align: center;
     margin-bottom: 15px;
     padding: 6px 16px;
-    color: black;
-    background-color: #cee3f8;
     border-radius: 10px;
     -moz-border-radius: 10px;
 }
@@ -181,7 +152,6 @@ form label {
 a.nav-button:hover {
     padding: 5px 15px;
     border: 1px solid gray;
-    color: darkblue;
     text-decoration: none;
 }
 
