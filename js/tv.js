@@ -49,11 +49,11 @@ $().ready(function(){
     });
     $('#auto').click(function() {
         auto = ($('#auto').is(':checked')) ? true : false;
-	$.cookie('auto', auto);
+	$.cookie('auto', auto, {expires: 7});
     });
     $('#sfw').click(function() {
         sfw = ($('#sfw').is(':checked')) ? true : false;
-	$.cookie('sfw', sfw);
+	$.cookie('sfw', sfw, {expires: 7});
     });
     $('#fill').click(function() {
 	fillScreen();
@@ -100,14 +100,14 @@ $().ready(function(){
 });
 
 var loadSettings = function loadSettings() {
-    var auto_cookie = ($.cookie('auto') == 'true') ? true : false;
-    var sfw_cookie = ($.cookie('sfw') == 'true') ? true : false;
+    var auto_cookie = $.cookie('auto');
+    var sfw_cookie = $.cookie('sfw');
     var theme_cookie = $.cookie('theme');
-    if(auto_cookie != auto){
+    if(auto_cookie != null && auto_cookie != auto){
 	auto = auto_cookie;
 	$('#auto').attr('checked', auto_cookie);
     }
-    if(sfw_cookie != sfw){
+    if(sfw_cookie != null && sfw_cookie != sfw){
 	sfw = sfw_cookie;
 	$('#sfw').attr('checked', sfw_cookie);
     }
@@ -118,7 +118,7 @@ var loadSettings = function loadSettings() {
 
 var loadTheme = function loadTheme(id) {
     $('#theme').attr('href', './css/theme_' + id + '.css');
-    $.cookie('theme', id);
+    $.cookie('theme', id, {expires: 7});
 }
 
 var displayChannels = function displayChannels() {
