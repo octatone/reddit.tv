@@ -1,78 +1,25 @@
 body {
-    font-family: verdana,arial,helvetica,sans-serif;
     background-color: black;
-}
-
-#content-wrapper {
-    width: 100%;
-}
-
-#content {
-    width: 740px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-right: 100px;
-}
-
-#channel-list {
-    padding-top: 55px;
-    width: 100px;
-    float: left;
 }
 
 #video-display {
     -moz-box-shadow: 5px 5px 5px darkblue;
     -webkit-box-shadow: 5px 5px 5px darkblue;
     box-shadow: 5px 5px 5px darkblue;
-    border-radius: 15px;
-    -moz-border-radius: 15px;
-    width: 640px;
-    float: left;
     background-color: #575757;
-}
-
-#video-embed {
-    padding: 15px 0 0;
-    text-align: center;
-    min-width: 600px;
-    min-height: 365px;
 }
 
 #video-title {
     color: gray;
-    border-radius: 15px 15px 0 0;
-    -moz-border-radius: 15px 15px 0 0;
-    padding: 15px;
     background-color: #333333;
-    white-space:nowrap;
-    overflow: hidden;
-    -o-text-overflow: ellipsis;    /* Opera */
-    text-overflow:    ellipsis;
 }
 
 #video-title a {
     color: gray;
-    text-decoration: none;
-}
-
-#video-nav {
-    padding: 15px;
-}
-
-#channel-list ul { /* remove bullets and list indents */
-    list-style: none;
-    margin: 0;
-    padding: 0;
 }
 
 #channel-list li {
     color: gray;
-    padding: 1px 15px;
-    margin-bottom: 2px;
-    cursor: hand;
-    cursor: pointer;
-    border-radius: 10px 0 0 10px;
-    -moz-border-radius: 10px 0 0 10px;
 }
 
 #channel-list li:hover {
@@ -81,56 +28,14 @@ body {
 }
 
 #header {
-    position: relative;
-    margin-left: 100px;
-    padding: 0 15px;
     color: gray;
-    font-size: small;
-}
-
-#options {
-    position: absolute;
-    bottom: 0;
-    right: 15px;
-}
-
-#css {
-    margin: 0 0 0 15px;
-    padding: 0;
-}
-
-#css ul {
-    display: inline;
-}
-
-#css li {
-    display: inline;
-    list-style: none;    
-}
-
-form label {
-    vertical-align: top;
 }
 
 #footer {
     color: gray;
-    font-size: small;
-    clear: both;
-    padding: 15px;
-    margin-left: 100px;
-    text-align: center;
 }
 #vote-button {
     color: #5f99cf;
-    padding-top: 6px;
-    text-align: center;
-    vertical-align: middle;
-}
-#next-button {
-    float: right;
-}
-#prev-button {
-    float: left;
 }
 
 #channel-list .chan-selected {
@@ -139,28 +44,10 @@ form label {
     -webkit-box-shadow: 5px 5px 5px darkblue;
     box-shadow: 5px 5px 5px darkblue;
     background-color: #575757;
-    font-weight: bold;
-}
-
-#fill-overlay {
-    display: none;
-    z-index: 500;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50px;
 }
 
 #fill-nav {
-    padding: 15px;
-    text-align: center;
     background-color: white;
-    opacity: .8;
-    display: none;
-    width: 640px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .nav-button {
@@ -168,50 +55,10 @@ form label {
     -webkit-box-shadow: 1px 1px 1px black, inset 1px 1px 1px gray;
     box-shadow: 1px 1px 1px black, inset 1px 1px 1px gray;
     text-shadow: 0px 1px 1px hsla(0,0%,100%,.7);
-    text-align: center;
-    margin-bottom: 15px;
-    padding: 6px 16px;
     color: black;
     background-color: #575757;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
 }
 
 a.nav-button:hover {
-    padding: 5px 15px;
-    border: 1px solid gray;
     color: darkblue;
-    text-decoration: none;
-}
-
-.loading {
-    background-image: url('./loading.gif');
-    background-repeat: no-repeat;
-    background-position: center center;
-}
-
-.fill-screen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.right {
-    float: right;
-}
-
-a {
-    color: inherit;
-    cursor: hand;
-    cursor: pointer;
-}
-
-a:link, a:visited, a:active {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
 }
