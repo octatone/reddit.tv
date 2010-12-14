@@ -99,7 +99,7 @@ $().ready(function(){
 });
 
 var loadTheme = function loadTheme(id) {
-    $('#theme').attr('href', './tv_' + id + '.css');
+    $('#theme').attr('href', './css/theme_' + id + '.css');
 }
 
 var loadSettings = function loadSettings() {
