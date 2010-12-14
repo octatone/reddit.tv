@@ -27,6 +27,7 @@ var yt_player = false;
 
 $().ready(function(){
     loadSettings();
+    loadTheme(theme);
     displayChannels();
     loadChannel("Videos");
 
@@ -98,10 +99,6 @@ $().ready(function(){
     setInterval("checkAnchor()", 100);
 });
 
-var loadTheme = function loadTheme(id) {
-    $('#theme').attr('href', './css/theme_' + id + '.css');
-}
-
 var loadSettings = function loadSettings() {
     var auto_cookie = ($.cookie('auto') == 'true') ? true : false;
     var sfw_cookie = ($.cookie('sfw') == 'true') ? true : false;
@@ -117,7 +114,11 @@ var loadSettings = function loadSettings() {
     if(theme_cookie !== null && theme_cookie != theme){
         theme = theme_cookie;
     }
-    loadTheme(theme);
+}
+
+var loadTheme = function loadTheme(id) {
+    $('#theme').attr('href', './css/theme_' + id + '.css');
+    $.cookie('theme', id);
 }
 
 var displayChannels = function displayChannels() {
