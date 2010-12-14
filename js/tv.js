@@ -43,7 +43,7 @@ $().ready(function(){
 	fillScreen();
     });
     $('#css li a').click(function() { 
-	$('#theme').attr('href',$(this).attr('rel'));
+	loadTheme($(this).attr('rel'));
 	return false;
     });
     $('#auto').click(function() {
@@ -98,6 +98,10 @@ $().ready(function(){
     setInterval("checkAnchor()", 100);
 });
 
+var loadTheme = function loadTheme(id) {
+    $('#theme').attr('href', './tv_' + id + '.css');
+}
+
 var loadSettings = function loadSettings() {
     var auto_cookie = ($.cookie('auto') == 'true') ? true : false;
     var sfw_cookie = ($.cookie('sfw') == 'true') ? true : false;
@@ -113,6 +117,7 @@ var loadSettings = function loadSettings() {
     if(theme_cookie !== null && theme_cookie != theme){
         theme = theme_cookie;
     }
+    loadTheme(theme);
 }
 
 var displayChannels = function displayChannels() {
