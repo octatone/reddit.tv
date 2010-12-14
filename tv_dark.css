@@ -34,6 +34,7 @@ body {
 #footer {
     color: gray;
 }
+
 #vote-button {
     color: #5f99cf;
 }
@@ -60,5 +61,6 @@ body {
 }
 
 a.nav-button:hover {
+    border: 1px solid gray;
     color: darkblue;
 }
