@@ -95,6 +95,7 @@ $().ready(function(){
 		break;
 	}
     });
+    setInterval("checkAnchor()", 100);
 });
 
 var loadSettings = function loadSettings() {
@@ -122,9 +123,11 @@ var displayChannels = function displayChannels() {
 	$('#channel-list>ul').append('<li id="channel-'+x+'" title="'+channels.channels[x].feed.slice(0,-5)+'">'+channels.channels[x].channel+'</li>');
 	$('#channel-'+x).bind(
 			       'click'
-			       ,{channel: channels.channels[x].channel}
+	                       ,{channel: channels.channels[x].channel, feed: channels.channels[x].feed}
 			       ,function(event) {
-				   loadChannel(event.data.channel);
+				   //loadChannel(event.data.channel);
+				   var parts = event.data.feed.split("/");
+				   window.location.hash = "/"+parts[1]+"/"+parts[2]+"/";
 			       });
     }
 }
@@ -260,7 +263,8 @@ var chgChan = function chgChan(up_down) {
 	cur_chan++;
     }
     if(this_chan != cur_chan){
-	loadChannel(channels.channels[cur_chan].channel);
+	var parts = channels.channels[cur_chan].feed.split("/");
+        window.location.hash = "/"+parts[1]+"/"+parts[2]+"/";
     }
 }
 
@@ -272,9 +276,16 @@ var getFeedName = function getFeedName(channel) {
     }
 }
 
+var getChanName = function getChanName(feed) {
+    for(var x in channels.channels){
+        if(channels.channels[x].feed == feed){
+            return channels.channels[x].channel;
+        }
+    }
+}
 var getChan = function getChan(channel) {
     for(var x in channels.channels){
-        if(channels.channels[x].channel == channel){
+        if(channels.channels[x].channel == channel || channels.channels[x].feed == channel){
             return x;
         }
     }
@@ -316,6 +327,26 @@ var fillScreen = function fillScreen() {
 	    $object.addClass('fill-screen');
 	    $filloverlay.css('display', 'block');
 	}
+    }
+}
+
+var currentAnchor = null;
+//check fo anchor changes, if there are do stuff
+function checkAnchor(){
+    if(currentAnchor != document.location.hash){
+        currentAnchor = document.location.hash;
+        if(!currentAnchor){
+        }else{
+            var anchor = currentAnchor.substring(1);
+	    var parts = anchor.split("/"); // #/r/videos/id
+	    var feed = "/"+parts[1]+"/"+parts[2]+"/.json";
+	    var new_chan = getChanName(feed);
+	    if(new_chan != undefined){
+		loadChannel(new_chan);
+	    }
+        }
+    }else{
+        return false;
     }
 }
 
