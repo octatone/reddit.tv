@@ -43,7 +43,7 @@ $().ready(function(){
 	fillScreen();
     });
     $('#css li a').click(function() { 
-	$('link').attr('href',$(this).attr('rel'));
+	$('#theme').attr('href',$(this).attr('rel'));
 	return false;
     });
     $('#auto').click(function() {
