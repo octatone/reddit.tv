@@ -33,6 +33,15 @@ body {
     min-height: 365px;
 }
 
+#video-embed>embed {
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    min-width: 600px;
+    min-height: 365px;
+}
+
 #video-title {
     border-radius: 15px 15px 0 0;
     -moz-border-radius: 15px 15px 0 0;
