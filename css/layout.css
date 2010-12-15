@@ -33,13 +33,13 @@ body {
     min-height: 365px;
 }
 
-#video-embed>embed {
-    padding: 0;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    min-width: 600px;
-    min-height: 365px;
+#video-embed>embed, #video-embed>object, #video-embed>object>embed, #video-embed>div>object>embed, #video-embed>div {
+    padding: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+    min-width: 600px !important;
+    min-height: 365px !important;
 }
 
 #video-title {
