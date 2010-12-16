@@ -27,12 +27,17 @@ body {
     background-color: rgba(256,256,256,0.2);
 }
 
+#about {
+    border-top: 1px dashed #333;
+    color: #333;
+}
+
 #header {
     color: gray;
 }
 
 #footer {
-    color: gray;
+    color: #333;
 }
 
 #vote-button {

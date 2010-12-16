@@ -13,10 +13,20 @@ body {
     padding-right: 100px;
 }
 
+#sidebar {
+    float: left;
+    width: 100px;
+}
+
 #channel-list {
     padding-top: 55px;
-    width: 100px;
-    float: left;
+}
+
+#about {
+    margin-top: 15px;
+    padding-top: 15px;
+    font-size: x-small;
+    padding-left: 15px;
 }
 
 #video-display {
@@ -107,9 +117,9 @@ form label {
 }
 
 #footer {
-    font-size: small;
+    font-size: x-small;
     clear: both;
-    padding: 15px;
+    padding-top: 15px;
     margin-left: 100px;
     text-align: center;
 }
