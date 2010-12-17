@@ -37,7 +37,7 @@ body {
 }
 
 #video-embed {
-    padding: 15px 0 0;
+    padding: 15px 15px 0px 15px;
     text-align: center;
     min-width: 600px;
     min-height: 365px;
@@ -48,8 +48,7 @@ body {
     margin-left: auto !important;
     margin-right: auto !important;
     text-align: center !important;
-    min-width: 600px !important;
-    min-height: 365px !important;
+    width: 100% !important;
 }
 
 #video-title {
