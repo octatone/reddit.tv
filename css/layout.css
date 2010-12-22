@@ -7,7 +7,7 @@ body {
 }
 
 #content {
-    width: 740px;
+    width: 770px;
     margin-left: auto;
     margin-right: auto;
     padding-right: 100px;
@@ -32,18 +32,18 @@ body {
 #video-display {
     border-radius: 15px;
     -moz-border-radius: 15px;
-    width: 640px;
+    width: 670px;
     float: left;
 }
 
 #video-embed {
     padding: 15px 15px 0px 15px;
     text-align: center;
-    min-width: 600px;
+    min-width: 640px;
     min-height: 365px;
 }
 
-#video-embed>embed, #video-embed>object, #video-embed>object>embed, #video-embed>div>object>embed, #video-embed>div {
+#video-embed>embed, #video-embed>object, #video-embed>object>embed, #video-embed>div>object>embed, #video-embed>div, #video-embed>iframe {
     padding: 0 !important;
     margin-left: auto !important;
     margin-right: auto !important;
