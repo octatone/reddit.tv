@@ -16,6 +16,26 @@ var channels = {"channels": [
   ]
 };
 
+var domains = ['5min.com', 'abcnews.go.com', 'animoto.com', 'atom.com',
+	       'bambuser.com', 'bigthink.com', 'blip.tv', 'break.com',
+	       'cbsnews.com', 'cnbc.com', 'cnn.com', 'colbertnation.com', 'collegehumor.com',
+	       'comedycentral.com', 'crackle.com', 'dailymotion.com',
+	       'dotsub.com', 'edition.cnn.com', 'escapistmagazine.com', 'espn.go.com',
+	       'fancast.com', 'flickr.com', 'fora.tv', 'foxsports.com',
+	       'funnyordie.com', 'gametrailers.com', 'godtube.com', 'howcast.com', 'hulu.com',
+	       'justin.tv', 'kinomap.com', 'koldcast.tv', 'liveleak.com', 'livestream.com',
+	       'mediamatters.org', 'metacafe.com', 'money.cnn.com',
+	       'movies.yahoo.com', 'msnbc.com', 'nfb.ca', 'nzonscreen.com',
+	       'overstream.net', 'photobucket.com', 'qik.com', 'redux.com',
+	       'revision3.com', 'revver.com', 'schooltube.com',
+	       'screencast.com', 'screenr.com', 'sendables.jibjab.com',
+	       'spike.com', 'teachertube.com', 'techcrunch.tv', 'ted.com',
+	       'thedailyshow.com', 'theonion.com', 'traileraddict.com', 'trailerspy.com',
+	       'trutv.com', 'twitvid.com', 'ustream.com', 'viddler.com', 'video.google.com',
+	       'video.pbs.org', 'video.yahoo.com', 'vids.myspace.com', 'vimeo.com',
+	       'wordpress.tv', 'worldstarhiphop.com', 'xtranormal.com',
+	       'youtube.com', 'zapiks.com'];
+
 var videos = new Array();
 var cur_video = 0;
 var cur_chan = 0;
@@ -168,8 +188,7 @@ var loadChannel = function loadChannel(channel) {
 		videos[cur_chan].video = new Array(); //clear out stored videos
 		for(var x in data.data.children){
                     if(!isEmpty(data.data.children[x].data.media_embed)
-                       && data.data.children[x].data.media.type != 'soundcloud.com'
-                       && data.data.children[x].data.media.type != 'craigslist.org'
+                       && isVideo(data.data.children[x].data.media.type)
                       )
                     {
 			videos[cur_chan].video.push(data.data.children[x].data);
@@ -251,6 +270,10 @@ var loadVideo = function loadVideo(video) {
 
 	fillScreen();
     }
+}
+
+var isVideo = function isVideo(video_domain) {
+    return (domains.indexOf(video_domain) != -1);
 }
 
 var over18 = function over18() {
@@ -397,11 +420,3 @@ Object.size = function(obj) {
     }
     return size;
 };
-
-function htmlEncode(value){ 
-    return $('<div/>').text(value).html(); 
-} 
-
-function htmlDecode(value){ 
-    return $('<div/>').html(value).text(); 
-}
