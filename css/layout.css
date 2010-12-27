@@ -48,7 +48,8 @@ body {
     margin-left: auto !important;
     margin-right: auto !important;
     text-align: center !important;
-    width: 100% !important;
+    min-width: 640px !important;
+    min-height: 365px !important;
 }
 
 #video-title {
