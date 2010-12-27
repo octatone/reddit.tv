@@ -277,11 +277,7 @@ var isVideo = function isVideo(video_domain) {
 }
 
 var over18 = function over18() {
-    if(sfw && videos[cur_chan].video[cur_video].over_18){
-	return true;
-    }else{
-	return false;
-    }
+    return (sfw && videos[cur_chan].video[cur_video].over_18);
 }
 
 var chgChan = function chgChan(up_down) {
@@ -344,7 +340,7 @@ var prepYT = function prepYT(embed) {
 
 var fillScreen = function fillScreen() {
     if(yt_player){
-	$object = $('#video-embed>object>embed');
+	$object = $('#video-embed embed');
 	$fill = $('#fill');
 	$filloverlay = $('#fill-overlay');
 	if($object.hasClass('fill-screen')){
