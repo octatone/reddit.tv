@@ -176,7 +176,7 @@ var loadChannel = function loadChannel(channel) {
     $video_embed.empty();
     
     $('#channel-list>ul>li').removeClass('chan-selected');
-    $('#channel-'+getChan(channel)).addClass('chan-selected');
+    $('#channel-'+cur_chan).addClass('chan-selected');
 
     if(videos[cur_chan] == undefined){
 	var feed = getFeedName(channel);
