@@ -260,7 +260,7 @@ var loadVideo = function loadVideo(video) {
         reddit_string += "\" height=\"22\" width=\"150\" scrolling='no' frameborder='0'></iframe>";
 	*/
 
-	var reddit_string ="<a href=\"http://reddit.com"+videos[cur_chan].video[cur_video].permalink+"\" target=\"_blank\">";
+	var reddit_string = '<a href="'+permalink+'" target="_blank">';
 	reddit_string += videos[cur_chan].video[cur_video].score+"</a>";
 
 	var $vote_button = $('#vote-button');
