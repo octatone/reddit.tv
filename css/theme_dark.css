@@ -69,3 +69,7 @@ a.nav-button:hover {
     border: 1px solid gray;
     color: darkblue;
 }
+
+.loading {
+    background-image: url('../img/loading_dark.gif');
+}

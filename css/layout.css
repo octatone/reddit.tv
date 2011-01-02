@@ -175,7 +175,6 @@ a.nav-button:hover {
 }
 
 .loading {
-    background-image: url('../loading.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
