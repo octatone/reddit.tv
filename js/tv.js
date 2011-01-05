@@ -262,10 +262,12 @@ var loadVideo = function loadVideo(video) {
         reddit_string += "\" height=\"22\" width=\"150\" scrolling='no' frameborder='0'></iframe>";
 	*/
 
+	var score = videos[cur_chan].video[cur_video].score;
+	var num_comments = videos[cur_chan].video[cur_video].num_comments;
 	var reddit_string = '<a href="'+redditlink+'" target="_blank">'
-	    + videos[cur_chan].video[cur_video].score + ' votes'
+	    + score + ((score == 1) ? ' vote' : ' votes')
 	    + ' &bull; '
-	    + videos[cur_chan].video[cur_video].num_comments + ' comments'
+	    + num_comments + ((num_comments == 1) ? ' comment' : ' comments')
 	    + '</a>';
 
 	var $vote_button = $('#vote-button');
