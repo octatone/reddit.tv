@@ -245,7 +245,6 @@ var loadVideo = function loadVideo(video) {
 	    yt_player = false;
 	}
 
-	var sourcelink = videos[cur_chan].video[cur_video].url;
 	var redditlink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_chan].video[cur_video].permalink);
 	$('#video-title').html('<a href="'+redditlink+'" target="_blank" title="'+esc_title+'">'+title+'</a>');
 	$('#video-embed').html(embed);
@@ -275,7 +274,7 @@ var loadVideo = function loadVideo(video) {
 	});
 
 	var video_source_text = 'Source: '
-	    + '<a href="'+videos[cur_chan].video[cur_video].media.oembed.url+'" target="_blank">'
+	    + '<a href="' + videos[cur_chan].video[cur_video].url + '" target="_blank">'
 	    + videos[cur_chan].video[cur_video].media.oembed.provider_name
 	    + '</a>';
 	var $video_source = $('#video-source');
