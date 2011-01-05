@@ -9,6 +9,10 @@ body {
     background-color: #cee3f8;
 }
 
+#video-source {
+    color: #5f99cf;
+}
+
 #video-title {
     color: white;
     background-color: #5f99cf;

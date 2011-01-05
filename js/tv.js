@@ -167,6 +167,7 @@ var loadChannel = function loadChannel(channel) {
     cur_chan = getChan(channel);
 
     $('#vote-button').empty();
+    $('#video-source').empty();
 
     var $video_embed = $('#video-embed');
     var $video_title = $('#video-title');
@@ -244,8 +245,9 @@ var loadVideo = function loadVideo(video) {
 	    yt_player = false;
 	}
 
-	var permalink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_chan].video[cur_video].permalink);
-	$('#video-title').html('<a href="'+permalink+'" target="_blank" title="'+esc_title+'">'+title+'</a>');
+	var sourcelink = videos[cur_chan].video[cur_video].url;
+	var redditlink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_chan].video[cur_video].permalink);
+	$('#video-title').html('<a href="'+redditlink+'" target="_blank" title="'+esc_title+'">'+title+'</a>');
 	$('#video-embed').html(embed);
 	
 	/*
@@ -261,7 +263,7 @@ var loadVideo = function loadVideo(video) {
         reddit_string += "\" height=\"22\" width=\"150\" scrolling='no' frameborder='0'></iframe>";
 	*/
 
-	var reddit_string = '<a href="'+permalink+'" target="_blank">'
+	var reddit_string = '<a href="'+redditlink+'" target="_blank">'
 	    + videos[cur_chan].video[cur_video].score + ' votes'
 	    + ' &bull; '
 	    + videos[cur_chan].video[cur_video].num_comments + ' comments'
@@ -270,6 +272,15 @@ var loadVideo = function loadVideo(video) {
 	var $vote_button = $('#vote-button');
 	$vote_button.fadeOut('slow', function() {
 	    $vote_button.html(reddit_string).hide().fadeIn('slow');
+	});
+
+	var video_source_text = 'Source: '
+	    + '<a href="'+videos[cur_chan].video[cur_video].media.oembed.url+'" target="_blank">'
+	    + videos[cur_chan].video[cur_video].media.oembed.provider_name
+	    + '</a>';
+	var $video_source = $('#video-source');
+	$video_source.fadeOut('slow', function() {
+	    $video_source.html(video_source_text).hide().fadeIn('slow');
 	});
 
 	fillScreen();

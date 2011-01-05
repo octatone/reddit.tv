@@ -43,6 +43,12 @@ body {
     min-height: 365px;
 }
 
+#video-source {
+    margin-right: 15px;
+    text-align: right;
+    font-size: xx-small;
+}
+
 #video-embed>embed, #video-embed>object, #video-embed>object>embed, #video-embed>div>object>embed, #video-embed>div, #video-embed>iframe {
     padding: 0 !important;
     margin-left: auto !important;
@@ -67,7 +73,7 @@ body {
 }
 
 #video-nav {
-    padding: 15px;
+    padding: 10px 15px 15px 15px;
 }
 
 #channel-list ul { /* remove bullets and list indents */
