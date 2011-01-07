@@ -22,6 +22,15 @@ body {
     color: gray;
 }
 
+#video-list {
+    background-color: black;
+    border: 5px solid #333333;
+}
+
+#video-list img {
+    border: 5px solid #333333;
+}
+
 #channel-list li {
     color: gray;
 }

@@ -168,6 +168,7 @@ var loadChannel = function loadChannel(channel) {
 
     $('#vote-button').empty();
     $('#video-source').empty();
+    $('#video-list').empty();
 
     var $video_embed = $('#video-embed');
     var $video_title = $('#video-title');
@@ -196,6 +197,7 @@ var loadChannel = function loadChannel(channel) {
                     }
 		}
 		cur_video = 0;
+		loadVideoList();
 		loadVideo('first');
 	    },
 	    error: function() {
@@ -207,6 +209,20 @@ var loadChannel = function loadChannel(channel) {
 	loadVideo('first');
     }
 }
+
+
+var loadVideoList = function loadVideoList() {
+    var video_list_content = '';
+    console.log(videos);
+    
+    for(var i in videos[cur_chan].video) {
+	var img_url = videos[cur_chan].video[i].media.oembed.thumbnail_url;
+	video_list_content += '<img src="' + img_url + '" />';
+    }
+
+    $('#video-list').html(video_list_content);
+}
+
 
 var loadVideo = function loadVideo(video) {
     var this_video = cur_video;
