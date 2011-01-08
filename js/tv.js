@@ -217,7 +217,10 @@ var loadVideoList = function loadVideoList() {
     
     for(var i in videos[cur_chan].video) {
 	var img_url = videos[cur_chan].video[i].media.oembed.thumbnail_url;
-	video_list_content += '<img src="' + img_url + '" />';
+	if (! img_url) {
+	    img_url = 'img/thumbnail_missing.jpg';
+	}
+	video_list_content += '<span id="thumb' + i + '"><img src="' + img_url + '" /></span>';
     }
 
     $('#video-list').html(video_list_content);
