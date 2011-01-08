@@ -22,13 +22,12 @@ body {
     color: white;
 }
 
-#video-list {
-    background-color: white;
-    border: 5px solid #5f99cf;
+#video-list img {
+    border: 7px solid lightgray;
 }
 
-#video-list img {
-    border: 5px solid #5f99cf;
+#video-list .focus {
+    border: 7px solid #5f99cf;
 }
 
 #channel-list li {

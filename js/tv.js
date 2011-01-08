@@ -220,7 +220,7 @@ var loadVideoList = function loadVideoList() {
 	if (! img_url) {
 	    img_url = 'img/thumbnail_missing.jpg';
 	}
-	video_list_content += '<span id="thumb' + i + '"><img src="' + img_url + '" /></span>';
+	video_list_content += '<img src="' + img_url + '" id="video-list-thumb-' + i + '" />';
     }
 
     $('#video-list').html(video_list_content);
@@ -254,6 +254,11 @@ var loadVideo = function loadVideo(video) {
 	}
     }
     if(this_video != cur_video || video == 'first') {
+	// scroll to thumbnail in video list and highlight it
+	$('#video-list .focus').removeClass('focus');
+	$('#video-list-thumb-'+cur_video).addClass('focus');
+	$('#video-list').scrollTo('.focus', { duration:1000, offset:-200 });
+
 	$('#video-embed').empty();
 	var title = $.unescapifyHTML(videos[cur_chan].video[cur_video].title);
 	var esc_title = String(title).replace(/\"/g,'&quot;');

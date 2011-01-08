@@ -82,19 +82,17 @@ body {
     overflow-y: hidden;
     overflow-x: scroll;
     width: 620px;
-    height: 85px;
+    height: 90px;
     margin: 0 15px 15px 15px;
     text-align: center;
     padding: 5px;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
 }
 
 #video-list img {
     height: 60px;
     margin: 0 2px;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
 }
 
 #channel-list ul { /* remove bullets and list indents */
