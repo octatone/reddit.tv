@@ -206,6 +206,7 @@ var loadChannel = function loadChannel(channel) {
 	});
     }else{
 	cur_video = 0;
+	loadVideoList();
 	loadVideo('first');
     }
 }
@@ -213,17 +214,29 @@ var loadChannel = function loadChannel(channel) {
 
 var loadVideoList = function loadVideoList() {
     var video_list_content = '';
-    console.log(videos);
     
-    for(var i in videos[cur_chan].video) {
-	var img_url = videos[cur_chan].video[i].media.oembed.thumbnail_url;
+    for(var video_id in videos[cur_chan].video) {
+	var img_url = videos[cur_chan].video[video_id].media.oembed.thumbnail_url;
 	if (! img_url) {
 	    img_url = 'img/thumbnail_missing.jpg';
 	}
-	video_list_content += '<img src="' + img_url + '" id="video-list-thumb-' + i + '" />';
+
+	if (! videos[cur_chan].video[video_id].title_unesc) {
+	    videos[cur_chan].video[video_id].title_unesc = $.unescapifyHTML(videos[cur_chan].video[video_id].title);
+	    videos[cur_chan].video[video_id].title_quot  = String(videos[cur_chan].video[video_id].title_unesc).replace(/\"/g,'&quot;');
+	}
+
+	video_list_content += '<img src="' + img_url + '"'
+	    + ' id="video-list-thumb-' + video_id + '"' + ' class="video-list-thumb" rel="' + video_id + '"'
+	    + ' title="' + videos[cur_chan].video[video_id].title_quot + '"/>';
     }
 
     $('#video-list').html(video_list_content);
+
+    $('.video-list-thumb').click(function() {
+	console.log($(this).attr('rel'));
+	loadVideo($(this).attr('rel'));
+    });
 }
 
 
@@ -256,12 +269,10 @@ var loadVideo = function loadVideo(video) {
     if(this_video != cur_video || video == 'first') {
 	// scroll to thumbnail in video list and highlight it
 	$('#video-list .focus').removeClass('focus');
-	$('#video-list-thumb-'+cur_video).addClass('focus');
-	$('#video-list').scrollTo('.focus', { duration:1000, offset:-200 });
+	$('#video-list-thumb-' + cur_video).addClass('focus');
+	$('#video-list').scrollTo('.focus', { duration:1000, offset:-280 });
 
 	$('#video-embed').empty();
-	var title = $.unescapifyHTML(videos[cur_chan].video[cur_video].title);
-	var esc_title = String(title).replace(/\"/g,'&quot;');
 	var embed = $.unescapifyHTML(videos[cur_chan].video[cur_video].media_embed.content);
 	if(videos[cur_chan].video[cur_video].media.type == 'youtube.com'){
 	    embed = prepYT(embed);
@@ -270,7 +281,9 @@ var loadVideo = function loadVideo(video) {
 	}
 
 	var redditlink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_chan].video[cur_video].permalink);
-	$('#video-title').html('<a href="'+redditlink+'" target="_blank" title="'+esc_title+'">'+title+'</a>');
+	$('#video-title').html('<a href="' + redditlink + '" target="_blank"'
+			       + ' title="' + videos[cur_chan].video[cur_video].title_quot + '">'
+			       + videos[cur_chan].video[cur_video].title_unesc + '</a>');
 	$('#video-embed').html(embed);
 	
 	/*

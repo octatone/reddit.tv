@@ -86,6 +86,8 @@ body {
     margin: 0 15px 15px 15px;
     text-align: center;
     padding: 5px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
 }
 
 #video-list img {

@@ -22,6 +22,11 @@ body {
     color: white;
 }
 
+#video-list {
+    border: 7px solid lightgray;
+    background-color: white;
+}
+
 #video-list img {
     border: 7px solid lightgray;
 }
