@@ -213,30 +213,34 @@ var loadChannel = function loadChannel(channel) {
 
 
 var loadVideoList = function loadVideoList() {
-    var video_list_content = '';
-    
-    for(var video_id in videos[cur_chan].video) {
-	var img_url = videos[cur_chan].video[video_id].media.oembed.thumbnail_url;
-	if (! img_url) {
-	    img_url = 'img/thumbnail_missing.jpg';
-	}
+    if (! videos[cur_chan].video_list_html) {
+	var $list = $('<span></span>');
+	for(var video_id in videos[cur_chan].video) {
+	    if (! videos[cur_chan].video[video_id].title_unesc) {
+		videos[cur_chan].video[video_id].title_unesc = $.unescapifyHTML(videos[cur_chan].video[video_id].title);
+		videos[cur_chan].video[video_id].title_quot  = String(videos[cur_chan].video[video_id].title_unesc).replace(/\"/g,'&quot;');
+	    }
 
-	if (! videos[cur_chan].video[video_id].title_unesc) {
-	    videos[cur_chan].video[video_id].title_unesc = $.unescapifyHTML(videos[cur_chan].video[video_id].title);
-	    videos[cur_chan].video[video_id].title_quot  = String(videos[cur_chan].video[video_id].title_unesc).replace(/\"/g,'&quot;');
-	}
+	    var img_url = videos[cur_chan].video[video_id].media.oembed.thumbnail_url;
+	    if (! img_url) {
+		img_url = 'img/thumbnail_missing.jpg';
+	    }
 
-	video_list_content += '<img src="' + img_url + '"'
-	    + ' id="video-list-thumb-' + video_id + '"' + ' class="video-list-thumb" rel="' + video_id + '"'
-	    + ' title="' + videos[cur_chan].video[video_id].title_quot + '"/>';
+	    var $thumbnail = $('<img src="' + img_url + '"' +
+			       ' id="video-list-thumb-' + video_id + '"' + ' class="video-list-thumb" rel="' + video_id + '"' +
+			       ' title="' + videos[cur_chan].video[video_id].title_quot + '"/>');
+
+	    $thumbnail.click(function() {
+		console.log($(this).attr('rel'));
+		loadVideo($(this).attr('rel'));
+	    });
+
+	    $list.append($thumbnail);
+	}
+	videos[cur_chan].video_list = $list;
     }
 
-    $('#video-list').html(video_list_content);
-
-    $('.video-list-thumb').click(function() {
-	console.log($(this).attr('rel'));
-	loadVideo($(this).attr('rel'));
-    });
+    $('#video-list').html(videos[cur_chan].video_list);
 }
 
 
