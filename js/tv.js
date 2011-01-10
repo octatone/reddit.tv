@@ -218,7 +218,7 @@ var loadVideo = function loadVideo(video) {
 	if(over18()){
 	    cur_video = this_video;
 	}
-    }else if (cur_video > 0 && video != 'next'){
+    }else if (cur_video > 0 && video == 'prev'){
 	cur_video--;
 	while(over18() && cur_video > 0){
 	    cur_video--;
@@ -233,6 +233,9 @@ var loadVideo = function loadVideo(video) {
 		cur_video++;
             }
 	}
+    }
+    if(typeof(video) == 'number'){ //must be a number NOT A STRING - allows direct load of video # in video array
+	cur_video = video;
     }
     if(this_video != cur_video || video == 'first') {
 	$('#video-embed').empty();
