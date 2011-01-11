@@ -49,7 +49,7 @@ $().ready(function(){
     loadSettings();
     loadTheme(theme);
     displayChannels();
-    loadChannel("Videos");
+    loadChannel("Videos", null);
 
     $filloverlay = $('#fill-overlay');
     $fillnav = $('#fill-nav');
@@ -158,7 +158,7 @@ var displayChannels = function displayChannels() {
     }
 }
 
-var loadChannel = function loadChannel(channel) {
+var loadChannel = function loadChannel(channel, video_id) {
     var last_req = cur_req;
     if(last_req != null){
 	last_req.abort();
@@ -195,16 +195,24 @@ var loadChannel = function loadChannel(channel) {
 			videos[cur_chan].video.push(data.data.children[x].data);
                     }
 		}
-		cur_video = 0;
-		loadVideo('first');
+		if(video_id != null){
+		    loadVideoById(video_id);
+		}else{
+		    cur_video = 0;
+		    loadVideo('first');
+		}
 	    },
 	    error: function() {
 		alert('Could not load feed. Is reddit down?');
 	    }
 	});
     }else{
-	cur_video = 0;
-	loadVideo('first');
+	if(video_id != null){
+            loadVideoById(vide_id);
+        }else{
+	    cur_video = 0;
+	    loadVideo('first');
+	}
     }
 }
 
@@ -238,6 +246,17 @@ var loadVideo = function loadVideo(video) {
 	cur_video = video;
     }
     if(this_video != cur_video || video == 'first') {
+	//set location hash
+	var hash = document.location.hash;
+        if(!hash){
+        }else{
+            var anchor = hash.substring(1);
+            var parts = anchor.split("/"); // #/r/videos/id
+            hash = '/'+parts[1]+'/'+parts[2]+'/'+videos[cur_chan].video[cur_video].id;
+	    currentAnchor = '#'+hash;
+            window.location.hash = hash;
+	}
+
 	$('#video-embed').empty();
 	var title = $.unescapifyHTML(videos[cur_chan].video[cur_video].title);
 	var esc_title = String(title).replace(/\"/g,'&quot;');
@@ -291,8 +310,47 @@ var loadVideo = function loadVideo(video) {
     }
 }
 
+var loadVideoById = function loadVideoById(video_id) {
+    var video = findVideoById(cur_chan, video_id);  //returns number typed                                 
+    if(video != false){
+        loadVideo(video);
+    }else{
+        //ajax request
+	var last_req = cur_req;
+	if(last_req != null){
+            last_req.abort();
+	}
+	
+	cur_req = $.jsonp({
+            url: "http://www.reddit.com/by_id/t3_"+video_id+".json?jsonp=callback",
+            callback: "callback",
+            success: function(data) {
+                if(!isEmpty(data.data.children[0].data.media_embed)
+                   && isVideo(data.data.children[0].data.media.type)
+                  )
+                {
+                    videos[cur_chan].video.splice(0,0,data.data.children[0].data);
+                }
+		loadVideo('first');
+            },
+            error: function() {
+                alert('Could not load data. Is reddit down?');
+            }
+        });
+    }
+}
+
 var isVideo = function isVideo(video_domain) {
     return (domains.indexOf(video_domain) != -1);
+}
+
+var findVideoById = function findVideoById(chan, id) {
+    for(var x in videos[chan].video){
+	if(videos[chan].video[x].id == id){
+	    return Number(x); //if found return array pos
+	}
+    }
+    return false; //not found
 }
 
 var over18 = function over18() {
@@ -302,12 +360,12 @@ var over18 = function over18() {
 var chgChan = function chgChan(up_down) {
     var this_chan = cur_chan;
     if(up_down == 'up' && this_chan > 0){
-	cur_chan--;
+	this_chan--;
     }else if(up_down != 'up' && this_chan < channels.channels.length-1){
-	cur_chan++;
+	this_chan++;
     }
     if(this_chan != cur_chan){
-	var parts = channels.channels[cur_chan].feed.split("/");
+	var parts = channels.channels[this_chan].feed.split("/");
         window.location.hash = "/"+parts[1]+"/"+parts[2]+"/";
     }
 }
@@ -384,9 +442,20 @@ function checkAnchor(){
             var anchor = currentAnchor.substring(1);
 	    var parts = anchor.split("/"); // #/r/videos/id
 	    var feed = "/"+parts[1]+"/"+parts[2]+"/.json";
-	    var new_chan = getChanName(feed);
-	    if(new_chan != undefined){
-		loadChannel(new_chan);
+	    var new_chan_name = getChanName(feed);
+	    var new_chan_num = getChan(new_chan_name);
+	    if(new_chan_name != undefined && new_chan_num != cur_chan){
+		if(parts[3] == undefined || parts[3] == null || parts[3] == ''){
+                    loadChannel(new_chan_name, null);
+		}else{
+		    loadChannel(new_chan_name, parts[3]);
+		}
+	    }else{
+		if(videos[new_chan_num] != undefined){
+		    loadVideoById(parts[3]);
+		}else{
+		    loadChannel(new_chan_name, parts[3]);
+		}
 	    }
         }
     }else{
