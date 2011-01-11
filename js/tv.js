@@ -240,8 +240,7 @@ var loadVideoList = function loadVideoList() {
 			       ' title="' + videos[cur_chan].video[i].title_quot + '"/>');
 
 	    $thumbnail.click(function() {
-		console.log($(this).attr('rel'));
-		loadVideo($(this).attr('rel'));
+		loadVideo(parseInt( $(this).attr('rel') ));
 	    });
 
 	    $list.append($thumbnail);
