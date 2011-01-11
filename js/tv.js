@@ -166,9 +166,9 @@ var loadChannel = function loadChannel(channel, video_id) {
 
     cur_chan = getChan(channel);
 
+    $('#video-list').animate({ height:0, padding:0 }, 500);
     $('#vote-button').empty();
     $('#video-source').empty();
-    $('#video-list').empty();
 
     var $video_embed = $('#video-embed');
     var $video_title = $('#video-title');
@@ -248,7 +248,9 @@ var loadVideoList = function loadVideoList() {
 	videos[cur_chan].video_list = $list;
     }
 
-    $('#video-list').html(videos[cur_chan].video_list);
+    $('#video-list')
+	.html(videos[cur_chan].video_list)
+	.animate({ height: '90px', padding: '5px' }, 1000);
 }
 
 
