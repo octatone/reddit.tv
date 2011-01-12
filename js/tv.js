@@ -234,7 +234,7 @@ var loadVideoList = function loadVideoList(chan) {
 	
 	var img_url = videos[this_chan].video[i].media.oembed.thumbnail_url;
 	if (! img_url) {
-	    img_url = 'img/thumbnail_missing.jpg';
+	    img_url = 'img/noimage.png'; //thumbnail_missing.jpg
 	}
 	
 	var $thumbnail = $('<img src="' + img_url + '"' +
@@ -261,24 +261,24 @@ var loadVideo = function loadVideo(video) {
     var selected_video = this_video;
     if(video == 'next' && selected_video < Object.size(videos[this_chan].video)-1){
 	selected_video++;
-	while(over18() && selected_video < Object.size(videos[this_chan].video)-1){
+	while(over18(selected_video) && selected_video < Object.size(videos[this_chan].video)-1){
 	    selected_video++;
 	}
-	if(over18()){
+	if(over18(selected_video)){
 	    selected_video = this_video;
 	}
     }else if (selected_video > 0 && video == 'prev'){
 	selected_video--;
-	while(over18() && selected_video > 0){
+	while(over18(selected_video) && selected_video > 0){
 	    selected_video--;
 	}
-	if(over18()){
+	if(over18(selected_video)){
             selected_video = this_video;
         }
     }
     if(video == 'first'){
-	if(over18()){
-            while(over18() && selected_video < Object.size(videos[this_chan].video)-1){
+	if(over18(selected_video)){
+            while(over18(selected_video) && selected_video < Object.size(videos[this_chan].video)-1){
 		selected_video++;
             }
 	}
@@ -406,8 +406,8 @@ var findVideoById = function findVideoById(chan, id) {
     return false; //not found
 }
 
-var over18 = function over18() {
-    return (sfw && videos[cur_chan].video[cur_video].over_18);
+var over18 = function over18(video) {
+    return (sfw && videos[cur_chan].video[video].over_18);
 }
 
 var chgChan = function chgChan(up_down) {
