@@ -197,10 +197,10 @@ var loadChannel = function loadChannel(channel, video_id) {
                     }
 		}
 
-		loadVideoList();
 		if(video_id != null){
 		    loadVideoById(video_id);
 		}else{
+		    loadVideoList();
 		    cur_video = 0;
 		    loadVideo('first');
 		}
@@ -210,10 +210,10 @@ var loadChannel = function loadChannel(channel, video_id) {
 	    }
 	});
     }else{
-	loadVideoList();
 	if(video_id != null){
             loadVideoById(vide_id);
         }else{
+	    loadVideoList();
 	    cur_video = 0;
 	    loadVideo('first');
 	}
@@ -222,31 +222,30 @@ var loadChannel = function loadChannel(channel, video_id) {
 
 
 var loadVideoList = function loadVideoList() {
-    if (! videos[cur_chan].video_list_html) {
-	var $list = $('<span></span>');
-	for(var i in videos[cur_chan].video) {
-	    if (! videos[cur_chan].video[i].title_unesc) {
-		videos[cur_chan].video[i].title_unesc = $.unescapifyHTML(videos[cur_chan].video[i].title);
-		videos[cur_chan].video[i].title_quot  = String(videos[cur_chan].video[i].title_unesc).replace(/\"/g,'&quot;');
-	    }
 
-	    var img_url = videos[cur_chan].video[i].media.oembed.thumbnail_url;
-	    if (! img_url) {
-		img_url = 'img/thumbnail_missing.jpg';
-	    }
-
-	    var $thumbnail = $('<img src="' + img_url + '"' +
-			       ' id="video-list-thumb-' + i + '"' + ' class="video-list-thumb" rel="' + i + '"' +
-			       ' title="' + videos[cur_chan].video[i].title_quot + '"/>');
-
-	    $thumbnail.click(function() {
-		loadVideo(parseInt( $(this).attr('rel') ));
-	    });
-
-	    $list.append($thumbnail);
+    var $list = $('<span></span>');
+    for(var i in videos[cur_chan].video) {
+	if (! videos[cur_chan].video[i].title_unesc) {
+	    videos[cur_chan].video[i].title_unesc = $.unescapifyHTML(videos[cur_chan].video[i].title);
+	    videos[cur_chan].video[i].title_quot  = String(videos[cur_chan].video[i].title_unesc).replace(/\"/g,'&quot;');
 	}
-	videos[cur_chan].video_list = $list;
+	
+	var img_url = videos[cur_chan].video[i].media.oembed.thumbnail_url;
+	if (! img_url) {
+	    img_url = 'img/thumbnail_missing.jpg';
+	}
+	
+	var $thumbnail = $('<img src="' + img_url + '"' +
+			   ' id="video-list-thumb-' + i + '"' + ' class="video-list-thumb" rel="' + i + '"' +
+			   ' title="' + videos[cur_chan].video[i].title_quot + '"/>');
+	
+	$thumbnail.click(function() {
+	    loadVideo(parseInt( $(this).attr('rel') ));
+	});
+	
+	$list.append($thumbnail);
     }
+    videos[cur_chan].video_list = $list;
 
     $('#video-list')
 	.html(videos[cur_chan].video_list)
@@ -356,6 +355,7 @@ var loadVideo = function loadVideo(video) {
 var loadVideoById = function loadVideoById(video_id) {
     var video = findVideoById(cur_chan, video_id);  //returns number typed                                 
     if(video != false){
+	loadVideoList();
         loadVideo(video);
     }else{
         //ajax request
@@ -374,6 +374,7 @@ var loadVideoById = function loadVideoById(video_id) {
                 {
                     videos[cur_chan].video.splice(0,0,data.data.children[0].data);
                 }
+		loadVideoList();
 		loadVideo('first');
             },
             error: function() {
