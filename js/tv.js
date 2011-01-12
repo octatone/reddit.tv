@@ -169,6 +169,7 @@ var loadChannel = function loadChannel(channel, video_id) {
     $('#video-list').animate({ height:0, padding:0 }, 500, function() {
 	$(this).empty().hide();
     });
+    $('#prev-button,#next-button').fadeOut();
     $('#vote-button').empty();
     $('#video-source').empty();
 
@@ -238,7 +239,7 @@ var loadVideoList = function loadVideoList(chan) {
 	}
 	
 	var $thumbnail = $('<img src="' + img_url + '"' +
-			   ' id="video-list-thumb-' + i + '"' + ' class="video-list-thumb" rel="' + i + '"' +
+			   ' id="video-list-thumb-' + i + '"' + ' rel="' + i + '"' +
 			   ' title="' + videos[this_chan].video[i].title_quot + '"/>');
 	
 	$thumbnail.click(function() {
@@ -288,10 +289,21 @@ var loadVideo = function loadVideo(video) {
     }
     if(selected_video != this_video || video == 'first') {
 	cur_video = selected_video;
+
 	// scroll to thumbnail in video list and highlight it
 	$('#video-list .focus').removeClass('focus');
 	$('#video-list-thumb-' + selected_video).addClass('focus');
 	$('#video-list').scrollTo('.focus', { duration:1000, offset:-280 });
+
+	// enable/disable nav-buttons at end/beginning of playlist
+	if (cur_video <= 0)
+	    $('#prev-button').fadeOut();
+	else
+	    $('#prev-button').fadeIn();
+	if (cur_video >= Object.size(videos[this_chan].video)-1)
+	    $('#next-button').fadeOut();
+	else
+	    $('#next-button').fadeIn();
 
 	//set location hash
 	var hash = document.location.hash;
