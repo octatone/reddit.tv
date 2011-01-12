@@ -164,10 +164,10 @@ var loadChannel = function loadChannel(channel, video_id) {
 	last_req.abort();
     }
 
-    cur_chan = getChan(channel);
+    var this_chan = getChan(channel);
 
     $('#video-list').animate({ height:0, padding:0 }, 500, function() {
-	$(this).hide();
+	$(this).empty().hide();
     });
     $('#vote-button').empty();
     $('#video-source').empty();
@@ -175,34 +175,34 @@ var loadChannel = function loadChannel(channel, video_id) {
     var $video_embed = $('#video-embed');
     var $video_title = $('#video-title');
 
-    $video_title.html('Loading '+channels.channels[cur_chan].feed.slice(0,-5)+' ...');
+    $video_title.html('Loading '+channels.channels[this_chan].feed.slice(0,-5)+' ...');
     $video_embed.addClass('loading');
     $video_embed.empty();
     
     $('#channel-list>ul>li').removeClass('chan-selected');
-    $('#channel-'+cur_chan).addClass('chan-selected');
+    $('#channel-'+this_chan).addClass('chan-selected');
 
-    if(videos[cur_chan] == undefined){
+    if(videos[this_chan] == undefined){
 	var feed = getFeedName(channel);
 	cur_req = $.jsonp({
 	    url: "http://www.reddit.com"+feed+"?limit=100&jsonp=callback",
 	    callback: "callback",
 	    success: function(data) {
-		videos[cur_chan] = new Object;
-		videos[cur_chan].video = new Array(); //clear out stored videos
+		videos[this_chan] = new Object;
+		videos[this_chan].video = new Array(); //clear out stored videos
 		for(var x in data.data.children){
                     if(!isEmpty(data.data.children[x].data.media_embed)
                        && isVideo(data.data.children[x].data.media.type)
                       )
                     {
-			videos[cur_chan].video.push(data.data.children[x].data);
+			videos[this_chan].video.push(data.data.children[x].data);
                     }
 		}
 
 		if(video_id != null){
 		    loadVideoById(video_id);
 		}else{
-		    loadVideoList();
+		    loadVideoList(this_chan);
 		    cur_video = 0;
 		    loadVideo('first');
 		}
@@ -215,30 +215,31 @@ var loadChannel = function loadChannel(channel, video_id) {
 	if(video_id != null){
             loadVideoById(vide_id);
         }else{
-	    loadVideoList();
+	    loadVideoList(this_chan);
 	    cur_video = 0;
 	    loadVideo('first');
 	}
     }
+    cur_chan = this_chan;
 }
 
-
-var loadVideoList = function loadVideoList() {
+var loadVideoList = function loadVideoList(chan) {
+    var this_chan = chan;
     var $list = $('<span></span>');
-    for(var i in videos[cur_chan].video) {
-	if (! videos[cur_chan].video[i].title_unesc) {
-	    videos[cur_chan].video[i].title_unesc = $.unescapifyHTML(videos[cur_chan].video[i].title);
-	    videos[cur_chan].video[i].title_quot  = String(videos[cur_chan].video[i].title_unesc).replace(/\"/g,'&quot;');
+    for(var i in videos[this_chan].video) {
+	if (! videos[this_chan].video[i].title_unesc) {
+	    videos[this_chan].video[i].title_unesc = $.unescapifyHTML(videos[this_chan].video[i].title);
+	    videos[this_chan].video[i].title_quot  = String(videos[this_chan].video[i].title_unesc).replace(/\"/g,'&quot;');
 	}
 	
-	var img_url = videos[cur_chan].video[i].media.oembed.thumbnail_url;
+	var img_url = videos[this_chan].video[i].media.oembed.thumbnail_url;
 	if (! img_url) {
 	    img_url = 'img/thumbnail_missing.jpg';
 	}
 	
 	var $thumbnail = $('<img src="' + img_url + '"' +
 			   ' id="video-list-thumb-' + i + '"' + ' class="video-list-thumb" rel="' + i + '"' +
-			   ' title="' + videos[cur_chan].video[i].title_quot + '"/>');
+			   ' title="' + videos[this_chan].video[i].title_quot + '"/>');
 	
 	$thumbnail.click(function() {
 	    loadVideo(parseInt( $(this).attr('rel') ));
@@ -246,14 +247,13 @@ var loadVideoList = function loadVideoList() {
 	
 	$list.append($thumbnail);
     }
-    videos[cur_chan].video_list = $list;
+    videos[this_chan].video_list = $list;
 
     $('#video-list')
-	.html(videos[cur_chan].video_list)
+	.html(videos[this_chan].video_list)
 	.show()
 	.animate({ height: '90px', padding: '5px' }, 1000);
 }
-
 
 var loadVideo = function loadVideo(video) {
     var this_video = cur_video;
@@ -358,9 +358,10 @@ var loadVideo = function loadVideo(video) {
 }
 
 var loadVideoById = function loadVideoById(video_id) {
-    var video = findVideoById(cur_chan, video_id);  //returns number typed                                 
+    var this_chan = cur_chan;
+    var video = findVideoById(this_chan, video_id);  //returns number typed                                 
     if(video != false){
-	loadVideoList();
+	loadVideoList(this_chan);
         loadVideo(video);
     }else{
         //ajax request
@@ -377,9 +378,9 @@ var loadVideoById = function loadVideoById(video_id) {
                    && isVideo(data.data.children[0].data.media.type)
                   )
                 {
-                    videos[cur_chan].video.splice(0,0,data.data.children[0].data);
+                    videos[this_chan].video.splice(0,0,data.data.children[0].data);
                 }
-		loadVideoList();
+		loadVideoList(this_chan);
 		loadVideo('first');
             },
             error: function() {
