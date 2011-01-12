@@ -1,4 +1,4 @@
-var channels = {"channels": [
+var channels = [
     {"channel": "All", "feed": "/r/all/.json"}
     ,{"channel": "Videos", "feed": "/r/videos/.json"}
     ,{"channel": "YouTube", "feed": "/domain/youtube.com/.json"}
@@ -13,8 +13,7 @@ var channels = {"channels": [
     ,{"channel": "Listen", "feed": "/r/listentothis/.json"}
     ,{"channel": "Sports", "feed": "/r/sports/.json"}
     ,{"channel": "TED", "feed": "/domain/ted.com/.json"}
-  ]
-};
+];
 
 var domains = ['5min.com', 'abcnews.go.com', 'animoto.com', 'atom.com',
 	       'bambuser.com', 'bigthink.com', 'blip.tv', 'break.com',
@@ -146,11 +145,11 @@ var displayChannels = function displayChannels() {
     var $channel_list = $('#channel-list');
     var list = $('<ul></ul>');
     $channel_list.html(list);
-    for(var x in channels.channels){
-	$('#channel-list>ul').append('<li id="channel-'+x+'" title="'+channels.channels[x].feed.slice(0,-5)+'">'+channels.channels[x].channel+'</li>');
+    for(var x in channels){
+	$('#channel-list>ul').append('<li id="channel-'+x+'" title="'+channels[x].feed.slice(0,-5)+'">'+channels[x].channel+'</li>');
 	$('#channel-'+x).bind(
 			       'click'
-	                       ,{channel: channels.channels[x].channel, feed: channels.channels[x].feed}
+	                       ,{channel: channels[x].channel, feed: channels[x].feed}
 			       ,function(event) {
 				   //loadChannel(event.data.channel);
 				   var parts = event.data.feed.split("/");
@@ -176,7 +175,7 @@ var loadChannel = function loadChannel(channel, video_id) {
     var $video_embed = $('#video-embed');
     var $video_title = $('#video-title');
 
-    $video_title.html('Loading '+channels.channels[this_chan].feed.slice(0,-5)+' ...');
+    $video_title.html('Loading '+channels[this_chan].feed.slice(0,-5)+' ...');
     $video_embed.addClass('loading');
     $video_embed.empty();
     
@@ -301,7 +300,7 @@ var loadVideo = function loadVideo(video) {
 	//set location hash
 	var hash = document.location.hash;
         if(!hash){
-	    var feed = channels.channels[this_chan].feed;
+	    var feed = channels[this_chan].feed;
 	    var parts = feed.split("/");
 	    hash = '/'+parts[1]+'/'+parts[2]+'/'+videos[this_chan].video[selected_video].id;
         }else{
@@ -368,9 +367,7 @@ var loadVideo = function loadVideo(video) {
 var loadVideoById = function loadVideoById(video_id) {
     var this_chan = cur_chan;
     var video = findVideoById(this_chan, video_id);  //returns number typed
-    console.log('findVideoById = '+video);
     if(video !== false){
-	console.log('video !== false');
 	loadVideoList(this_chan);
         loadVideo(Number(video));
     }else{
@@ -421,33 +418,33 @@ var chgChan = function chgChan(up_down) {
     var this_chan = cur_chan;
     if(up_down == 'up' && this_chan > 0){
 	this_chan--;
-    }else if(up_down != 'up' && this_chan < channels.channels.length-1){
+    }else if(up_down != 'up' && this_chan < channels.length-1){
 	this_chan++;
     }
     if(this_chan != cur_chan){
-	var parts = channels.channels[this_chan].feed.split("/");
+	var parts = channels[this_chan].feed.split("/");
         window.location.hash = "/"+parts[1]+"/"+parts[2]+"/";
     }
 }
 
 var getFeedName = function getFeedName(channel) {
-    for(var x in channels.channels){
-	if(channels.channels[x].channel == channel){
-	    return channels.channels[x].feed;
+    for(var x in channels){
+	if(channels[x].channel == channel){
+	    return channels[x].feed;
 	}
     }
 }
 
 var getChanName = function getChanName(feed) {
-    for(var x in channels.channels){
-        if(channels.channels[x].feed == feed){
-            return channels.channels[x].channel;
+    for(var x in channels){
+        if(channels[x].feed == feed){
+            return channels[x].channel;
         }
     }
 }
 var getChan = function getChan(channel) {
-    for(var x in channels.channels){
-        if(channels.channels[x].channel == channel || channels.channels[x].feed == channel){
+    for(var x in channels){
+        if(channels[x].channel == channel || channels[x].feed == channel){
             return x;
         }
     }
