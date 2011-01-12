@@ -236,6 +236,9 @@ var loadVideoList = function loadVideoList(chan) {
 	if (! img_url) {
 	    img_url = 'img/noimage.png'; //thumbnail_missing.jpg
 	}
+	if (over18(i)){
+	    img_url = 'img/nsfw.png';
+	}
 	
 	var $thumbnail = $('<img src="' + img_url + '"' +
 			   ' id="video-list-thumb-' + i + '"' + ' class="video-list-thumb" rel="' + i + '"' +
