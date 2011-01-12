@@ -39,7 +39,8 @@ var domains = ['5min.com', 'abcnews.go.com', 'animoto.com', 'atom.com',
 var videos = new Array();
 var cur_video = 0;
 var cur_chan = 0;
-var cur_req = null;
+var cur_chan_req = null;
+var cur_vid_req = null;
 var auto = true;
 var sfw = true;
 var theme = 'light';
@@ -159,14 +160,14 @@ var displayChannels = function displayChannels() {
 }
 
 var loadChannel = function loadChannel(channel, video_id) {
-    var last_req = cur_req;
+    var last_req = cur_chan_req;
     if(last_req != null){
 	last_req.abort();
     }
 
     var this_chan = getChan(channel);
 
-    $('#video-list').animate({ height:0, padding:0 }, 500, function() {
+    $('#video-list').stop(true, true).animate({ height:0, padding:0 }, 500, function() {
 	$(this).empty().hide();
     });
     $('#vote-button').empty();
@@ -184,7 +185,7 @@ var loadChannel = function loadChannel(channel, video_id) {
 
     if(videos[this_chan] == undefined){
 	var feed = getFeedName(channel);
-	cur_req = $.jsonp({
+	cur_chan_req = $.jsonp({
 	    url: "http://www.reddit.com"+feed+"?limit=100&jsonp=callback",
 	    callback: "callback",
 	    success: function(data) {
@@ -253,6 +254,7 @@ var loadVideoList = function loadVideoList(chan) {
     videos[this_chan].video_list = $list;
 
     $('#video-list')
+        .stop(true, true)
 	.html(videos[this_chan].video_list)
 	.show()
 	.animate({ height: '88px', padding: '5px' }, 1000);
@@ -371,12 +373,12 @@ var loadVideoById = function loadVideoById(video_id) {
         loadVideo(video);
     }else{
         //ajax request
-	var last_req = cur_req;
+	var last_req = cur_vid_req;
 	if(last_req != null){
             last_req.abort();
 	}
 	
-	cur_req = $.jsonp({
+	cur_vid_req = $.jsonp({
             url: "http://www.reddit.com/by_id/t3_"+video_id+".json?jsonp=callback",
             callback: "callback",
             success: function(data) {
