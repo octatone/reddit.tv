@@ -192,6 +192,7 @@ form label {
 }
 
 .nav-button {
+    display: none;
     text-align: center;
     margin-bottom: 15px;
     padding: 6px 16px;

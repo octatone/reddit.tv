@@ -169,6 +169,7 @@ var loadChannel = function loadChannel(channel, video_id) {
     $('#video-list').stop(true, true).animate({ height:0, padding:0 }, 500, function() {
 	$(this).empty().hide();
     });
+    $('#prev-button,#next-button').css({ 'visibility':'hidden', 'display':'none' });
     $('#vote-button').empty();
     $('#video-source').empty();
 
@@ -241,7 +242,7 @@ var loadVideoList = function loadVideoList(chan) {
 	}
 	
 	var $thumbnail = $('<img src="' + img_url + '"' +
-			   ' id="video-list-thumb-' + i + '"' + ' class="video-list-thumb" rel="' + i + '"' +
+			   ' id="video-list-thumb-' + i + '"' + ' rel="' + i + '"' +
 			   ' title="' + videos[this_chan].video[i].title_quot + '"/>');
 	
 	$thumbnail.click(function() {
@@ -292,10 +293,28 @@ var loadVideo = function loadVideo(video) {
     }
     if(selected_video != this_video || video == 'first' || video == 0) {
 	cur_video = selected_video;
+
 	// scroll to thumbnail in video list and highlight it
 	$('#video-list .focus').removeClass('focus');
 	$('#video-list-thumb-' + selected_video).addClass('focus');
 	$('#video-list').scrollTo('.focus', { duration:1000, offset:-280 });
+
+	// enable/disable nav-buttons at end/beginning of playlist
+	var $prevbutton = $('#prev-button');
+	var $nextbutton = $('#next-button');
+	if (cur_video <= 0)
+	    $prevbutton.fadeOut('slow', function() {
+		$(this).css({ 'visibility':'hidden', 'display':'inline' });
+	    });
+	else if ($prevbutton.css('visibility') == 'hidden')
+	    $prevbutton.hide().css({ 'visibility':'visible' }).fadeIn('slow');
+
+	if (cur_video >= Object.size(videos[this_chan].video)-1)
+	    $nextbutton.fadeOut('slow', function() {
+		$(this).css({ 'visibility':'hidden', 'display':'inline' });
+	    });
+	else if ($nextbutton.css('visibility') == 'hidden')
+	    $nextbutton.hide().css({ 'visibility':'visible' }).fadeIn('slow');
 
 	//set location hash
 	var hash = document.location.hash;
