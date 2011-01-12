@@ -23,16 +23,16 @@ body {
 }
 
 #video-list {
-    border: 7px solid #333333;
+    border: 2px solid #333333;
     background-color: black;
 }
 
 #video-list img {
-    border: 7px solid #333333;
+    border: 4px solid #333333;
 }
 
 #video-list .focus {
-    border: 7px solid #5f99cf;
+    border: 6px solid #5f99cf;
 }
 
 #channel-list li {
