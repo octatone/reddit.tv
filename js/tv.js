@@ -291,13 +291,16 @@ var loadVideo = function loadVideo(video) {
 	//set location hash
 	var hash = document.location.hash;
         if(!hash){
+	    var feed = channels.channels[cur_chan].feed;
+	    var parts = feed.split("/");
+	    hash = '/'+parts[1]+'/'+parts[2]+'/'+videos[cur_chan].video[cur_video].id;
         }else{
             var anchor = hash.substring(1);
             var parts = anchor.split("/"); // #/r/videos/id
             hash = '/'+parts[1]+'/'+parts[2]+'/'+videos[cur_chan].video[cur_video].id;
-	    currentAnchor = '#'+hash;
-            window.location.hash = hash;
 	}
+	currentAnchor = '#'+hash;
+        window.location.hash = hash;
 
 	$('#video-embed').empty();
 	var embed = $.unescapifyHTML(videos[cur_chan].video[cur_video].media_embed.content);
