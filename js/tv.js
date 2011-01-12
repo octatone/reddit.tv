@@ -252,7 +252,7 @@ var loadVideoList = function loadVideoList(chan) {
     $('#video-list')
 	.html(videos[this_chan].video_list)
 	.show()
-	.animate({ height: '90px', padding: '5px' }, 1000);
+	.animate({ height: '88px', padding: '5px' }, 1000);
 }
 
 var loadVideo = function loadVideo(video) {
