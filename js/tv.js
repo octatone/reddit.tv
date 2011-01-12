@@ -256,66 +256,69 @@ var loadVideoList = function loadVideoList(chan) {
 }
 
 var loadVideo = function loadVideo(video) {
+    var this_chan = cur_chan;
     var this_video = cur_video;
-    if(video == 'next' && cur_video < Object.size(videos[cur_chan].video)-1){
-	cur_video++;
-	while(over18() && cur_video < Object.size(videos[cur_chan].video)-1){
-	    cur_video++;
+    var selected_video = this_video;
+    if(video == 'next' && selected_video < Object.size(videos[this_chan].video)-1){
+	selected_video++;
+	while(over18() && selected_video < Object.size(videos[this_chan].video)-1){
+	    selected_video++;
 	}
 	if(over18()){
-	    cur_video = this_video;
+	    selected_video = this_video;
 	}
-    }else if (cur_video > 0 && video == 'prev'){
-	cur_video--;
-	while(over18() && cur_video > 0){
-	    cur_video--;
+    }else if (selected_video > 0 && video == 'prev'){
+	selected_video--;
+	while(over18() && selected_video > 0){
+	    selected_video--;
 	}
 	if(over18()){
-            cur_video = this_video;
+            selected_video = this_video;
         }
     }
     if(video == 'first'){
 	if(over18()){
-            while(over18() && cur_video < Object.size(videos[cur_chan].video)-1){
-		cur_video++;
+            while(over18() && selected_video < Object.size(videos[this_chan].video)-1){
+		selected_video++;
             }
 	}
     }
     if(typeof(video) == 'number'){ //must be a number NOT A STRING - allows direct load of video # in video array
-	cur_video = video;
+	selected_video = video;
     }
-    if(this_video != cur_video || video == 'first') {
+    if(selected_video != this_video || video == 'first') {
+	cur_video = selected_video;
 	// scroll to thumbnail in video list and highlight it
 	$('#video-list .focus').removeClass('focus');
-	$('#video-list-thumb-' + cur_video).addClass('focus');
+	$('#video-list-thumb-' + selected_video).addClass('focus');
 	$('#video-list').scrollTo('.focus', { duration:1000, offset:-280 });
 
 	//set location hash
 	var hash = document.location.hash;
         if(!hash){
-	    var feed = channels.channels[cur_chan].feed;
+	    var feed = channels.channels[this_chan].feed;
 	    var parts = feed.split("/");
-	    hash = '/'+parts[1]+'/'+parts[2]+'/'+videos[cur_chan].video[cur_video].id;
+	    hash = '/'+parts[1]+'/'+parts[2]+'/'+videos[this_chan].video[selected_video].id;
         }else{
             var anchor = hash.substring(1);
             var parts = anchor.split("/"); // #/r/videos/id
-            hash = '/'+parts[1]+'/'+parts[2]+'/'+videos[cur_chan].video[cur_video].id;
+            hash = '/'+parts[1]+'/'+parts[2]+'/'+videos[this_chan].video[selected_video].id;
 	}
 	currentAnchor = '#'+hash;
         window.location.hash = hash;
 
 	$('#video-embed').empty();
-	var embed = $.unescapifyHTML(videos[cur_chan].video[cur_video].media_embed.content);
-	if(videos[cur_chan].video[cur_video].media.type == 'youtube.com'){
+	var embed = $.unescapifyHTML(videos[this_chan].video[selected_video].media_embed.content);
+	if(videos[this_chan].video[selected_video].media.type == 'youtube.com'){
 	    embed = prepYT(embed);
 	}else{
 	    yt_player = false;
 	}
 
-	var redditlink = 'http://reddit.com'+$.unescapifyHTML(videos[cur_chan].video[cur_video].permalink);
+	var redditlink = 'http://reddit.com'+$.unescapifyHTML(videos[this_chan].video[selected_video].permalink);
 	$('#video-title').html('<a href="' + redditlink + '" target="_blank"'
-			       + ' title="' + videos[cur_chan].video[cur_video].title_quot + '">'
-			       + videos[cur_chan].video[cur_video].title_unesc + '</a>');
+			       + ' title="' + videos[this_chan].video[selected_video].title_quot + '">'
+			       + videos[this_chan].video[selected_video].title_unesc + '</a>');
 	$('#video-embed').html(embed);
 	
 	/*
@@ -331,8 +334,8 @@ var loadVideo = function loadVideo(video) {
         reddit_string += "\" height=\"22\" width=\"150\" scrolling='no' frameborder='0'></iframe>";
 	*/
 
-	var score = videos[cur_chan].video[cur_video].score;
-	var num_comments = videos[cur_chan].video[cur_video].num_comments;
+	var score = videos[this_chan].video[selected_video].score;
+	var num_comments = videos[this_chan].video[selected_video].num_comments;
 	var reddit_string = '<a href="'+redditlink+'" target="_blank">'
 	    + score + ((score == 1) ? ' vote' : ' votes')
 	    + ' &bull; '
@@ -345,8 +348,8 @@ var loadVideo = function loadVideo(video) {
 	});
 
 	var video_source_text = 'Source: '
-	    + '<a href="' + videos[cur_chan].video[cur_video].url + '" target="_blank">'
-	    + videos[cur_chan].video[cur_video].media.oembed.provider_name
+	    + '<a href="' + videos[this_chan].video[selected_video].url + '" target="_blank">'
+	    + videos[this_chan].video[selected_video].media.oembed.provider_name
 	    + '</a>';
 	var $video_source = $('#video-source');
 	$video_source.fadeOut('slow', function() {
