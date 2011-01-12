@@ -78,10 +78,10 @@ body {
 
 #video-list {
     display: none;
-    white-space:nowrap;
+    clear: both;
+    white-space: nowrap;
     overflow: auto;
     overflow-y: hidden;
-    width: 620px;
     margin: 0 15px 15px 15px;
     text-align: center;
     border-radius: 10px;

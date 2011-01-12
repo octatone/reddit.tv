@@ -505,7 +505,7 @@ function checkAnchor(){
 		}
 	    }else{
 		if(videos[new_chan_num] != undefined){
-		    loadVideoById(parts[3]);
+		    loadVideoById(new_chan_num, parts[3]);
 		}else{
 		    loadChannel(new_chan_name, parts[3]);
 		}
