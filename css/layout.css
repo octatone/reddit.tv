@@ -46,7 +46,8 @@ body {
 #video-source {
     margin-right: 15px;
     text-align: right;
-    font-size: xx-small;
+    font-size: 10px;
+    height: 15px;
 }
 
 #video-embed>embed, #video-embed>object, #video-embed>object>embed, #video-embed>div>object>embed, #video-embed>div, #video-embed>iframe {
@@ -73,7 +74,7 @@ body {
 }
 
 #video-nav {
-    padding: 10px 15px 15px 15px;
+    padding: 0 15px 15px 15px;
 }
 
 #video-list {
