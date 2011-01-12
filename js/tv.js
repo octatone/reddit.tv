@@ -291,7 +291,7 @@ var loadVideo = function loadVideo(video) {
     if(typeof(video) == 'number'){ //must be a number NOT A STRING - allows direct load of video # in video array
 	selected_video = video;
     }
-    if(selected_video != this_video || video == 'first') {
+    if(selected_video != this_video || video == 'first' || video == 0) {
 	cur_video = selected_video;
 	// scroll to thumbnail in video list and highlight it
 	$('#video-list .focus').removeClass('focus');
@@ -348,7 +348,7 @@ var loadVideo = function loadVideo(video) {
 	    + '</a>';
 
 	var $vote_button = $('#vote-button');
-	$vote_button.fadeOut('slow', function() {
+	$vote_button.stop(true).fadeOut('slow', function() {
 	    $vote_button.html(reddit_string).hide().fadeIn('slow');
 	});
 
@@ -357,7 +357,7 @@ var loadVideo = function loadVideo(video) {
 	    + videos[this_chan].video[selected_video].media.oembed.provider_name
 	    + '</a>';
 	var $video_source = $('#video-source');
-	$video_source.fadeOut('slow', function() {
+	$video_source.stop(true).fadeOut('slow', function() {
 	    $video_source.html(video_source_text).hide().fadeIn('slow');
 	});
 
@@ -367,10 +367,12 @@ var loadVideo = function loadVideo(video) {
 
 var loadVideoById = function loadVideoById(video_id) {
     var this_chan = cur_chan;
-    var video = findVideoById(this_chan, video_id);  //returns number typed                                 
-    if(video != false){
+    var video = findVideoById(this_chan, video_id);  //returns number typed
+    console.log('findVideoById = '+video);
+    if(video !== false){
+	console.log('video !== false');
 	loadVideoList(this_chan);
-        loadVideo(video);
+        loadVideo(Number(video));
     }else{
         //ajax request
 	var last_req = cur_vid_req;
