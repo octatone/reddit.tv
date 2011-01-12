@@ -166,7 +166,9 @@ var loadChannel = function loadChannel(channel, video_id) {
 
     cur_chan = getChan(channel);
 
-    $('#video-list').animate({ height:0, padding:0 }, 500);
+    $('#video-list').animate({ height:0, padding:0 }, 500, function() {
+	$(this).hide();
+    });
     $('#vote-button').empty();
     $('#video-source').empty();
 
@@ -222,7 +224,6 @@ var loadChannel = function loadChannel(channel, video_id) {
 
 
 var loadVideoList = function loadVideoList() {
-
     var $list = $('<span></span>');
     for(var i in videos[cur_chan].video) {
 	if (! videos[cur_chan].video[i].title_unesc) {
@@ -249,6 +250,7 @@ var loadVideoList = function loadVideoList() {
 
     $('#video-list')
 	.html(videos[cur_chan].video_list)
+	.show()
 	.animate({ height: '90px', padding: '5px' }, 1000);
 }
 
