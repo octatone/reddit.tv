@@ -165,7 +165,7 @@ var loadChannel = function loadChannel(channel, video_id) {
     }
 
     var this_chan = getChan(channel);
-
+    cur_chan = this_chan;
     $('#video-list').stop(true, true).animate({ height:0, padding:0 }, 500, function() {
 	$(this).empty().hide();
     });
@@ -214,14 +214,13 @@ var loadChannel = function loadChannel(channel, video_id) {
 	});
     }else{
 	if(video_id != null){
-            loadVideoById(vide_id);
+            loadVideoById(video_id);
         }else{
 	    loadVideoList(this_chan);
 	    cur_video = 0;
 	    loadVideo('first');
 	}
     }
-    cur_chan = this_chan;
 }
 
 var loadVideoList = function loadVideoList(chan) {
@@ -237,7 +236,7 @@ var loadVideoList = function loadVideoList(chan) {
 	if (! img_url) {
 	    img_url = 'img/noimage.png'; //thumbnail_missing.jpg
 	}
-	if (over18(i)){
+	if (over18(this_chan, i)){
 	    img_url = 'img/nsfw.png';
 	}
 	
@@ -266,24 +265,24 @@ var loadVideo = function loadVideo(video) {
     var selected_video = this_video;
     if(video == 'next' && selected_video < Object.size(videos[this_chan].video)-1){
 	selected_video++;
-	while(over18(selected_video) && selected_video < Object.size(videos[this_chan].video)-1){
+	while(over18(this_chan, selected_video) && selected_video < Object.size(videos[this_chan].video)-1){
 	    selected_video++;
 	}
-	if(over18(selected_video)){
+	if(over18(this_chan, selected_video)){
 	    selected_video = this_video;
 	}
     }else if (selected_video > 0 && video == 'prev'){
 	selected_video--;
-	while(over18(selected_video) && selected_video > 0){
+	while(over18(this_chan, selected_video) && selected_video > 0){
 	    selected_video--;
 	}
-	if(over18(selected_video)){
+	if(over18(this_chan, selected_video)){
             selected_video = this_video;
         }
     }
     if(video == 'first'){
-	if(over18(selected_video)){
-            while(over18(selected_video) && selected_video < Object.size(videos[this_chan].video)-1){
+	if(over18(this_chan, selected_video)){
+            while(over18(this_chan, selected_video) && selected_video < Object.size(videos[this_chan].video)-1){
 		selected_video++;
             }
 	}
@@ -429,18 +428,19 @@ var findVideoById = function findVideoById(chan, id) {
     return false; //not found
 }
 
-var over18 = function over18(video) {
-    return (sfw && videos[cur_chan].video[video].over_18);
+var over18 = function over18(chan, video) {
+    return (sfw && videos[chan].video[video].over_18);
 }
 
 var chgChan = function chgChan(up_down) {
-    var this_chan = cur_chan;
+    var old_chan = cur_chan
+    var this_chan = old_chan;
     if(up_down == 'up' && this_chan > 0){
 	this_chan--;
     }else if(up_down != 'up' && this_chan < channels.length-1){
 	this_chan++;
     }
-    if(this_chan != cur_chan){
+    if(this_chan != old_chan){
 	var parts = channels[this_chan].feed.split("/");
         window.location.hash = "/"+parts[1]+"/"+parts[2]+"/";
     }
