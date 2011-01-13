@@ -297,24 +297,24 @@ var loadVideo = function loadVideo(video) {
 	// scroll to thumbnail in video list and highlight it
 	$('#video-list .focus').removeClass('focus');
 	$('#video-list-thumb-' + selected_video).addClass('focus');
-	$('#video-list').scrollTo('.focus', { duration:1000, offset:-280 });
+	$('#video-list').stop(true,true).scrollTo('.focus', { duration:1000, offset:-280 });
 
 	// enable/disable nav-buttons at end/beginning of playlist
 	var $prevbutton = $('#prev-button');
 	var $nextbutton = $('#next-button');
-	if (cur_video <= 0)
-	    $prevbutton.fadeOut('slow', function() {
+	if (selected_video <= 0)
+	    $prevbutton.stop(true,true).fadeOut('slow', function() {
 		$(this).css({ 'visibility':'hidden', 'display':'inline' });
 	    });
 	else if ($prevbutton.css('visibility') == 'hidden')
-	    $prevbutton.hide().css({ 'visibility':'visible' }).fadeIn('slow');
+	    $prevbutton.hide().css({ 'visibility':'visible' }).stop(true,true).fadeIn('slow');
 
 	if (cur_video >= Object.size(videos[this_chan].video)-1)
-	    $nextbutton.fadeOut('slow', function() {
+	    $nextbutton.stop(true,true).fadeOut('slow', function() {
 		$(this).css({ 'visibility':'hidden', 'display':'inline' });
 	    });
 	else if ($nextbutton.css('visibility') == 'hidden')
-	    $nextbutton.hide().css({ 'visibility':'visible' }).fadeIn('slow');
+	    $nextbutton.hide().css({ 'visibility':'visible' }).stop(true,true).fadeIn('slow');
 
 	//set location hash
 	var hash = document.location.hash;
@@ -366,8 +366,8 @@ var loadVideo = function loadVideo(video) {
 	    + '</a>';
 
 	var $vote_button = $('#vote-button');
-	$vote_button.stop(true).fadeOut('slow', function() {
-	    $vote_button.html(reddit_string).hide().fadeIn('slow');
+	$vote_button.stop(true,true).fadeOut('slow', function() {
+	    $vote_button.html(reddit_string).fadeIn('slow');
 	});
 
 	var video_source_text = 'Source: '
@@ -375,8 +375,8 @@ var loadVideo = function loadVideo(video) {
 	    + videos[this_chan].video[selected_video].media.oembed.provider_name
 	    + '</a>';
 	var $video_source = $('#video-source');
-	$video_source.stop(true).fadeOut('slow', function() {
-	    $video_source.html(video_source_text).hide().fadeIn('slow');
+	$video_source.stop(true,true).fadeOut('slow', function() {
+	    $video_source.html(video_source_text).fadeIn('slow');
 	});
 
 	fillScreen();
