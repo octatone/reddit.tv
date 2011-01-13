@@ -243,18 +243,16 @@ var loadVideoList = function loadVideoList(chan) {
 	var $thumbnail = $('<img src="' + img_url + '"' +
 			   ' id="video-list-thumb-' + i + '"' + ' rel="' + i + '"' +
 			   ' title="' + videos[this_chan].video[i].title_quot + '"/>');
-	
 	$thumbnail.click(function() {
 	    loadVideo(parseInt( $(this).attr('rel') ));
 	});
 	
 	$list.append($thumbnail);
     }
-    videos[this_chan].video_list = $list;
 
     $('#video-list')
         .stop(true, true)
-	.html(videos[this_chan].video_list)
+	.html($list)
 	.show()
 	.animate({ height: '88px', padding: '5px' }, 1000);
 }
