@@ -245,7 +245,7 @@ var loadVideoList = function loadVideoList(chan) {
 			   ' title="' + videos[this_chan].video[i].title_quot + '"/>');
 	
 	$thumbnail.click(function() {
-	    loadVideo(parseInt( $(this).attr('rel') ));
+	    loadVideo(Number($(this).attr('rel')));
 	});
 	
 	$list.append($thumbnail);
@@ -470,7 +470,6 @@ var getChan = function getChan(channel) {
 }
 
 var prepYT = function prepYT(embed) {
-    var embed = embed;
     var js_str = '&enablejsapi=1';
     if(embed.indexOf('?fs=1') != -1){
 	split = embed.indexOf('?fs=1')+5;
@@ -528,7 +527,7 @@ function checkAnchor(){
 		}
 	    }else{
 		if(videos[new_chan_num] != undefined){
-		    loadVideoById(new_chan_num, parts[3]);
+		    loadVideoById(parts[3]);
 		}else{
 		    loadChannel(new_chan_name, parts[3]);
 		}
@@ -539,19 +538,19 @@ function checkAnchor(){
     }
 }
 
-function onYouTubePlayerReady(playerId) {
-    yt_player = document.getElementById("ytplayer");
-    yt_player.addEventListener("onStateChange", "ytAuto");
-}
-
 function ytAuto(state) {
     if(auto){
-	if(state == 0){
-	    loadVideo('next');
-	}else if(state == 5){
-	    ytTogglePlay();
-	}
+        if(state == 0){
+            loadVideo('next');
+        }else if(state == 5){
+            ytTogglePlay();
+        }
     }
+}
+
+function onYouTubePlayerReady(playerId) {
+    yt_player = document.getElementById("ytplayer");
+    yt_player.addEventListener("onStateChange", "ytAuto", true);
 }
 
 function ytTogglePlay() {
