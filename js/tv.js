@@ -233,11 +233,11 @@ var loadVideoList = function loadVideoList(chan) {
 	}
 	
 	var img_url = videos[this_chan].video[i].media.oembed.thumbnail_url;
-	if (! img_url) {
-	    img_url = 'img/noimage.png';
-	}
 	if (over18(this_chan, i)){
 	    img_url = 'img/nsfw.png';
+	}
+	else if (! img_url) {
+	    img_url = 'img/noimage.png';
 	}
 	
 	var $thumbnail = $('<img src="' + img_url + '"' +
