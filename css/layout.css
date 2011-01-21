@@ -60,13 +60,12 @@ body {
 }
 
 #video-title {
+    font-size: 12px;
+    line-height: 12px;
     border-radius: 15px 15px 0 0;
     -moz-border-radius: 15px 15px 0 0;
-    padding: 15px;
-    white-space:nowrap;
-    overflow: hidden;
-    -o-text-overflow: ellipsis;    /* Opera */
-    text-overflow:    ellipsis;
+    padding: 12px 15px;
+    white-space: wrap;
 }
 
 #video-title a {
