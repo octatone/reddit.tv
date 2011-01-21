@@ -239,23 +239,13 @@ var loadVideoList = function loadVideoList(chan) {
 			   ' title="' + this_video.title_quot + '"/>');
 
 	// make nsfw thumbnails easily findable
-	if (videos[this_chan].video[i].over_18) {
+	if (this_video.over_18) {
 	    $thumbnail.addClass('nsfw_thumb');
 	}
 
-	if (sfwCheck(this_chan, i)) {
-	    $thumbnail.attr('src', 'img/nsfw.png');
-	}
-	else if (this_video.media.oembed.thumbnail_url) {
-	    $thumbnail.attr('src', this_video.media.oembed.thumbnail_url);
-	}
-	else {
-	    $thumbnail.attr('src', 'img/noimage.png');
-	}
-
-	$thumbnail.click(function() {
-	    loadVideo(Number($(this).attr('rel')));
-	});
+	$thumbnail
+	    .attr('src', getThumbnailUrl(this_chan, i))
+	    .click(function() { loadVideo( Number($(this).attr('rel')) ) });
 
 	$list.append($thumbnail);
     }
@@ -441,14 +431,20 @@ var sfwCheck = function sfwCheck(chan, video) {
 }
 
 var showHideNsfwThumbs = function showHideNsfwThumbs(this_sfw, this_chan) {
-    if (this_sfw) {
-	$('.nsfw_thumb').each(function() {
-	    $(this).attr('src', 'img/nsfw.png');
-	});
-    } else {
-	$('.nsfw_thumb').each(function() {
-	    $(this).attr('src', videos[this_chan].video[ Number($(this).attr('rel')) ].media.oembed.thumbnail_url);
-	});
+    $('.nsfw_thumb').each(function() {
+	$(this).attr('src', getThumbnailUrl(this_chan, Number($(this).attr('rel'))));
+    });
+}
+
+var getThumbnailUrl = function getThumbnailUrl(chan, video_id) {
+    if (sfwCheck(chan, video_id)) {
+	return 'img/nsfw.png';
+    }
+    else if (videos[chan].video[video_id].media.oembed.thumbnail_url) {
+	return videos[chan].video[video_id].media.oembed.thumbnail_url;
+    }
+    else {
+	return 'img/noimage.png';
     }
 }
 
