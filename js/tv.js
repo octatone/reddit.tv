@@ -254,7 +254,13 @@ var loadVideoList = function loadVideoList(chan) {
         .stop(true, true)
 	.html($list)
 	.show()
-	.animate({ height: '88px', padding: '5px' }, 1000);
+	.animate({ height: '88px', padding: '5px' }, 1000, function() {
+	    $('img').lazyload({
+		placeholder : "./img/noimage.png",
+		effect : "fadeIn",
+		container: $("#video-list")
+	    });
+	});
 }
 
 var loadVideo = function loadVideo(video) {
