@@ -1,3 +1,4 @@
+/* Channels Object */
 var channels = [
     {"channel": "All", "feed": "/r/all/.json"}
     ,{"channel": "Videos", "feed": "/r/videos/.json"}
@@ -15,6 +16,7 @@ var channels = [
     ,{"channel": "TED", "feed": "/domain/ted.com/.json"}
 ];
 
+/* Video Domains */
 var domains = ['5min.com', 'abcnews.go.com', 'animoto.com', 'atom.com',
 	       'bambuser.com', 'bigthink.com', 'blip.tv', 'break.com',
 	       'cbsnews.com', 'cnbc.com', 'cnn.com', 'colbertnation.com', 'collegehumor.com',
@@ -35,6 +37,7 @@ var domains = ['5min.com', 'abcnews.go.com', 'animoto.com', 'atom.com',
 	       'wordpress.tv', 'worldstarhiphop.com', 'xtranormal.com',
 	       'youtube.com', 'zapiks.com'];
 
+/* Global Vars */
 var videos = new Array();
 var cur_video = 0;
 var cur_chan = 0;
@@ -45,15 +48,16 @@ var sfw = true;
 var theme = 'light';
 var yt_player = false;
 
+/* Document Ready */
 $().ready(function(){
     loadSettings();
     loadTheme(theme);
     displayChannels();
     loadChannel("Videos", null);
 
+    /* Bindings */
     $filloverlay = $('#fill-overlay');
     $fillnav = $('#fill-nav');
-    
     $filloverlay.mouseenter(function() {
 	$fillnav.slideDown('slow');
     });
@@ -117,9 +121,12 @@ $().ready(function(){
 		break;
 	}
     });
+
+    /* Anchor Checker */
     setInterval("checkAnchor()", 100);
 });
 
+/* Main Functions */
 var loadSettings = function loadSettings() {
     var auto_cookie = $.cookie('auto');
     var sfw_cookie = $.cookie('sfw');
@@ -491,27 +498,6 @@ var getChan = function getChan(channel) {
     }
 }
 
-var prepYT = function prepYT(embed) {
-    var js_str = '&enablejsapi=1';
-    if(embed.indexOf('?fs=1') != -1){
-	split = embed.indexOf('?fs=1')+5;
-	embed = embed.substr(0,split)+js_str+embed.substr(split);
-    }else if(embed.indexOf('&fs=1') != -1){
-	split = embed.indexOf('&fs=1')+5;
-	embed = embed.substr(0,split)+js_str+embed.substr(split);
-    }
-    if(embed.indexOf('?fs=1" type="') != -1){
-	split = embed.indexOf('?fs=1" type="')+5;
-	embed = embed.substr(0,split)+js_str+embed.substr(split);
-    }else if(embed.indexOf('&fs=1" type="') != -1){
-	split = embed.indexOf('&fs=1" type="')+5;
-        embed = embed.substr(0,split)+js_str+embed.substr(split);
-    }
-    split = embed.indexOf('embed')+5;
-    embed = embed.substr(0,split)+' id="ytplayer" wmode="transparent"'+embed.substr(split);
-    return embed;
-}
-
 var fillScreen = function fillScreen() {
     if(yt_player){
 	$object = $('#video-embed embed');
@@ -529,6 +515,7 @@ var fillScreen = function fillScreen() {
     }
 }
 
+/* Anchor Checker */
 var currentAnchor = null;
 //check fo anchor changes, if there are do stuff
 function checkAnchor(){
@@ -560,6 +547,29 @@ function checkAnchor(){
     }
 }
 
+/* Video Functions */
+/* YouTube */
+var prepYT = function prepYT(embed) {
+    var js_str = '&enablejsapi=1';
+    if(embed.indexOf('?fs=1') != -1){
+        split = embed.indexOf('?fs=1')+5;
+        embed = embed.substr(0,split)+js_str+embed.substr(split);
+    }else if(embed.indexOf('&fs=1') != -1){
+        split = embed.indexOf('&fs=1')+5;
+        embed = embed.substr(0,split)+js_str+embed.substr(split);
+    }
+    if(embed.indexOf('?fs=1" type="') != -1){
+        split = embed.indexOf('?fs=1" type="')+5;
+        embed = embed.substr(0,split)+js_str+embed.substr(split);
+    }else if(embed.indexOf('&fs=1" type="') != -1){
+        split = embed.indexOf('&fs=1" type="')+5;
+        embed = embed.substr(0,split)+js_str+embed.substr(split);
+    }
+    split = embed.indexOf('embed')+5;
+    embed = embed.substr(0,split)+' id="ytplayer" wmode="transparent"'+embed.substr(split);
+    return embed;
+}
+
 function ytAuto(state) {
     if(auto){
         if(state == 0){
@@ -586,6 +596,7 @@ function ytTogglePlay() {
     }
 }
 
+/* Utility Functions */
 var isEmpty = function isEmpty(obj) {
     for(var prop in obj) {
 	if(obj.hasOwnProperty(prop))
