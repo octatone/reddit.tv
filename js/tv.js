@@ -557,14 +557,18 @@ var prepYT = function prepYT(embed) {
     }else if(embed.indexOf('&fs=1') != -1){
         split = embed.indexOf('&fs=1')+5;
         embed = embed.substr(0,split)+js_str+embed.substr(split);
-    }
-    if(embed.indexOf('?fs=1" type="') != -1){
+    }else if(embed.indexOf('?fs=1" type="') != -1){
         split = embed.indexOf('?fs=1" type="')+5;
         embed = embed.substr(0,split)+js_str+embed.substr(split);
     }else if(embed.indexOf('&fs=1" type="') != -1){
         split = embed.indexOf('&fs=1" type="')+5;
         embed = embed.substr(0,split)+js_str+embed.substr(split);
+    }else if(embed.indexOf('" type="') != -1){
+	js_str = '?enablejsapi=1';
+	split = embed.indexOf('" type="');
+        embed = embed.substr(0,split)+js_str+embed.substr(split);
     }
+    embed = embed.replace(/\/e\//g, "/v/")
     split = embed.indexOf('embed')+5;
     embed = embed.substr(0,split)+' id="ytplayer" wmode="transparent"'+embed.substr(split);
     return embed;
