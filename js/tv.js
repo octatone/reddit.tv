@@ -89,6 +89,9 @@ $().ready(function(){
     $('#prev-button').click(function() {
 	loadVideo('prev');
     });
+    $('#video-list').bind('mousewheel', function(event,delta){
+        this.scrollLeft -= (delta * 30);
+    });
     $(document).keydown(function (e) {
 	var keyCode = e.keyCode || e.which;
 	var arrow = {left: 37, up: 38, right: 39, down: 40 };
