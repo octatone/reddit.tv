@@ -553,25 +553,22 @@ function checkAnchor(){
 /* Video Functions */
 /* YouTube */
 var prepYT = function prepYT(embed) {
-    var js_str = '&enablejsapi=1';
-    if(embed.indexOf('?fs=1') != -1){
-        split = embed.indexOf('?fs=1')+5;
-        embed = embed.substr(0,split)+js_str+embed.substr(split);
-    }else if(embed.indexOf('&fs=1') != -1){
-        split = embed.indexOf('&fs=1')+5;
-        embed = embed.substr(0,split)+js_str+embed.substr(split);
-    }else if(embed.indexOf('?fs=1" type="') != -1){
-        split = embed.indexOf('?fs=1" type="')+5;
-        embed = embed.substr(0,split)+js_str+embed.substr(split);
-    }else if(embed.indexOf('&fs=1" type="') != -1){
-        split = embed.indexOf('&fs=1" type="')+5;
-        embed = embed.substr(0,split)+js_str+embed.substr(split);
-    }else if(embed.indexOf('" type="') != -1){
-	js_str = '?enablejsapi=1';
-	split = embed.indexOf('" type="');
-        embed = embed.substr(0,split)+js_str+embed.substr(split);
+    var js_str = '?enablejsapi=1&version=3&playerapiid=ytplayer';
+    if(embed.indexOf('?version=3"') != -1){
+        split = embed.indexOf('?version=3"');
+        embed = embed.substr(0,split)+js_str+embed.substr(split+10);
+    }else if(embed.indexOf('&version=3"') != -1){
+        split = embed.indexOf('&version=3"');
+        embed = embed.substr(0,split)+js_str+embed.substr(split+10);
     }
-    embed = embed.replace(/\/e\//g, "/v/")
+    
+    if(embed.indexOf('?version=3" type="') != -1){
+        split = embed.indexOf('?version=3" type="');
+        embed = embed.substr(0,split)+js_str+embed.substr(split+10);
+    }else if(embed.indexOf('&version=3" type="') != -1){
+        split = embed.indexOf('&version=3" type="');
+        embed = embed.substr(0,split)+js_str+embed.substr(split+10);
+    }
     split = embed.indexOf('embed')+5;
     embed = embed.substr(0,split)+' id="ytplayer" wmode="transparent"'+embed.substr(split);
     return embed;
@@ -581,7 +578,7 @@ function ytAuto(state) {
     if(auto){
         if(state == 0){
             loadVideo('next');
-        }else if(state == 5){
+        }else if(state == -1){
             ytTogglePlay();
         }
     }
