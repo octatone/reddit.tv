@@ -196,9 +196,10 @@ var loadChannel = function loadChannel(channel, video_id) {
 
     if(videos[this_chan] == undefined){
 	var feed = getFeedName(channel);
-	cur_chan_req = $.jsonp({
-	    url: "http://www.reddit.com"+feed+"?limit=100&jsonp=callback",
-	    callback: "callback",
+	cur_chan_req = $.ajax({
+	    url: "http://www.reddit.com"+feed+"?limit=100",
+	    dataType: "jsonp",
+	    jsonp: "jsonp",
 	    success: function(data) {
 		videos[this_chan] = new Object;
 		videos[this_chan].video = new Array(); //clear out stored videos
@@ -219,8 +220,10 @@ var loadChannel = function loadChannel(channel, video_id) {
 		    loadVideo('first');
 		}
 	    },
-	    error: function() {
-		alert('Could not load feed. Is reddit down?');
+	    error: function(jXHR, textStatus, errorThrown) {
+		if(textStatus != "abort"){
+		    alert('Could not load feed. Is reddit down?');
+		}
 	    }
 	});
     }else{
