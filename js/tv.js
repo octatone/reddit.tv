@@ -412,9 +412,10 @@ var loadVideoById = function loadVideoById(video_id) {
             last_req.abort();
 	}
 	
-	cur_vid_req = $.jsonp({
-            url: "http://www.reddit.com/by_id/t3_"+video_id+".json?jsonp=callback",
-            callback: "callback",
+	cur_vid_req = $.ajax({
+            url: "http://www.reddit.com/by_id/t3_"+video_id+".json",
+	    dataType: "jsonp",
+	    jsonp: "jsonp",
             success: function(data) {
                 if(!isEmpty(data.data.children[0].data.media_embed)
                    && isVideo(data.data.children[0].data.media.type)
@@ -425,8 +426,10 @@ var loadVideoById = function loadVideoById(video_id) {
 		loadVideoList(this_chan);
 		loadVideo('first');
             },
-            error: function() {
-                alert('Could not load data. Is reddit down?');
+            error: function(jXHR, textStatus, errorThrown) {
+		if(textStatus != 'abort'){
+                    alert('Could not load data. Is reddit down?');
+		}
             }
         });
     }
