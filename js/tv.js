@@ -122,6 +122,9 @@ $().ready(function(){
 		    fillScreen();
 	        }
 		break;
+	    case 67:
+	        window.open($('#vote-button>a').attr('href'), '_blank');
+		break;
 	}
     });
 
