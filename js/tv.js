@@ -96,16 +96,16 @@ $().ready(function(){
 	var keyCode = e.keyCode || e.which;
 	var arrow = {left: 37, up: 38, right: 39, down: 40 };
 	switch (keyCode) {
-	    case arrow.left:
+	    case arrow.left:  case 72: // h
 	        loadVideo('prev');
 		break;
-	    case arrow.up:
+	    case arrow.up:    case 75: // k
 	        chgChan('up');
 		break;
-	    case arrow.right:
+	    case arrow.right: case 76: // l
 		loadVideo('next');
 		break;
-	    case arrow.down:
+	    case arrow.down:  case 74: // j
 	        chgChan('down');
 		break;
 	    case 32:
