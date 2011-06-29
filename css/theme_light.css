@@ -61,12 +61,12 @@ body {
     color: #5f99cf;
 }
 
-#channel-list .chan-selected {
+#channel-list .chan-selected, .chan-selected li:hover {
     color: darkblue;
     -moz-box-shadow: 5px 5px 5px gray;
     -webkit-box-shadow: 5px 5px 5px gray;
     box-shadow: 5px 5px 5px gray;
-    background-color: #cee3f8;
+    background-color: #cee3f8 !important;
 }
 
 #fill-nav {
