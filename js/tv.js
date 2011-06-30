@@ -214,13 +214,16 @@ var loadChannel = function loadChannel(channel, video_id) {
 			videos[this_chan].video.push(data.data.children[x].data);
                     }
 		}
-
-		if(video_id != null){
-		    loadVideoById(video_id);
+		if(videos[this_chan].video.length > 0){
+		    if(video_id != null){
+			loadVideoById(video_id);
+		    }else{
+			loadVideoList(this_chan);
+			cur_video = 0;
+			loadVideo('first');
+		    }
 		}else{
-		    loadVideoList(this_chan);
-		    cur_video = 0;
-		    loadVideo('first');
+		    alert('No videos found in '+channels[this_chan].feed.slice(0,-5));
 		}
 	    },
 	    error: function(jXHR, textStatus, errorThrown) {
@@ -230,12 +233,16 @@ var loadChannel = function loadChannel(channel, video_id) {
 	    }
 	});
     }else{
-	if(video_id != null){
-            loadVideoById(video_id);
-        }else{
-	    loadVideoList(this_chan);
-	    cur_video = 0;
-	    loadVideo('first');
+	if(videos[this_chan].video.length > 0){
+	    if(video_id != null){
+		loadVideoById(video_id);
+            }else{
+		loadVideoList(this_chan);
+		cur_video = 0;
+		loadVideo('first');
+	    }
+	}else{
+	    alert('No videos loaded for '+channels[this_chan].feed.slice(0,-5));
 	}
     }
 }
