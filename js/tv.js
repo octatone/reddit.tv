@@ -38,11 +38,12 @@ var domains = ['5min.com', 'abcnews.go.com', 'animoto.com', 'atom.com',
 	       'youtube.com', 'zapiks.com'];
 
 /* Global Vars */
-var videos = new Array();
+var videos = [];
 var cur_video = 0;
 var cur_chan = 0;
 var cur_chan_req = null;
 var cur_vid_req = null;
+var currentAnchor = null;
 var auto = true;
 var sfw = true;
 var theme = 'light';
@@ -56,8 +57,7 @@ $().ready(function(){
     loadChannel("Videos", null);
 
     /* Bindings */
-    $filloverlay = $('#fill-overlay');
-    $fillnav = $('#fill-nav');
+    var $filloverlay = $('#fill-overlay'), $fillnav = $('#fill-nav');
     $filloverlay.mouseenter(function() {
 	$fillnav.slideDown('slow');
     });
@@ -93,8 +93,7 @@ $().ready(function(){
         this.scrollLeft -= (delta * 30);
     });
     $(document).keydown(function (e) {
-	var keyCode = e.keyCode || e.which;
-	var arrow = {left: 37, up: 38, right: 39, down: 40 };
+	var keyCode = e.keyCode || e.which, arrow = {left: 37, up: 38, right: 39, down: 40 };
 	switch (keyCode) {
 	    case arrow.left:  case 72: // h
 	        loadVideo('prev');
@@ -129,36 +128,33 @@ $().ready(function(){
     });
 
     /* Anchor Checker */
-    setInterval("checkAnchor()", 100);
+    setInterval(checkAnchor, 100);
 });
 
 /* Main Functions */
-var loadSettings = function loadSettings() {
-    var auto_cookie = $.cookie('auto');
-    var sfw_cookie = $.cookie('sfw');
-    var theme_cookie = $.cookie('theme');
-    if(auto_cookie != null && auto_cookie != auto){
-	auto = (auto_cookie == 'true') ? true : false;
+function loadSettings() {
+    var auto_cookie = $.cookie('auto'), sfw_cookie = $.cookie('sfw'), theme_cookie = $.cookie('theme');
+    if(auto_cookie !== null && auto_cookie !== auto){
+	auto = (auto_cookie === 'true') ? true : false;
 	$('#auto').attr('checked', auto);
     }
-    if(sfw_cookie != null && sfw_cookie != sfw){
-	sfw = (sfw_cookie == 'true') ? true : false;
+    if(sfw_cookie !== null && sfw_cookie !== sfw){
+	sfw = (sfw_cookie === 'true') ? true : false;
 	$('#sfw').attr('checked', sfw);
     }
-    if(theme_cookie !== null && theme_cookie != theme){
+    if(theme_cookie !== null && theme_cookie !== theme){
         theme = theme_cookie;
     }
 }
 
-var loadTheme = function loadTheme(id) {
+function loadTheme(id) {
     $('#theme').attr('href', './css/theme_' + id + '.css');
     $.cookie('theme', id, {expires: 7});
 }
 
-var displayChannels = function displayChannels() {
-    var $channel_list = $('#channel-list');
-    var list = $('<ul></ul>');
-    $channel_list.html(list);
+function displayChannels() {
+    var $channel_list = $('#channel-list'), $list = $('<ul></ul>');
+    $channel_list.html($list);
     for(var x in channels){
 	$('#channel-list>ul').append('<li id="channel-'+x+'" title="'+channels[x].feed.slice(0,-5)+'">'+channels[x].channel+'</li>');
 	$('#channel-'+x).bind(
@@ -172,13 +168,12 @@ var displayChannels = function displayChannels() {
     }
 }
 
-var loadChannel = function loadChannel(channel, video_id) {
-    var last_req = cur_chan_req;
-    if(last_req != null){
+function loadChannel(channel, video_id) {
+    var last_req = cur_chan_req, this_chan = getChan(channel), $video_embed = $('#video-embed'), $video_title = $('#video-title');
+    if(last_req !== null){
 	last_req.abort();
     }
 
-    var this_chan = getChan(channel);
     cur_chan = this_chan;
     $('#video-list').stop(true, true).animate({ height:0, padding:0 }, 500, function() {
 	$(this).empty().hide();
@@ -187,9 +182,6 @@ var loadChannel = function loadChannel(channel, video_id) {
     $('#vote-button').empty();
     $('#video-source').empty();
 
-    var $video_embed = $('#video-embed');
-    var $video_title = $('#video-title');
-
     $video_title.html('Loading '+channels[this_chan].feed.slice(0,-5)+' ...');
     $video_embed.addClass('loading');
     $video_embed.empty();
@@ -197,15 +189,15 @@ var loadChannel = function loadChannel(channel, video_id) {
     $('#channel-list>ul>li').removeClass('chan-selected');
     $('#channel-'+this_chan).addClass('chan-selected');
 
-    if(videos[this_chan] == undefined){
+    if(videos[this_chan] === undefined){
 	var feed = getFeedName(channel);
 	cur_chan_req = $.ajax({
 	    url: "http://www.reddit.com"+feed+"?limit=100",
 	    dataType: "jsonp",
 	    jsonp: "jsonp",
 	    success: function(data) {
-		videos[this_chan] = new Object;
-		videos[this_chan].video = new Array(); //clear out stored videos
+		videos[this_chan] = {};
+		videos[this_chan].video = []; //clear out stored videos
 		for(var x in data.data.children){
                     if(!isEmpty(data.data.children[x].data.media_embed)
                        && isVideo(data.data.children[x].data.media.type)
@@ -215,7 +207,7 @@ var loadChannel = function loadChannel(channel, video_id) {
                     }
 		}
 		if(videos[this_chan].video.length > 0){
-		    if(video_id != null){
+		    if(video_id !== null){
 			loadVideoById(video_id);
 		    }else{
 			loadVideoList(this_chan);
@@ -227,14 +219,14 @@ var loadChannel = function loadChannel(channel, video_id) {
 		}
 	    },
 	    error: function(jXHR, textStatus, errorThrown) {
-		if(textStatus != "abort"){
+		if(textStatus !== 'abort'){
 		    alert('Could not load feed. Is reddit down?');
 		}
 	    }
 	});
     }else{
 	if(videos[this_chan].video.length > 0){
-	    if(video_id != null){
+	    if(video_id !== null){
 		loadVideoById(video_id);
             }else{
 		loadVideoList(this_chan);
@@ -247,9 +239,8 @@ var loadChannel = function loadChannel(channel, video_id) {
     }
 }
 
-var loadVideoList = function loadVideoList(chan) {
-    var this_chan = chan;
-    var $list = $('<span></span>');
+function loadVideoList(chan) {
+    var this_chan = chan, $list = $('<span></span>');
     for(var i in videos[this_chan].video) {
 	var this_video = videos[this_chan].video[i];
 
@@ -268,7 +259,7 @@ var loadVideoList = function loadVideoList(chan) {
 
 	$thumbnail
 	    .attr('src', getThumbnailUrl(this_chan, i))
-	    .click(function() { loadVideo( Number($(this).attr('rel')) ) });
+	    .click(function() { loadVideo( Number($(this).attr('rel')) ); });
 
 	$list.append($thumbnail);
     }
@@ -286,11 +277,9 @@ var loadVideoList = function loadVideoList(chan) {
 	});
 }
 
-var loadVideo = function loadVideo(video) {
-    var this_chan = cur_chan;
-    var this_video = cur_video;
-    var selected_video = this_video;
-    if(video == 'next' && selected_video < Object.size(videos[this_chan].video)-1){
+function loadVideo(video) {
+    var this_chan = cur_chan, this_video = cur_video, selected_video = this_video;
+    if(video === 'next' && selected_video < Object.size(videos[this_chan].video)-1){
 	selected_video++;
 	while(sfwCheck(this_chan, selected_video) && selected_video < Object.size(videos[this_chan].video)-1){
 	    selected_video++;
@@ -298,7 +287,7 @@ var loadVideo = function loadVideo(video) {
 	if(sfwCheck(this_chan, selected_video)){
 	    selected_video = this_video;
 	}
-    }else if (selected_video > 0 && video == 'prev'){
+    }else if (selected_video > 0 && video === 'prev'){
 	selected_video--;
 	while(sfwCheck(this_chan, selected_video) && selected_video > 0){
 	    selected_video--;
@@ -307,17 +296,17 @@ var loadVideo = function loadVideo(video) {
             selected_video = this_video;
         }
     }
-    if(video == 'first'){
+    if(video === 'first'){
 	if(sfwCheck(this_chan, selected_video)){
             while(sfwCheck(this_chan, selected_video) && selected_video < Object.size(videos[this_chan].video)-1){
 		selected_video++;
             }
 	}
     }
-    if(typeof(video) == 'number'){ //must be a number NOT A STRING - allows direct load of video # in video array
+    if(typeof(video) === 'number'){ //must be a number NOT A STRING - allows direct load of video # in video array
 	selected_video = video;
     }
-    if(selected_video != this_video || video == 'first' || video == 0) {
+    if(selected_video !== this_video || video === 'first' || video === 0) {
 	cur_video = selected_video;
 
 	// scroll to thumbnail in video list and highlight it
@@ -326,21 +315,22 @@ var loadVideo = function loadVideo(video) {
 	$('#video-list').stop(true,true).scrollTo('.focus', { duration:1000, offset:-280 });
 
 	// enable/disable nav-buttons at end/beginning of playlist
-	var $prevbutton = $('#prev-button');
-	var $nextbutton = $('#next-button');
-	if (selected_video <= 0)
+	var $prevbutton = $('#prev-button'), $nextbutton = $('#next-button');
+	if(selected_video <= 0){
 	    $prevbutton.stop(true,true).fadeOut('slow', function() {
 		$(this).css({ 'visibility':'hidden', 'display':'inline' });
 	    });
-	else if ($prevbutton.css('visibility') == 'hidden')
+	}else if($prevbutton.css('visibility') === 'hidden'){
 	    $prevbutton.hide().css({ 'visibility':'visible' }).stop(true,true).fadeIn('slow');
+	}
 
-	if (cur_video >= Object.size(videos[this_chan].video)-1)
+	if(cur_video >= Object.size(videos[this_chan].video)-1){
 	    $nextbutton.stop(true,true).fadeOut('slow', function() {
 		$(this).css({ 'visibility':'hidden', 'display':'inline' });
 	    });
-	else if ($nextbutton.css('visibility') == 'hidden')
+	}else if($nextbutton.css('visibility') === 'hidden'){
 	    $nextbutton.hide().css({ 'visibility':'visible' }).stop(true,true).fadeIn('slow');
+	}
 
 	//set location hash
 	var hash = document.location.hash;
@@ -358,7 +348,7 @@ var loadVideo = function loadVideo(video) {
 
 	$('#video-embed').empty();
 	var embed = $.unescapifyHTML(videos[this_chan].video[selected_video].media_embed.content);
-	if(videos[this_chan].video[selected_video].media.type == 'youtube.com'){
+	if(videos[this_chan].video[selected_video].media.type === 'youtube.com'){
 	    embed = prepYT(embed);
 	}else{
 	    yt_player = false;
@@ -386,9 +376,9 @@ var loadVideo = function loadVideo(video) {
 	var score = videos[this_chan].video[selected_video].score;
 	var num_comments = videos[this_chan].video[selected_video].num_comments;
 	var reddit_string = '<a href="'+redditlink+'" target="_blank">'
-	    + score + ((score == 1) ? ' vote' : ' votes')
+	    + score + ((score === 1) ? ' vote' : ' votes')
 	    + ' &bull; '
-	    + num_comments + ((num_comments == 1) ? ' comment' : ' comments')
+	    + num_comments + ((num_comments === 1) ? ' comment' : ' comments')
 	    + '</a>';
 
 	var $vote_button = $('#vote-button');
@@ -409,16 +399,15 @@ var loadVideo = function loadVideo(video) {
     }
 }
 
-var loadVideoById = function loadVideoById(video_id) {
-    var this_chan = cur_chan;
-    var video = findVideoById(this_chan, video_id);  //returns number typed
+function loadVideoById(video_id) {
+    var this_chan = cur_chan, video = findVideoById(this_chan, video_id);  //returns number typed
     if(video !== false){
 	loadVideoList(this_chan);
         loadVideo(Number(video));
     }else{
         //ajax request
 	var last_req = cur_vid_req;
-	if(last_req != null){
+	if(last_req !== null){
             last_req.abort();
 	}
 	
@@ -437,7 +426,7 @@ var loadVideoById = function loadVideoById(video_id) {
 		loadVideo('first');
             },
             error: function(jXHR, textStatus, errorThrown) {
-		if(textStatus != 'abort'){
+		if(textStatus !== 'abort'){
                     alert('Could not load data. Is reddit down?');
 		}
             }
@@ -445,30 +434,30 @@ var loadVideoById = function loadVideoById(video_id) {
     }
 }
 
-var isVideo = function isVideo(video_domain) {
-    return (domains.indexOf(video_domain) != -1);
+function isVideo(video_domain) {
+    return (domains.indexOf(video_domain) !== -1);
 }
 
-var findVideoById = function findVideoById(chan, id) {
+function findVideoById(chan, id) {
     for(var x in videos[chan].video){
-	if(videos[chan].video[x].id == id){
+	if(videos[chan].video[x].id === id){
 	    return Number(x); //if found return array pos
 	}
     }
     return false; //not found
 }
 
-var sfwCheck = function sfwCheck(chan, video) {
+function sfwCheck(chan, video) {
     return (sfw && videos[chan].video[video].over_18);
 }
 
-var showHideNsfwThumbs = function showHideNsfwThumbs(this_sfw, this_chan) {
+function showHideNsfwThumbs(this_sfw, this_chan) {
     $('.nsfw_thumb').each(function() {
 	$(this).attr('src', getThumbnailUrl(this_chan, Number($(this).attr('rel'))));
     });
 }
 
-var getThumbnailUrl = function getThumbnailUrl(chan, video_id) {
+function getThumbnailUrl(chan, video_id) {
     if (sfwCheck(chan, video_id)) {
 	return 'img/nsfw.png';
     }
@@ -480,44 +469,44 @@ var getThumbnailUrl = function getThumbnailUrl(chan, video_id) {
     }
 }
 
-var chgChan = function chgChan(up_down) {
-    var old_chan = cur_chan
-    var this_chan = old_chan;
-    if(up_down == 'up' && this_chan > 0){
+function chgChan(up_down) {
+    var old_chan = cur_chan, this_chan = old_chan;
+    if(up_down === 'up' && this_chan > 0){
 	this_chan--;
-    }else if(up_down != 'up' && this_chan < channels.length-1){
+    }else if(up_down !== 'up' && this_chan < channels.length-1){
 	this_chan++;
     }
-    if(this_chan != old_chan){
+    if(this_chan !== old_chan){
 	var parts = channels[this_chan].feed.split("/");
         window.location.hash = "/"+parts[1]+"/"+parts[2]+"/";
     }
 }
 
-var getFeedName = function getFeedName(channel) {
+function getFeedName(channel) {
     for(var x in channels){
-	if(channels[x].channel == channel){
+	if(channels[x].channel === channel){
 	    return channels[x].feed;
 	}
     }
 }
 
-var getChanName = function getChanName(feed) {
+function getChanName(feed) {
     for(var x in channels){
-        if(channels[x].feed == feed){
+        if(channels[x].feed === feed){
             return channels[x].channel;
         }
     }
 }
-var getChan = function getChan(channel) {
+
+function getChan(channel) {
     for(var x in channels){
-        if(channels[x].channel == channel || channels[x].feed == channel){
+        if(channels[x].channel === channel || channels[x].feed === channel){
             return x;
         }
     }
 }
 
-var fillScreen = function fillScreen() {
+function fillScreen() {
     if(yt_player){
 	$object = $('#video-embed embed');
 	$fill = $('#fill');
@@ -535,10 +524,9 @@ var fillScreen = function fillScreen() {
 }
 
 /* Anchor Checker */
-var currentAnchor = null;
 //check fo anchor changes, if there are do stuff
 function checkAnchor(){
-    if(currentAnchor != document.location.hash){
+    if(currentAnchor !== document.location.hash){
         currentAnchor = document.location.hash;
         if(!currentAnchor){
         }else{
@@ -547,14 +535,14 @@ function checkAnchor(){
 	    var feed = "/"+parts[1]+"/"+parts[2]+"/.json";
 	    var new_chan_name = getChanName(feed);
 	    var new_chan_num = getChan(new_chan_name);
-	    if(new_chan_name != undefined && new_chan_num != cur_chan){
-		if(parts[3] == undefined || parts[3] == null || parts[3] == ''){
+	    if(new_chan_name !== undefined && new_chan_num !== cur_chan){
+		if(parts[3] === undefined || parts[3] === null || parts[3] === ''){
                     loadChannel(new_chan_name, null);
 		}else{
 		    loadChannel(new_chan_name, parts[3]);
 		}
 	    }else{
-		if(videos[new_chan_num] != undefined){
+		if(videos[new_chan_num] !== undefined){
 		    loadVideoById(parts[3]);
 		}else{
 		    loadChannel(new_chan_name, parts[3]);
@@ -568,20 +556,20 @@ function checkAnchor(){
 
 /* Video Functions */
 /* YouTube */
-var prepYT = function prepYT(embed) {
+function prepYT(embed) {
     var js_str = '?enablejsapi=1&version=3&playerapiid=ytplayer';
-    if(embed.indexOf('?version=3"') != -1){
+    if(embed.indexOf('?version=3"') !== -1){
         split = embed.indexOf('?version=3"');
         embed = embed.substr(0,split)+js_str+embed.substr(split+10);
-    }else if(embed.indexOf('&version=3"') != -1){
+    }else if(embed.indexOf('&version=3"') !== -1){
         split = embed.indexOf('&version=3"');
         embed = embed.substr(0,split)+js_str+embed.substr(split+10);
     }
     
-    if(embed.indexOf('?version=3" type="') != -1){
+    if(embed.indexOf('?version=3" type="') !== -1){
         split = embed.indexOf('?version=3" type="');
         embed = embed.substr(0,split)+js_str+embed.substr(split+10);
-    }else if(embed.indexOf('&version=3" type="') != -1){
+    }else if(embed.indexOf('&version=3" type="') !== -1){
         split = embed.indexOf('&version=3" type="');
         embed = embed.substr(0,split)+js_str+embed.substr(split+10);
     }
@@ -592,9 +580,9 @@ var prepYT = function prepYT(embed) {
 
 function ytAuto(state) {
     if(auto){
-        if(state == 0){
+        if(state === 0){
             loadVideo('next');
-        }else if(state == -1){
+        }else if(state === -1){
             ytTogglePlay();
         }
     }
@@ -608,7 +596,7 @@ function onYouTubePlayerReady(playerId) {
 function ytTogglePlay() {
     if (yt_player) {
 	//unstarted (-1), ended (0), playing (1), paused (2), buffering (3), video cued (5)
-	if(yt_player.getPlayerState() != 1){
+	if(yt_player.getPlayerState() !== 1){
 	    yt_player.playVideo();
 	}else{
 	    yt_player.pauseVideo();
@@ -617,17 +605,18 @@ function ytTogglePlay() {
 }
 
 /* Utility Functions */
-var isEmpty = function isEmpty(obj) {
+function isEmpty(obj) {
     for(var prop in obj) {
-	if(obj.hasOwnProperty(prop))
+	if(obj.hasOwnProperty(prop)){
             return false;
+	}
     }
     return true;
 }
 
 Object.size = function(obj) {
     var size = 0, key;
-    for (key in obj) {
+    for(key in obj) {
 	if (obj.hasOwnProperty(key)) size++;
     }
     return size;
