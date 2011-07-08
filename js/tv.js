@@ -3,17 +3,24 @@ var channels = [
     {"channel": "All", "feed": "/r/all/.json"}
     ,{"channel": "Videos", "feed": "/r/videos/.json"}
     ,{"channel": "YouTube", "feed": "/domain/youtube.com/.json"}
-    ,{"channel": "Funny", "feed": "/r/funny/.json"}
-    ,{"channel": "Politics", "feed": "/r/politics/.json"}
     ,{"channel": "WTF", "feed": "/r/wtf/.json"}
+    //,{"channel": "Funny", "feed": "/r/funny/.json"}
+
+    ,{"channel": "Docs", "feed": "/r/documentaries/.json"}
+    ,{"channel": "Politics", "feed": "/r/politics/.json"}
+
     ,{"channel": "Gaming", "feed": "/r/gaming/.json"}
-    ,{"channel": "Science", "feed": "/r/science/.json"}
+    //,{"channel": "Science", "feed": "/r/science/.json"}
     ,{"channel": "Geek", "feed": "/r/geek/.json"}
     ,{"channel": "AWW", "feed": "/r/aww/.json"}
+
     ,{"channel": "Music", "feed": "/r/music/.json"}
     ,{"channel": "Listen", "feed": "/r/listentothis/.json"}
-    ,{"channel": "Sports", "feed": "/r/sports/.json"}
+
+    ,{"channel": "Lectures", "feed": "/r/lectures/.json"}
     ,{"channel": "TED", "feed": "/domain/ted.com/.json"}
+
+    ,{"channel": "Sports", "feed": "/r/sports/.json"}
 ];
 
 /* Video Domains */
