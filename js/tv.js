@@ -155,7 +155,7 @@ function loadSettings() {
 }
 
 function loadTheme(id) {
-    $('#theme').attr('href', './css/theme_' + id + '.css');
+    $('#theme').attr('href', 'css/theme_' + id + '.css');
     $.cookie('theme', id, {expires: 7});
 }
 
@@ -277,7 +277,7 @@ function loadVideoList(chan) {
 	.show()
 	.animate({ height: '88px', padding: '5px' }, 1000, function() {
 	    $('img').lazyload({
-		placeholder : "./img/noimage.png",
+		placeholder : "img/noimage.png",
 		effect : "fadeIn",
 		container: $("#video-list")
 	    });
