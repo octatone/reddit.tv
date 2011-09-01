@@ -7,7 +7,7 @@ var channels = [
     //,{"channel": "Funny", "feed": "/r/funny/.json"}
 
     ,{"channel": "Docs", "feed": "/r/documentaries/.json"}
-    ,{"channel": "Politics", "feed": "/r/politics/.json"}
+    ,{"channel": "Politics", "feed": "/r/politics/search/.json?q=reddit%3Apolitics+site%3Ayoutube.com&sort=relevance"}
 
     ,{"channel": "Gaming", "feed": "/r/gaming/.json"}
     //,{"channel": "Science", "feed": "/r/science/.json"}
