@@ -85,7 +85,7 @@ $().ready(function(){
     });
     $('#auto').click(function() {
         globals.auto = ($('#auto').is(':checked')) ? true : false;
-        $.cookie('auto', auto, {expires: 7});
+        $.cookie('auto', globals.auto, {expires: 7});
     });
     $('#sfw').click(function() {
         globals.sfw = ($('#sfw').is(':checked')) ? true : false;

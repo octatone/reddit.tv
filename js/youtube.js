@@ -15,7 +15,7 @@ youtube.togglePlay = function(){
 }
 
 youtube.stateListener = function(state){
-    if(auto){ //global scope
+    if(globals.auto){ //global scope
         if(state === 0){
             loadVideo('next');  //tv.js
         }else if(state === -1){
