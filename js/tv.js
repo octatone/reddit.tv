@@ -234,7 +234,9 @@ function loadChannel(channel, video_id) {
                         globals.cur_video = 0;
                         loadVideo('first');
                     }
+                    $video_embed.removeClass('loading');
                 }else{
+                    $video_embed.removeClass('loading');
                     alert('No videos found in '+globals.channels[this_chan].feed.slice(0,-5));
                 }
             },
@@ -370,7 +372,10 @@ function loadVideo(video) {
         globals.current_anchor = '#'+hash;
         window.location.hash = hash;
 
-        $('#video-embed').empty();
+        var $video_embed = $('#video-embed');
+
+        $video_embed.empty();
+        $video_embed.addClass('loading');
         var embed = $.unescapifyHTML(globals.videos[this_chan].video[selected_video].media_embed.content);
         embed = prepEmbed(embed, globals.videos[this_chan].video[selected_video].media.type);
 
@@ -378,7 +383,8 @@ function loadVideo(video) {
         $('#video-title').html('<a href="' + redditlink + '" target="_blank"'
                                + ' title="' + globals.videos[this_chan].video[selected_video].title_quot + '">'
                                + globals.videos[this_chan].video[selected_video].title_unesc + '</a>');
-        $('#video-embed').html(embed);
+        $video_embed.html(embed);
+        $video_embed.removeClass('loading');
 
         var score = globals.videos[this_chan].video[selected_video].score;
         var num_comments = globals.videos[this_chan].video[selected_video].num_comments;
