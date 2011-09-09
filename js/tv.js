@@ -116,7 +116,7 @@ $().ready(function(){
 	        chgChan('down');
 		break;
 	    case 32:
-                ytTogglePlay();
+                youtube.togglePlay();
 	        break;
 	    case 70:
 	        if(yt_player){
@@ -367,7 +367,7 @@ function loadVideo(video) {
 	$('#video-embed').empty();
 	var embed = $.unescapifyHTML(videos[this_chan].video[selected_video].media_embed.content);
 	if(videos[this_chan].video[selected_video].media.type === 'youtube.com'){
-	    embed = prepYT(embed);
+	    embed = youtube.prepYT(embed);
 	}else{
 	    yt_player = false;
 	}
@@ -620,57 +620,6 @@ function redditButton(permalink, title){
     reddit_string += "\" height=\"22\" width=\"150\" scrolling='no' frameborder='0'></iframe>";
     
     return reddit_string;
-}
-
-
-/* Video Functions */
-/* YouTube */
-function prepYT(embed) {
-    var js_str = '?enablejsapi=1&version=3&playerapiid=ytplayer';
-    if(embed.indexOf('?version=3"') !== -1){
-        split = embed.indexOf('?version=3"');
-        embed = embed.substr(0,split)+js_str+embed.substr(split+10);
-    }else if(embed.indexOf('&version=3"') !== -1){
-        split = embed.indexOf('&version=3"');
-        embed = embed.substr(0,split)+js_str+embed.substr(split+10);
-    }
-    
-    if(embed.indexOf('?version=3" type="') !== -1){
-        split = embed.indexOf('?version=3" type="');
-        embed = embed.substr(0,split)+js_str+embed.substr(split+10);
-    }else if(embed.indexOf('&version=3" type="') !== -1){
-        split = embed.indexOf('&version=3" type="');
-        embed = embed.substr(0,split)+js_str+embed.substr(split+10);
-    }
-    split = embed.indexOf('embed')+5;
-    embed = embed.substr(0,split)+' id="ytplayer" wmode="transparent"'+embed.substr(split);
-    return embed;
-}
-
-function ytAuto(state) {
-    if(auto){
-        if(state === 0){
-            loadVideo('next');
-        }else if(state === -1){
-            ytTogglePlay();
-        }
-    }
-}
-
-function onYouTubePlayerReady(playerId) {
-    yt_player = document.getElementById("ytplayer");
-    yt_player.addEventListener("onStateChange", "ytAuto", true);
-}
-
-function ytTogglePlay() {
-    if (yt_player) {
-	//unstarted (-1), ended (0), playing (1), paused (2), buffering (3), video cued (5)
-	if(yt_player.getPlayerState() !== 1){
-	    yt_player.playVideo();
-	}else{
-	    yt_player.pauseVideo();
-	}
-    }
 }
 
 /* Utility Functions */
