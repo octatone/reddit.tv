@@ -1,9 +1,3 @@
-/* youtube listener - called by youtube flash/html5 when present */
-function onYouTubePlayerReady(playerId) {
-    youtube.obj = document.getElementById("ytplayer");
-    youtube.obj.addEventListener("onStateChange", youtube.stateListener, true);
-}
-
 /* youtube module */
 var youtube = (funtion(){
 
@@ -35,3 +29,9 @@ var youtube = (funtion(){
     };
 
 }());
+
+/* youtube listener - called by youtube flash/html5 when present */
+function onYouTubePlayerReady(playerId) {
+    youtube.obj = document.getElementById("ytplayer");
+    youtube.obj.addEventListener("onStateChange", youtube.stateListener, true);
+}
