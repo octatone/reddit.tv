@@ -9,25 +9,27 @@ var youtube = (funtion(){
 
     var obj; //will hold listeners, etc.
 
-    function stateListener(state){
-	if(state === 0){
-	    loadVideo('next');
-        }else if(state === -1){
-	    ytTogglePlay();
+    function togglePlay(){
+	//unstarted (-1), ended (0), playing (1), paused (2), buffering (3), video cued (5)
+        if(obj.getPlayerState() !== 1){
+            obj.playVideo();
+        }else{
+            obj.pauseVideo();
         }
     }
 
-    function togglePlay(){
-	//unstarted (-1), ended (0), playing (1), paused (2), buffering (3), video cued (5)
-        if(yt_player.getPlayerState() !== 1){
-            yt_player.playVideo();
-        }else{
-            yt_player.pauseVideo();
+    function stateListener(state){
+        if(auto){ //global scope
+            if(state === 0){
+                loadVideo('next');
+            }else if(state === -1){
+                togglePlay();
+            }
         }
     }
 
     return {
-        stateListener: setPerson,
+        stateListener: stateListener,
         togglePlay: togglePlay,
 	obj: obj
     };
