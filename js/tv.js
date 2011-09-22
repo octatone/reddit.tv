@@ -608,6 +608,9 @@ function togglePlay(){
     case 'youtube.com':
         youtube.togglePlay();
         break;
+    case 'vimeo.com':
+        vimeo.togglePlay();
+        break;
     }
 }
 
