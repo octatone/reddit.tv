@@ -26,21 +26,10 @@ var youtube = {
 
     // prepares embed code for js api access
     ,prepEmbed: function(embed) {
-        var js_str = '&enablejsapi=1&playerapiid=ytplayer';
-        
-        if(embed.indexOf('version=3') !== -1){
-            split = embed.indexOf('version=3');
-            embed = embed.substr(0,split+9)+js_str+embed.substr(split+9);
-        }
+        var js_str = 'version=3&enablejsapi=1&playerapiid=ytplayer';
 
-
-        if(embed.indexOf('version=3&feature=oembed') !== -1){
-            split = embed.indexOf('version=3&feature=oembed');
-            embed = embed.substr(0,split+24)+js_str+embed.substr(split+24);
-        }
-
-        split = embed.indexOf('<embed')+6;
-        embed = embed.substr(0,split)+' id="ytplayer" '+embed.substr(split);
+        embed = embed.replace(/version\=3/gi, js_str);        
+        embed = embed.replace(/<embed/i,'<embed id="ytplayer"');
     
         return embed;
     }
