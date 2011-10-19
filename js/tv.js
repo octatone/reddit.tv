@@ -7,13 +7,11 @@ var globals = {
         ,{"channel": "Videos", "feed": "/r/videos/.json"}
         ,{"channel": "YouTube", "feed": "/domain/youtube.com/.json"}
         ,{"channel": "WTF", "feed": "/r/wtf/.json"}
-        //,{"channel": "Funny", "feed": "/r/funny/.json"}
         
         ,{"channel": "Docs", "feed": "/r/documentaries/.json"}
         ,{"channel": "Politics", "feed": "/r/politics/search/.json?q=reddit%3Apolitics+site%3Ayoutube.com&sort=relevance"}
         
         ,{"channel": "Gaming", "feed": "/r/gaming/.json"}
-        //,{"channel": "Science", "feed": "/r/science/.json"}
         ,{"channel": "Geek", "feed": "/r/geek/.json"}
         ,{"channel": "AWW", "feed": "/r/aww/.json"}
         

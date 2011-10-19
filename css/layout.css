@@ -19,7 +19,7 @@ body {
 }
 
 #channel-list {
-    padding-top: 55px;
+    padding-top: 50px;
 }
 
 #about {
@@ -33,6 +33,7 @@ body {
     border-radius: 15px;
     -moz-border-radius: 15px;
     width: 670px;
+    min-height: 590px;
     float: left;
 }
 
