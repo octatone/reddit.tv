@@ -102,6 +102,10 @@ body {
     cursor: pointer;
 }
 
+#channel-list {
+    font-size: small;
+}
+
 #channel-list ul { /* remove bullets and list indents */
     list-style: none;
     margin: 0;
@@ -115,6 +119,10 @@ body {
     cursor: pointer;
     border-radius: 10px 0 0 10px;
     -moz-border-radius: 10px 0 0 10px;
+}
+
+#add-channel {
+    margin-top: 15px;
 }
 
 #header {
