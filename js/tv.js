@@ -105,8 +105,10 @@ $().ready(function(){
         this.scrollLeft -= (delta * 30);
     });
     $(document).keydown(function (e) {
-        var keyCode = e.keyCode || e.which, arrow = {left: 37, up: 38, right: 39, down: 40 };
-        switch (keyCode) {
+        consoleLog(e.target);
+        if(!$(e.target).is('form>*')) {            
+            var keyCode = e.keyCode || e.which, arrow = {left: 37, up: 38, right: 39, down: 40 };
+            switch (keyCode) {
             case arrow.left:  case 72: // h
                 loadVideo('prev');
                 break;
@@ -134,6 +136,7 @@ $().ready(function(){
             case 67:
                 window.open($('#vote-button>a').attr('href'), '_blank');
                 break;
+            }
         }
     });
 
@@ -620,22 +623,23 @@ function addChannel(subreddit){
     if(!subreddit){
         subreddit = encodeURIComponent($('#channel-name').val());
     }
-    var feed = "/r/"+subreddit+"/.json";
-    globals.channels.push({"channel": subreddit, "feed": feed});
-    //to do append to list display
-    var x = globals.channels.length - 1;
-    var title = globals.channels[x].feed.split("/");
-    title = "/"+title[1]+"/"+title[2];
-    $('#channel-list>ul').append('<li id="channel-'+x+'" title="'+title+'">'+globals.channels[x].channel.substr(0,8)+'</li>');
-    $('#channel-'+x).bind(
-        'click'
-        ,{channel: globals.channels[x].channel, feed: globals.channels[x].feed}
-        ,function(event) {
-            var parts = event.data.feed.split("/");
-            window.location.hash = "/"+parts[1]+"/"+parts[2]+"/";
-        }
-    );
-    //select and load
+    if(!getChan(subreddit)){
+        var feed = "/r/"+subreddit+"/.json";
+        globals.channels.push({"channel": subreddit, "feed": feed});
+        var x = globals.channels.length - 1;
+        var title = globals.channels[x].feed.split("/");
+        title = "/"+title[1]+"/"+title[2];
+        $('#channel-list>ul').append('<li id="channel-'+x+'" title="'+title+'">'+globals.channels[x].channel.substr(0,8)+'</li>');
+        $('#channel-'+x).bind(
+            'click'
+            ,{channel: globals.channels[x].channel, feed: globals.channels[x].feed}
+            ,function(event) {
+                var parts = event.data.feed.split("/");
+                window.location.hash = "/"+parts[1]+"/"+parts[2]+"/";
+            }
+        );
+    }
+
     return false;
 }
 
