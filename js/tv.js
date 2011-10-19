@@ -557,6 +557,7 @@ function getChanName(feed) {
             return globals.channels[x].channel;
         }
     }
+    return false;
 }
 
 function getChan(channel) {
@@ -565,6 +566,7 @@ function getChan(channel) {
             return x;
         }
     }
+    return false;
 }
 
 function prepEmbed(embed, type){
@@ -614,6 +616,29 @@ function togglePlay(){
     }
 }
 
+function addChannel(subreddit){
+    if(!subreddit){
+        subreddit = encodeURIComponent($('#channel-name').val());
+    }
+    var feed = "/r/"+subreddit+"/.json";
+    globals.channels.push({"channel": subreddit, "feed": feed});
+    //to do append to list display
+    var x = globals.channels.length - 1;
+    var title = globals.channels[x].feed.split("/");
+    title = "/"+title[1]+"/"+title[2];
+    $('#channel-list>ul').append('<li id="channel-'+x+'" title="'+title+'">'+globals.channels[x].channel.substr(0,8)+'</li>');
+    $('#channel-'+x).bind(
+        'click'
+        ,{channel: globals.channels[x].channel, feed: globals.channels[x].feed}
+        ,function(event) {
+            var parts = event.data.feed.split("/");
+            window.location.hash = "/"+parts[1]+"/"+parts[2]+"/";
+        }
+    );
+    //select and load
+    return false;
+}
+
 /* Anchor Checker */
 //check fo anchor changes, if there are do stuff
 function checkAnchor(){
@@ -625,6 +650,10 @@ function checkAnchor(){
             var parts = anchor.split("/"); // #/r/videos/id
             var feed = "/"+parts[1]+"/"+parts[2]+"/";
             var new_chan_name = getChanName(feed);
+            if(!new_chan_name){
+                addChannel(parts[2]);
+                new_chan_name = getChanName(feed);
+            }
             var new_chan_num = getChan(new_chan_name);
             if(new_chan_name !== undefined && new_chan_num !== globals.cur_chan){
                 if(parts[3] === undefined || parts[3] === null || parts[3] === ''){
