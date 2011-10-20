@@ -633,8 +633,8 @@ function addChannel(subreddit){
         var x = globals.channels.length - 1;
         var title = globals.channels[x].feed.split("/");
         title = "/"+title[1]+"/"+title[2];
-        var display_title = globals.channels[x].channel.length > 8 ? 
-            globals.channels[x].channel.replace(/[aeiou]/gi,'').substr(0,7) :
+        var display_title = globals.channels[x].channel.length > 9 ? 
+            globals.channels[x].channel.replace(/[aeiou]/gi,'').substr(0,8) :
             globals.channels[x].channel;
         $('#channel-list>ul').append('<li id="channel-'+x+'" title="'+title+'">'+display_title+'</li>');
         $('#channel-'+x).bind(
