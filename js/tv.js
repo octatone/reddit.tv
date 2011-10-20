@@ -103,7 +103,6 @@ $().ready(function(){
         this.scrollLeft -= (delta * 30);
     });
     $(document).keydown(function (e) {
-        consoleLog(e.target);
         if(!$(e.target).is('form>*')) {            
             var keyCode = e.keyCode || e.which, arrow = {left: 37, up: 38, right: 39, down: 40 };
             switch (keyCode) {
@@ -223,6 +222,7 @@ function loadChannel(channel, video_id) {
                 for(var x in data.data.children){
                     if(!isEmpty(data.data.children[x].data.media_embed)
                        && isVideo(data.data.children[x].data.media.type)
+                       && (data.data.children[x].data.score > 1)
                       )
                     {
                         globals.videos[this_chan].video.push(data.data.children[x].data);
@@ -625,6 +625,7 @@ function togglePlay(){
 function addChannel(subreddit){
     if(!subreddit){
         subreddit = encodeURIComponent($('#channel-name').val());
+        var click = true;
     }
     if(!getChan(subreddit)){
         var feed = "/r/"+subreddit+"/.json";
@@ -641,7 +642,9 @@ function addChannel(subreddit){
                 window.location.hash = "/"+parts[1]+"/"+parts[2]+"/";
             }
         );
-        $('#channel-'+x).click();
+        if(click){
+            $('#channel-'+x).click();
+        }
     }
 
     return false;

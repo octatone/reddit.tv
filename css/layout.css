@@ -126,6 +126,12 @@ body {
     margin-top: 15px;
 }
 
+#channel-name {
+    width: 85%;
+    border-radius: 7px;
+    padding: 3px;
+}
+
 #header {
     position: relative;
     margin-left: 100px;
