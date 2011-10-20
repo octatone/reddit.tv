@@ -138,6 +138,11 @@ $().ready(function(){
         }
     });
 
+    /* clear add sr on click */
+    $('#channel-name').click(function(){
+        $(this).val('');
+    });
+
     /* Anchor Checker */
     setInterval(checkAnchor, 100);
 });
