@@ -641,6 +641,7 @@ function addChannel(subreddit){
                 window.location.hash = "/"+parts[1]+"/"+parts[2]+"/";
             }
         );
+        $('#channel-'+x).click();
     }
 
     return false;
