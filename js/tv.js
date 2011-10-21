@@ -16,7 +16,7 @@ var globals = {
         
         ,{"channel": "Music", "feed": "/r/music/.json"}
         ,{"channel": "Listen", "feed": "/r/listentothis/.json"}
-        ,{"channel": "Radio", "feed": "/r/radioreddit/search/.json?q=site%3A{youtube.com}+reddit%3A{radioreddit}&sort=relevance"}
+        //,{"channel": "Radio", "feed": "/r/radioreddit/"+search_str}
 
         ,{"channel": "TIL", "feed": "/r/todayilearned/"+search_str}
         ,{"channel": "PBS", "feed": "/domain/video.pbs.org/.json"}
