@@ -52,6 +52,7 @@ var globals = {
     ]
 
     ,videos: []
+    ,user_channels: []
     ,cur_video: 0
     ,cur_chan: 0
     ,cur_chan_req: null
@@ -151,7 +152,8 @@ $().ready(function(){
 
 /* Main Functions */
 function loadSettings() {
-    var auto_cookie = $.cookie('auto'), sfw_cookie = $.cookie('sfw'), theme_cookie = $.cookie('theme');
+    var channels_cookie = $.parseJSON($.cookie('user_channels')), auto_cookie = $.cookie('auto'), sfw_cookie = $.cookie('sfw'), theme_cookie = $.cookie('theme');
+
     if(auto_cookie !== null && auto_cookie !== globals.auto){
         globals.auto = (auto_cookie === 'true') ? true : false;
         $('#auto').attr('checked', globals.auto);
@@ -163,6 +165,13 @@ function loadSettings() {
     if(theme_cookie !== null && theme_cookie !== globals.theme){
         globals.theme = theme_cookie;
     }
+    if(channels_cookie !== null && channels_cookie !== globals.user_channels){
+        globals.user_channels = channels_cookie;
+        consoleLog('Loaded channels: '+globals.user_channels);
+        for(var x in globals.user_channels){
+            globals.channels.push(globals.user_channels[x]);
+        }
+    }
 }
 
 function loadTheme(id) {
@@ -171,12 +180,17 @@ function loadTheme(id) {
 }
 
 function displayChannels() {
-    var $channel_list = $('#channel-list'), $list = $('<ul></ul>'), title;
+    var $channel_list = $('#channel-list'), $list = $('<ul></ul>'), title, display_title;
     $channel_list.html($list);
     for(var x in globals.channels){
         title = globals.channels[x].feed.split("/");
         title = "/"+title[1]+"/"+title[2];
-        $('#channel-list>ul').append('<li id="channel-'+x+'" title="'+title+'">'+globals.channels[x].channel+'</li>');
+        
+        display_title = globals.channels[x].channel.length > 9 ?
+            globals.channels[x].channel.replace(/[aeiou]/gi,'').substr(0,8) :
+            globals.channels[x].channel;
+        
+        $('#channel-list>ul').append('<li id="channel-'+x+'" title="'+title+'">'+display_title+'</li>');
         $('#channel-'+x).bind(
             'click'
             ,{channel: globals.channels[x].channel, feed: globals.channels[x].feed}
@@ -634,13 +648,21 @@ function addChannel(subreddit){
     }
     if(!getChan(subreddit)){
         var feed = "/r/"+subreddit+"/.json";
-        globals.channels.push({"channel": subreddit, "feed": feed});
+
+        var c_data = {"channel": subreddit, "feed": feed};
+        globals.channels.push(c_data);
+        globals.user_channels.push(c_data);
+        
+        $.cookie('user_channels', JSON.stringify(globals.user_channels));
+        consoleLog('current user channels: '+$.cookie('user_channels'));
+
         var x = globals.channels.length - 1;
         var title = globals.channels[x].feed.split("/");
         title = "/"+title[1]+"/"+title[2];
         var display_title = globals.channels[x].channel.length > 9 ? 
             globals.channels[x].channel.replace(/[aeiou]/gi,'').substr(0,8) :
             globals.channels[x].channel;
+
         $('#channel-list>ul').append('<li id="channel-'+x+'" title="'+title+'">'+display_title+'</li>');
         $('#channel-'+x).bind(
             'click'
@@ -656,6 +678,11 @@ function addChannel(subreddit){
     }
 
     return false;
+}
+
+function removeChannel(chan){
+    $('#channel-'+chan).remove();
+    
 }
 
 /* Anchor Checker */
