@@ -1,5 +1,5 @@
 /* Globals */
-var search_str = "search/.json?q=%28site%3Ayoutube.com+OR+site%3Avimeo.com%29&restrict_sr=on&sort=relevance";
+var search_str = "search/.json?q=%28site%3Ayoutube.com+OR+site%3Avimeo.com%29&restrict_sr=on&sort=relevance&limit=100";
 
 var globals = {
     /* Channels Object */
@@ -191,8 +191,8 @@ function displayChannel(chan){
     title = globals.channels[chan].feed.split("/");
     title = "/"+title[1]+"/"+title[2];
 
-    display_title = globals.channels[chan].channel.length > 9 ?
-        globals.channels[chan].channel.replace(/[aeiou]/gi,'').substr(0,8) :
+    display_title = globals.channels[chan].channel.length > 8 ?
+        globals.channels[chan].channel.replace(/[aeiou]/gi,'').substr(0,7) :
         globals.channels[chan].channel;
 
     if(isUserChan(globals.channels[chan].channel)){
