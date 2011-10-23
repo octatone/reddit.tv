@@ -16,7 +16,6 @@ var globals = {
         
         ,{"channel": "Music", "feed": "/r/music/.json"}
         ,{"channel": "Listen", "feed": "/r/listentothis/.json"}
-        //,{"channel": "Radio", "feed": "/r/radioreddit/"+search_str}
 
         ,{"channel": "TIL", "feed": "/r/todayilearned/"+search_str}
         ,{"channel": "PBS", "feed": "/domain/video.pbs.org/.json"}
@@ -167,7 +166,6 @@ function loadSettings() {
     }
     if(channels_cookie !== null && channels_cookie !== globals.user_channels){
         globals.user_channels = channels_cookie;
-        consoleLog('Loaded channels: '+globals.user_channels);
         for(var x in globals.user_channels){
             globals.channels.push(globals.user_channels[x]);
         }
@@ -180,7 +178,7 @@ function loadTheme(id) {
 }
 
 function displayChannels() {
-    var $channel_list = $('#channel-list'), $list = $('<ul></ul>'), title, display_title;
+    var $channel_list = $('#channel-list'), $list = $('<ul></ul>');
     $channel_list.html($list);
     for(var x in globals.channels){
         displayChannel(x);
@@ -215,7 +213,6 @@ function displayChannel(chan){
             'click'
         ,{channel: chan}
         ,function(event) {
-            consoleLog('Removing channel'+event.data.channel);
             removeChan(event.data.channel);
         }
     );
@@ -537,7 +534,6 @@ function filterVideoDupes(arr){
         out.push(obj[i]);
     }
 
-    consoleLog('Removed '+ (original_length - out.length) + ' dupes.');
     return out.reverse();
 }
 
@@ -605,7 +601,6 @@ function chgChan(up_down) {
     }else if(this_chan !== old_chan){
         globals.cur_chan = this_chan;
     }
-    consoleLog('current chan: '+this_chan);
 }
 
 function getFeedName(channel) {
@@ -712,7 +707,6 @@ function addChannel(subreddit){
         globals.user_channels.push(c_data);
         
         $.cookie('user_channels', JSON.stringify(globals.user_channels));
-        consoleLog('current user channels: '+$.cookie('user_channels'));
 
         var x = globals.channels.length - 1;
         displayChannel(x);
@@ -733,7 +727,7 @@ function removeChan(chan){ //by index (integer)
         }
         $('#channel-'+chan).remove();
         globals.user_channels.splice(idx, 1);
-        consoleLog('remaing user channels: '+JSON.stringify(globals.user_channels));
+
         $.cookie('user_channels', JSON.stringify(globals.user_channels));
         globals.channels[chan] = {'channel': '', 'feed': ''};
     }
@@ -794,7 +788,7 @@ function redditButton(permalink, title){
 //safe console log
 function consoleLog(string){
     if(window.console) {
-        console.log(string);
+        consol.log(string);
     }
 }
 
