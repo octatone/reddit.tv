@@ -184,40 +184,6 @@ function displayChannels() {
     $channel_list.html($list);
     for(var x in globals.channels){
         displayChannel(x);
-        /*
-        title = globals.channels[x].feed.split("/");
-        title = "/"+title[1]+"/"+title[2];
-        
-        display_title = globals.channels[x].channel.length > 9 ?
-            globals.channels[x].channel.replace(/[aeiou]/gi,'').substr(0,8) :
-            globals.channels[x].channel;
-
-        if(isUserChan(globals.channels[x].channel)){
-            class_str = 'class="user-chan"';
-            remove_str = '<a id="remove-'+x+'" class="remove-chan">-</a>';
-        }else{
-            class_str = '';
-            remove_str = '';
-        }
-        
-        $('#channel-list>ul').append('<li id="channel-'+x+'" title="'+title+'" '+class_str+'>'+display_title+remove_str+'</li>');
-        $('#channel-'+x).bind(
-            'click'
-            ,{channel: globals.channels[x].channel, feed: globals.channels[x].feed}
-            ,function(event) {
-                var parts = event.data.feed.split("/");
-                window.location.hash = "/"+parts[1]+"/"+parts[2]+"/";
-            }
-        );
-        $('#remove-'+x).bind(
-            'click'
-            ,{channel: x}
-            ,function(event) {
-                consoleLog('Removing channel'+event.data.channel);
-                removeChan(event.data.channel);
-            }
-        );
-        */
     }
 }
 
@@ -610,11 +576,29 @@ function getThumbnailUrl(chan, video_id) {
 
 function chgChan(up_down) {
     var old_chan = globals.cur_chan, this_chan = old_chan;
+
     if(up_down === 'up' && this_chan > 0){
         this_chan--;
+        while(globals.channels[this_chan].channel == '' && this_chan > 0){
+            this_chan--;
+        }
+    }else if(up_down === 'up'){
+        this_chan = globals.channels.length-1;
+        while(globals.channels[this_chan].channel == '' && this_chan > 0){
+            this_chan--;
+        }
     }else if(up_down !== 'up' && this_chan < globals.channels.length-1){
         this_chan++;
+        while(globals.channels[this_chan].channel == ''){
+            this_chan++;
+        }
+    }else if(up_down !== 'up'){
+        this_chan = 0;
+        while(globals.channels[this_chan].channel == ''){
+            this_chan++;
+        }
     }
+
     if(this_chan !== old_chan && globals.channels[this_chan].channel !== ''){
         var parts = globals.channels[this_chan].feed.split("/");
         window.location.hash = "/"+parts[1]+"/"+parts[2]+"/";
