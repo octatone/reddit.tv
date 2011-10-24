@@ -411,6 +411,8 @@ function loadVideo(video) {
         globals.current_anchor = '#'+hash;
         window.location.hash = hash;
 
+        gaHashTrack();
+
         var $video_embed = $('#video-embed');
 
         $video_embed.empty();
@@ -788,7 +790,7 @@ function redditButton(permalink, title){
 //safe console log
 function consoleLog(string){
     if(window.console) {
-        consol.log(string);
+        console.log(string);
     }
 }
 
@@ -808,3 +810,8 @@ Object.size = function(obj) {
     }
     return size;
 };
+
+/* analytics */
+function gaHashTrack(){
+    _gaq.push(['_trackPageview',location.pathname + location.hash]);
+}
