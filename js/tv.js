@@ -29,10 +29,10 @@ var globals = {
     
     /* Video Domains */
     ,domains: [
-        '5min.com', 'abcnews.go.com', 'animoto.com', 'atom.com',
+        '5min.com', 'abcnews.go.com', 'animal.discovery.com', 'animoto.com', 'atom.com',
         'bambuser.com', 'bigthink.com', 'blip.tv', 'break.com',
 	'cbsnews.com', 'cnbc.com', 'cnn.com', 'colbertnation.com', 'collegehumor.com',
-	'comedycentral.com', 'crackle.com', 'dailymotion.com',
+	'comedycentral.com', 'crackle.com', 'dailymotion.com', 'dsc.discovery.com', 'discovery.com',
 	'dotsub.com', 'edition.cnn.com', 'escapistmagazine.com', 'espn.go.com',
 	'fancast.com', 'flickr.com', 'fora.tv', 'foxsports.com',
 	'funnyordie.com', 'gametrailers.com', 'godtube.com', 'howcast.com', 'hulu.com',
@@ -45,7 +45,7 @@ var globals = {
 	'spike.com', 'teachertube.com', 'techcrunch.tv', 'ted.com',
 	'thedailyshow.com', 'theonion.com', 'traileraddict.com', 'trailerspy.com',
 	'trutv.com', 'twitvid.com', 'ustream.com', 'viddler.com', 'video.google.com',
-	'video.pbs.org', 'video.yahoo.com', 'vids.myspace.com', 'vimeo.com',
+	'video.nationalgeographic.com', 'video.pbs.org', 'video.yahoo.com', 'vids.myspace.com', 'vimeo.com',
 	'wordpress.tv', 'worldstarhiphop.com', 'xtranormal.com',
 	'youtube.com', 'zapiks.com'
     ]
