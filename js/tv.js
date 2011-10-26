@@ -137,6 +137,7 @@ $().ready(function(){
                 window.open($('#vote-button>a').attr('href'), '_blank');
                 break;
             }
+            return false;
         }
     });
 
