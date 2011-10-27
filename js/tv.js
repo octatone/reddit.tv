@@ -681,7 +681,7 @@ function prepEmbed(embed, type){
     switch(type){
     default:
         return embed;
-    case 'youtube.com','youtu.be':
+    case 'youtube.com': case 'youtu.be':
         return youtube.prepEmbed(embed);
     case 'vimeo.com':
         return vimeo.prepEmbed(embed);
@@ -701,7 +701,7 @@ function addListeners(type){
 }
 
 function fillScreen() {
-    var fill_screen_domains = ['youtube.com'];
+    var fill_screen_domains = ['youtube.com', 'youtu.be'];
     if(fill_screen_domains.indexOf(globals.videos[globals.cur_chan].video[globals.cur_video].domain) !== -1){
         $object = $('#video-embed embed');
         $fill = $('#fill');
@@ -719,8 +719,8 @@ function fillScreen() {
 }
 
 function togglePlay(){
-    switch(globals.videos[globals.cur_chan].video[globals.cur_video].media.type){
-    case 'youtube.com':
+    switch(globals.videos[globals.cur_chan].video[globals.cur_video].domain){
+    case 'youtube.com': case 'youtu.be':
         youtube.togglePlay();
         break;
     case 'vimeo.com':
