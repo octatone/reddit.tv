@@ -20,6 +20,15 @@ var youtube = {
                 loadVideo('next');  //tv.js
             }else if(state === -1){
                 youtube.togglePlay();
+            }else if(state === 1){
+                var qual = youtube.obj.getPlaybackQuality();
+                var avail = youtube.obj.getAvailableQualityLevels();
+                consoleLog('quality: '+qual);
+                consoleLog('available: '+avail);
+                if((qual === 'small' || qual === 'medium') && avail.indexOf('large') !== -1){
+                    consoleLog('trying to force large');
+                    youtube.obj.setPlaybackQuality('large');
+                }
             }
         }
     }
