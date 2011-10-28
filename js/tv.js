@@ -279,9 +279,11 @@ function loadChannel(channel, video_id) {
                             || data.data.children[x].data.domain == 'youtu.be'
                            )
                     {
-                        data.data.children[x].data.media_embed.content = youtube.createEmbed(
-                            data.data.children[x].data.url
-                        );
+                        var created = youtube.createEmbed(data.data.children[x].data.url);
+                        data.data.children[x].data.media_embed.content = created.embed;
+                        data.data.children[x].data.media = {};
+                        data.data.children[x].data.media.oembed = {};
+                        data.data.children[x].data.media.oembed.thumbnail_url = created.thumbnail;
                         if(data.data.children[x].data.media_embed.content){
                             globals.videos[this_chan].video.push(data.data.children[x].data);
                         }
