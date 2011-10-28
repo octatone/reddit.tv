@@ -396,10 +396,13 @@ function loadVideo(video) {
     }
     if(typeof(video) === 'number'){ //must be a number NOT A STRING - allows direct load of video # in video array
         selected_video = video;
-        if(sfwCheck(selected_video, this_chan)){
-            return false;
-        }
     }
+
+    //exit if trying to load over_18 content without confirmed over 18
+    if(sfwCheck(selected_video, this_chan)){
+        return false;
+    }
+
     if(selected_video !== this_video || video === 'first' || video === 0) {
         globals.cur_video = selected_video;
 
