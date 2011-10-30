@@ -40,12 +40,12 @@ var youtube = {
 
         consoleLog('url: '+url);
 
-        time = url.match(/(&|\?)t=([HhMmSs0-9]+)/);
+        time = url.match(/(&|&amp;|\?)t=([HhMmSs0-9]+)/);
         time = time !== null ? '&amp;' + time[0].replace(/(&|\?)/gi, '') : '';
         consoleLog('time: '+time);
 
-        if(url.match(/\?v\=/)){
-            parts = url.split('?v=');
+        if(url.match(/(\?v\=|&v\=|&amp;v=)/)){
+            parts = url.split('v=');
             ID = parts[1].substr(0,11);
             consoleLog('youtube ID: '+ID);
         }else if(url.match(/youtu\.be/)){
