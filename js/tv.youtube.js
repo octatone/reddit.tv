@@ -40,8 +40,8 @@ var youtube = {
 
         consoleLog('url: '+url);
 
-        time = url.match(/(&|&amp;|\?)t=([HhMmSs0-9]+)/);
-        time = time !== null ? '&amp;' + time[0].replace(/(&|\?)/gi, '') : '';
+        time = url.match(/(&|&amp;|\?|#)t=([HhMmSs0-9]+)/);
+        time = time !== null ? '&amp;' + time[0].replace(/(&|&amp;|\?|#)/gi, '') : '';
         consoleLog('time: '+time);
 
         if(url.match(/(\?v\=|&v\=|&amp;v=)/)){
