@@ -249,8 +249,10 @@ function loadChannel(channel, video_id) {
     if(last_req !== null){
         last_req.abort();
     }
-
+    
+    globals.shuffled = [];
     globals.cur_chan = this_chan;
+    
     $('#video-list').stop(true, true).animate({ height:0, padding:0 }, 500, function() {
         $(this).empty().hide();
     });
