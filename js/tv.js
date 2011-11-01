@@ -377,7 +377,7 @@ function loadVideo(video) {
         videos_size = Object.size(globals.videos[this_chan].video)-1;
 
     if(globals.shuffle){
-        if(globals.shuffle.length != videos_size){
+        if(globals.shuffled.length-1 != videos_size){
             shuffleChan(this_chan);
         }
         selected_video = globals.shuffled[selected_video];
@@ -815,6 +815,7 @@ function shuffleChan(chan){ //by index (integer
         globals.shuffled.push(x);
     }
     globals.shuffled = shuffleArray(globals.shuffled);
+    consoleLog('shuffling channel '+chan);
 }
 
 /* Anchor Checker */
