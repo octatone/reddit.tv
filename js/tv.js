@@ -386,18 +386,22 @@ function loadVideo(video) {
         selected_video = globals.shuffled.indexOf(selected_video);
     }
      
-    if(video === 'next' && selected_video < videos_size){
+    if(video === 'next' && selected_video <= videos_size){
         selected_video++;
+        if(selected_video > videos_size){
+            selected_video = 0;
+        }
         while(sfwCheck(getVideoKey(selected_video), this_chan) && selected_video < videos_size){
             selected_video++;
         }
         if(sfwCheck(getVideoKey(selected_video), this_chan)){
             selected_video = this_video;
         }
-    }else if(video == 'next' && selected_video == videos_size){
-        selected_video = 0;
-    }else if(selected_video > 0 && video === 'prev'){
+    }else if(selected_video >= 0 && video === 'prev'){
         selected_video--;
+        if(selected_video < 0){
+            selected_video = videos_size;
+        }
         while(sfwCheck(getVideoKey(selected_video), this_chan) && selected_video > 0){
             selected_video--;
         }
@@ -407,7 +411,7 @@ function loadVideo(video) {
     }else if(video === 'first'){
         selected_video = 0;
         if(sfwCheck(getVideoKey(selected_video), this_chan)){
-            while(sfwCheck(selected_video, this_chan) && selected_video < videos_size){
+            while(sfwCheck(getVideoKey(selected_video), this_chan) && selected_video < videos_size){
                 selected_video++;
             }
         }
