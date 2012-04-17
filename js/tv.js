@@ -490,7 +490,7 @@ function loadVideo(video) {
         var reddit_string = redditButton('t3_' + globals.videos[this_chan].video[selected_video].id);
         var $vote_button = $('#vote-button');
         $vote_button.stop(true,true).fadeOut('slow', function() {
-            $vote_button.html(reddit_string).fadeIn('slow');
+                $vote_button.html(reddit_string).fadeTo('slow', 1);
         });
 
         var video_source_text = 'Source: '
