@@ -353,7 +353,8 @@ function loadVideoList(chan) {
         }
 
         $thumbnail
-            .attr('src', getThumbnailUrl(this_chan, i))
+            .attr('src', 'img/noimage.png')
+            .attr('data-original', getThumbnailUrl(this_chan, i))
             .click(function() { loadVideo( Number($(this).attr('rel')) ); });
 
         $list.append($thumbnail);
@@ -365,7 +366,6 @@ function loadVideoList(chan) {
         .show()
         .animate({ height: '88px', padding: '5px' }, 1000, function() {
             $('img').lazyload({
-                placeholder : "img/noimage.png",
                 effect : "fadeIn",
                 container: $("#video-list")
             });
