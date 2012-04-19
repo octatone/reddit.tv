@@ -777,7 +777,7 @@ function addChannel(subreddit){
         click = true;
     }
     if(!getChan(subreddit)){
-        var feed = "/r/"+subreddit+"/.json";
+        var feed = "/r/"+subreddit+"/";
 
         var c_data = {'channel': subreddit, feed: feed};
         Globals.channels.push(c_data);
