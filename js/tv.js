@@ -17,7 +17,7 @@ var Globals = {
         {channel: 'Tech', type: 'search', feed: '/r/technology/'},
         {channel: 'Gaming', type: 'normal', feed: '/r/gaming/'},
         {channel: 'AWW', type: 'search', feed: '/r/aww/'},
-        {channel: 'WTF', type: 'normal', feed: '/r/wtf/'},
+        {channel: 'WTF', type: 'search', feed: '/r/wtf/'},
         {channel: 'Music', type: 'normal', feed: '/r/music/'},
         {channel: 'Listen', type: 'normal', feed: '/r/listentothis/'},
         {channel: 'TIL', type: 'search', feed: '/r/todayilearned/'},
