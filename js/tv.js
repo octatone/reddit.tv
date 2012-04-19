@@ -803,13 +803,14 @@ function addChannel(subreddit){
 function removeChan(chan){ //by index (integer)
     var idx = getUserChan(Globals.channels[chan].channel);
     if(idx){
-        if(chan === Globals.cur_chan){
+        if(parseInt(chan) === parseInt(Globals.cur_chan)){
             chgChan('up');
         }
         $('#channel-'+chan).remove();
         Globals.user_channels.splice(idx, 1);
 
-        $.jStorage('user_channels', Globals.user_channels);
+        $.jStorage.set('user_channels', Globals.user_channels);
+
         //free some memory bitches
         Globals.channels[chan] = {channel: '', feed: ''};
         Globals.videos[chan] = undefined;
