@@ -89,12 +89,12 @@ $().ready(function(){
     });
     $('#auto').click(function() {
         Globals.auto = ($('#auto').is(':checked')) ? true : false;
-        $.cookie('auto', Globals.auto, {expires: 7});
+        $.jStorage.set('auto', Globals.auto);
     });
     $('#shuffle').click(function() {
         Globals.shuffle = ($('#shuffle').is(':checked')) ? true : false;
         Globals.shuffled = []; //reset
-        $.cookie('shuffle', Globals.shuffle, {expires: 7});
+        $.jStorage.set('shuffle', Globals.shuffle);
     });
     $('#sfw').click(function() {
         Globals.sfw = ($('#sfw').is(':checked')) ? true : false;
@@ -104,7 +104,7 @@ $().ready(function(){
                 Globals.sfw = true;
             }
         }
-        $.cookie('sfw', Globals.sfw, {expires: 7});
+        $.jStorage.set('sfw', Globals.sfw);
         showHideNsfwThumbs(Globals.sfw, Globals.cur_chan);
     });
     $('#fill').click(function() {
@@ -173,7 +173,11 @@ $().ready(function(){
 
 /* Main Functions */
 function loadSettings() {
-    var channels_cookie = $.parseJSON($.cookie('user_channels')), auto_cookie = $.cookie('auto'), sfw_cookie = $.cookie('sfw'), theme_cookie = $.cookie('theme'), shuffle_cookie = $.cookie('shuffle');
+    var channels_cookie = $.jStorage.get('user_channels'),
+        auto_cookie = $.jStorage.get('auto'), 
+        sfw_cookie = $.jStorage.get('sfw'), 
+        theme_cookie = $.jStorage.get('theme'), 
+        shuffle_cookie = $.jStorage.get('shuffle');
 
     if(auto_cookie !== null && auto_cookie !== Globals.auto){
         Globals.auto = (auto_cookie === 'true') ? true : false;
@@ -200,7 +204,7 @@ function loadSettings() {
 
 function loadTheme(id) {
     $('#theme').attr('href', 'css/theme_' + id + '.css');
-    $.cookie('theme', id, {expires: 7});
+    $.jStorage.set('theme', id);
 }
 
 function displayChannels() {
@@ -783,7 +787,7 @@ function addChannel(subreddit){
         Globals.channels.push(c_data);
         Globals.user_channels.push(c_data);
         
-        $.cookie('user_channels', JSON.stringify(Globals.user_channels));
+        $.jStorage.set('user_channels', Globals.user_channels);
 
         var x = Globals.channels.length - 1;
         displayChannel(x);
@@ -805,7 +809,7 @@ function removeChan(chan){ //by index (integer)
         $('#channel-'+chan).remove();
         Globals.user_channels.splice(idx, 1);
 
-        $.cookie('user_channels', JSON.stringify(Globals.user_channels));
+        $.jStorage('user_channels', Globals.user_channels);
         //free some memory bitches
         Globals.channels[chan] = {channel: '', feed: ''};
         Globals.videos[chan] = undefined;
