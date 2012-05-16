@@ -840,6 +840,10 @@ function checkAnchor(){
         }else{
             var anchor = Globals.current_anchor.substring(1);
             var parts = anchor.split("/"); // #/r/videos/id
+            if(parts[0] === 'promo'){
+                loadPromo(parts[1], parts[2], parts[3]);
+                return true; /* break out */
+            }
             var feed = "/"+parts[1]+"/"+parts[2]+"/";
             var new_chan_name = getChanName(feed);
             if(!new_chan_name){
