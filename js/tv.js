@@ -278,7 +278,7 @@ function loadChannel(channel, video_id) {
     if(Globals.videos[this_chan] === undefined){
         var feed = getFeedURI(channel);
         Globals.cur_chan_req = $.ajax({
-            url: "http://www.reddit.com"+feed+"?limit=100",
+            url: "http://www.reddit.com"+feed+"&limit=100",
             dataType: "jsonp",
             jsonp: "jsonp",
             success: function(data) {
