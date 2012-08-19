@@ -326,7 +326,7 @@ function loadChannel(channel, video_id) {
                     $video_embed.removeClass('loading');
                 }else{
                     $video_embed.removeClass('loading');
-                    alert('No videos found in '+Globals.channels[this_chan].feed.slice(0,-5));
+                    alert('No videos found in '+Globals.channels[this_chan].channel);
                 }
             },
             error: function(jXHR, textStatus, errorThrown) {
