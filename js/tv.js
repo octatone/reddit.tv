@@ -52,6 +52,8 @@ var Globals = {
         'youtube.com', 'youtu.be', 'zapiks.com'
         ],
 
+    sorting: 'hot',
+
     videos: [],
     user_channels: [],
     cur_video: 0,
@@ -124,6 +126,12 @@ $().ready(function(){
     });
     $('#video-list').bind('mousewheel', function(event,delta){
         this.scrollLeft -= (delta * 30);
+    });
+    $('#sorting').on('change', function () {
+
+        Globals.sorting = $('#sorting').val();
+        Globals.videos = [];
+        loadChannel(Globals.channels[Globals.cur_chan].channel, null);
     });
     $(document).keydown(function (e) {
         if(!$(e.target).is('form>*')) {
@@ -736,12 +744,28 @@ function getFeedURI(channel){
 }
 
 function formatFeedURI(channel_obj){
+
+    var sorting = Globals.sorting.split(':');
+    var sortType = '';
+    var sortOption = '';
+    var uri;
+
+    if (sorting.length === 2) {
+
+        sortType = sorting[0] + '/';
+        sortOption = '&t=' + sorting[1];
+    }
+
     switch(channel_obj.type){
     case 'search':
-        return channel_obj.feed + Globals.search_str + '&limit=100';
+        uri = channel_obj.feed + Globals.search_str + '&limit=100';
+        break;
     default:
-        return channel_obj.feed + '.json?limit=100';
+        uri = channel_obj.feed + sortType + '.json?limit=100' + sortOption;
     }
+
+    console.log(uri);
+    return uri;
 }
 
 function getChanName(feed){
