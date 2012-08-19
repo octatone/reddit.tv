@@ -756,11 +756,12 @@ function formatFeedURI(channel_obj){
         sortOption = '&t=' + sorting[1];
     }
 
-    switch(channel_obj.type){
-    case 'search':
+    if (channel_obj.type === 'search' && sorting.length === 1) {
+
         uri = channel_obj.feed + Globals.search_str + '&limit=100';
-        break;
-    default:
+    }
+    else {
+
         uri = channel_obj.feed + sortType + '.json?limit=100' + sortOption;
     }
 
