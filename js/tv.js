@@ -831,7 +831,7 @@ function togglePlay(){
 function addChannel(subreddit){
     var click;
     if(!subreddit){
-        subreddit = encodeURIComponent($('#channel-name').val());
+        subreddit = stripHTML($('#channel-name').val());
         click = true;
     }
     if(!getChan(subreddit)){
@@ -895,6 +895,7 @@ function checkAnchor(){
         }else{
             var anchor = Globals.current_anchor.substring(1);
             var parts = anchor.split("/"); // #/r/videos/id
+            parts = $.map(parts, stripHTML);
             if(parts[1] === 'promo'){
                 loadPromo(parts[2], parts[3], parts[4]);
             }else{
@@ -979,6 +980,11 @@ Object.size = function(obj) {
         }
     }
     return size;
+};
+
+
+function stripHTML(s) {
+    return s.replace(/[&<>"'\/]/g, '');
 };
 
 /* analytics */
