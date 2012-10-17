@@ -149,10 +149,11 @@ body {
 }
 
 #options {
-    font-size: x-small;
+    font-size: .7em;
     position: absolute;
     bottom: 0;
     right: 15px;
+    line-height:  20px;
 }
 
 #css {
