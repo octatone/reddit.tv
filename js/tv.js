@@ -134,6 +134,7 @@ $().ready(function(){
         loadChannel(Globals.channels[Globals.cur_chan].channel, null);
     });
     $(document).keydown(function (e) {
+        return;
         if(!$(e.target).is('form>*')) {
             var keyCode = e.keyCode || e.which, arrow = {left: 37, up: 38, right: 39, down: 40 };
             switch (keyCode) {
@@ -384,6 +385,10 @@ function loadVideoList(chan) {
                 loadVideo( Number( $(this).attr('rel') ));
             });
 
+        if($.jStorage.get(this_video.id)) {
+            $thumbnail.css({ 'opacity':'0.3'});
+        }
+
         $list.append($thumbnail);
     }
 
@@ -404,6 +409,12 @@ function loadVideo(video) {
         this_video = Globals.cur_video,
         selected_video = this_video,
         videos_size = Object.size(Globals.videos[this_chan].video)-1;
+
+
+    if(Globals.videos[this_chan].video[this_video] && Globals.videos[this_chan].video[this_video].id) {
+        $.jStorage.set(Globals.videos[this_chan].video[this_video].id,1);
+        $('#video-list-thumb-'+this_video).css({'opacity': '0.3'});
+    }
 
     if(Globals.shuffle){
         if(Globals.shuffled.length === 0){
@@ -493,6 +504,12 @@ function loadVideo(video) {
         }
         Globals.current_anchor = '#'+hash;
         window.location.hash = hash;
+
+        // remember this video
+        var vid = Globals.videos[this_chan].video[selected_video].id;
+        if(vid) {
+            $.jStorage.set(vid,1);
+        }
 
         gaHashTrack();
 
