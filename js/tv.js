@@ -66,6 +66,7 @@ var Globals = {
     shuffle: false,
     shuffled: [],
     theme: 'light',
+    limit: 100,
 
     content_minwidth: 130,  // minimum width of #content w/o width of player
     content_minheight: 320, // minimum height of #content w/o height of player
@@ -91,7 +92,7 @@ $().ready(function(){
     $fillnav.click(function(){
         fillScreen();
     });
-    $('#css li a').click(function() {
+    $('#css a').click(function() {
         loadTheme($(this).attr('rel'));
         return false;
     });
@@ -755,14 +756,18 @@ function formatFeedURI(channel_obj){
         sortType = sorting[0] + '/';
         sortOption = '&t=' + sorting[1];
     }
+    else //We want to set this to hot,new,whatever
+    {
+    	sortType = sorting + '/';
+    }
 
     if (channel_obj.type === 'search' && sorting.length === 1) {
 
-        uri = channel_obj.feed + Globals.search_str + '&limit=100';
+        uri = channel_obj.feed + sortType + Globals.search_str + '&limit=' + Globals.limit;
     }
     else {
 
-        uri = channel_obj.feed + sortType + '.json?limit=100' + sortOption;
+        uri = channel_obj.feed + sortType + '.json?limit=' + Globals.limit + sortOption;
     }
 
     console.log(uri);
