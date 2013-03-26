@@ -1,27 +1,35 @@
 @media (min-width:1123px) and (max-width:1318px) {
 
-  #gutter-1 {
-    left: 0px;
-  }
+//  #gutter-1 {
+//    left: 0px;
+//    margin-left: auto;
+//  }
 
-  #gutter-2 {
-    right: 0px !important;
-  }
+//  #gutter-2 {
+//    right: 0px !important;
+//    margin-right: auto !important;
+//  }
 }
 
-@media (max-width:1122px) {
+@media (max-width:1180px) {
 
   #gutter-1 {
-    right:0px;
+
+    left: auto !important;
+    right: 50% !important;
+    margin-right: -466px !important;
+    margin-left: auto !important;
   }
 
   #gutter-2 {
-    display: none;
+    display: none !important;
   }
 }
 
 #gutter-1 {
-  top: 48px;
+  left: 50%;
+  margin-left: -590px;
+  top: 0px;
   z-index: -1;
   position: absolute;
   width: 130px;
@@ -31,11 +39,12 @@
 }
 
 #gutter-2 {
-  top: 48px;
+  right: 50%;
+  margin-right: -590px;
+  top: 0px;
   width: 130px;
   position: absolute;
   z-index: -1;
-  right: 0px;
   height: 600px;
   background-repeat: no-repeat;
   background: url("../img/vice_right.jpg");
