@@ -1,11 +1,11 @@
 @media (min-width:1123px) and (max-width:1318px) {
 
   #gutter-1 {
-    left:-90px;
+    left: 0px;
   }
 
   #gutter-2 {
-    right: 4% !important;
+    right: 0px !important;
   }
 }
 
@@ -24,23 +24,25 @@
   top: 48px;
   z-index: -1;
   position: absolute;
-  width: 256px;
-  //background: url(../img/left.png);
-  height: 612px;
+  width: 130px;
+  background-repeat: no-repeat;
+  background: url("../img/vice_fri_left.jpg");
+  height: 600px;
 }
 
 #gutter-2 {
-  top: 50px;
-  width: 150px;
-  //background: url(../img/right.png);
+  top: 48px;
+  width: 130px;
   position: absolute;
   z-index: -1;
-  right: 65px;
-  height: 599px;
+  right: 0px;
+  height: 600px;
+  background-repeat: no-repeat;
+  background: url("../img/vice_right.jpg");
 }
 
 body {
-    background-color: white;
+    background-color: black;
 }
 
 #video-display {
