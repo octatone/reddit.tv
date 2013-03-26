@@ -31,7 +31,7 @@ var Globals = {
 
     promo: {
 
-        'channel': 'Vice on HBO',
+        'channel': 'Vice',
         'videos': [
             {
                 'id': 'X51rPtxmd3Y',
