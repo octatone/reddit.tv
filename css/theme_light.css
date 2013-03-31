@@ -11,46 +11,47 @@
 //  }
 }
 
-@media (max-width:1180px) {
+@media (max-width:1170px) {
 
   #gutter-1 {
 
-    left: auto !important;
-    right: 50% !important;
-    margin-right: -466px !important;
+    left: 0px !important;
     margin-left: auto !important;
   }
 
   #gutter-2 {
-    display: none !important;
+    right: 0px !important;
+    margin-right: auto !important;
   }
 }
 
 #gutter-1 {
   left: 50%;
-  margin-left: -590px;
+  margin-left: -575px;
   top: 0px;
   z-index: -1;
   position: absolute;
-  width: 130px;
+  width: 500px;
   background-repeat: no-repeat;
-  background: url("../img/vice_fri_left.jpg");
+  background: url("../img/left-big-2.jpg");
   height: 600px;
 }
 
 #gutter-2 {
   right: 50%;
-  margin-right: -590px;
+  margin-right: -575px;
   top: 0px;
-  width: 130px;
+  width: 499px;
   position: absolute;
-  z-index: -1;
-  height: 600px;
+  z-index: -2;
+  height: 610px;
   background-repeat: no-repeat;
-  background: url("../img/vice_right.jpg");
+  background: url("../img/right-big-2.jpg");
 }
 
 body {
+
+    min-width: 1170px;
     background-color: black;
 }
 
@@ -87,12 +88,15 @@ body {
 }
 
 #channel-list li, #promo-channel li {
-    color: gray;
+    color: black;
+    font-weight: bold;
+    background: rgba(255,255,255, 0.2);
 }
 
 #channel-list li:hover, #promo-channel li:hover {
     background-color: #e0e0e0;
     background-color: rgba(0,0,0,0.1);
+    color: white;
 }
 
 #about {
