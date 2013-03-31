@@ -33,7 +33,7 @@
   position: absolute;
   width: 500px;
   background-repeat: no-repeat;
-  background: url("../img/left-big-2.jpg");
+//  background: url("../img/left-big-2.jpg");
   height: 600px;
 }
 
@@ -46,13 +46,14 @@
   z-index: -2;
   height: 610px;
   background-repeat: no-repeat;
-  background: url("../img/right-big-2.jpg");
+//  background: url("../img/right-big-2.jpg");
 }
 
 body {
 
     min-width: 1170px;
-    background-color: black;
+//    background-color: black;
+    background-color: white;
 }
 
 #video-display {

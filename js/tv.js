@@ -311,6 +311,9 @@ function displayChannel(chan){
 function loadChannel(channel, video_id) {
     var last_req = Globals.cur_chan_req, this_chan = getChan(channel), $video_embed = $('#video-embed'), $video_title = $('#video-title'), title;
 
+    // update promo state
+    $('#promo-channel li').removeClass('chan-selected');
+
     if(last_req !== null){
         last_req.abort();
     }
