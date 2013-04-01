@@ -1,14 +1,14 @@
 @media (min-width:1123px) and (max-width:1318px) {
 
-//  #gutter-1 {
-//    left: 0px;
-//    margin-left: auto;
-//  }
+  #gutter-1 {
+    left: 0px;
+    margin-left: auto;
+  }
 
-//  #gutter-2 {
-//    right: 0px !important;
-//    margin-right: auto !important;
-//  }
+  #gutter-2 {
+    right: 0px !important;
+    margin-right: auto !important;
+  }
 }
 
 @media (max-width:1170px) {
@@ -33,7 +33,7 @@
   position: absolute;
   width: 500px;
   background-repeat: no-repeat;
-//  background: url("../img/left-big-2.jpg");
+  background: url("../img/left-big-2.jpg");
   height: 600px;
 }
 
@@ -46,14 +46,13 @@
   z-index: -2;
   height: 610px;
   background-repeat: no-repeat;
-//  background: url("../img/right-big-2.jpg");
+  background: url("../img/right-big-2.jpg");
 }
 
 body {
 
     min-width: 1170px;
-//    background-color: black;
-    background-color: white;
+    background-color: black;
 }
 
 #video-display {
