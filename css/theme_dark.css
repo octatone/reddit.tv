@@ -151,14 +151,16 @@ body {
 ::-webkit-scrollbar-track-piece {
    background: #1b1b1b;
 }
+
 ::-webkit-scrollbar-thumb {
    border-radius: 9px;
-   background: #000;
+   background: rgba(255,255,255,0.25);
 }
 ::-webkit-scrollbar-thumb:hover {
    border-radius: 9px;
-   background: #fff;
+   background: rgba(255,255,255,0.35);
 }
+
 ::-webkit-scrollbar-thumb:window-inactive {
    background-color: 1b1b1b;
 }
