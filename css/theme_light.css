@@ -71,8 +71,8 @@ body {
 }
 
 #video-list .focus {
-    border: none;
-    box-shadow: 0px 0px 6px white;
+    border: 2px solid red;
+    box-shadow: 0px 0px 6px #333;
 }
 
 #channel-list li, #promo-channel li {
