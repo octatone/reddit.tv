@@ -42,6 +42,11 @@ body {
     background-color: white;
 }
 
+select{
+    background-color: #fff;
+    color: gray;
+}
+
 #video-display {
     -moz-box-shadow: 0px 0px 6px #333;
     -webkit-box-shadow: 0px 0px 6px #333;
@@ -119,15 +124,13 @@ body {
 }
 
 #channel-name {
-    background: #181818;
-    border-color: #555;
+    background: #cdcdcd;
     color: gray;
 }
 
 #channel-add {
-    background-color: #444;
+    background-color: #cdcdcd;
     color: gray;
-    border-color: #666;
     border: none;
 }
 

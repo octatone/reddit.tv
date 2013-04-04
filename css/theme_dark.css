@@ -40,6 +40,12 @@ body {
     background-color: black;
 }
 
+select{
+    background-color: #000;
+    color: gray;
+}
+
+
 #video-display {
     -moz-box-shadow: 5px 5px 5px darkblue;
     -webkit-box-shadow:  0px 0px 6px white;
@@ -123,9 +129,8 @@ body {
 }
 
 #channel-add {
-    background-color: #444;
+    background-color: #181818;
     color: gray;
-    border-color: #666;
     border: none;
 }
 
