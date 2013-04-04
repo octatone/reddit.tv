@@ -559,7 +559,7 @@ function loadVideo(video) {
 
         addListeners(Globals.videos[this_chan].video[selected_video].domain);
 
-        var reddit_string = redditButton(Globals.videos[this_chan].video[selected_video].url);
+        var reddit_string = redditButton('t3_' + Globals.videos[this_chan].video[selected_video].id);
         var $vote_button = $('#vote-button');
         $vote_button.stop(true,true).fadeOut('slow', function() {
                 $vote_button.html(reddit_string).fadeTo('slow', 1);
@@ -1070,19 +1070,10 @@ function checkAnchor(){
 }
 
 /* Reddit Functions */
-function redditButton(url){
-    ///var reddit_string="<iframe src=\"http://www.reddit.com/static/button/button1.html?width=120";
-    ///reddit_string += '&id=' + id;
-    //reddit_string += '&css=' + encodeURIComponent(window.reddit_css);
-    //reddit_string += '&bgcolor=' + "black";
-    //reddit_string += '&bordercolor=' + encodeURIComponent(window.reddit_bordercolor);
-    //reddit_string += '&newwindow=' + encodeURIComponent('1');
-    //reddit_string += "\" height=\"22\" width=\"150\" scrolling='no' frameborder='0' reddit_bgcolor='black'></iframe>";
-
+function redditButton(id){
     var bg = $("#video-display").css("background-color");
     window.reddit_bgcolor = bg;
     window.reddit_bordercolor = bg;
-    window.reddit_url = url;
 
     if ('https:' == document.location.protocol) {
         var base_url = 'https://redditstatic.s3.amazonaws.com'
@@ -1090,14 +1081,10 @@ function redditButton(url){
         var base_url = 'http://www.reddit.com/static'
     }
 
-    var write_string="<iframe src=\"" + base_url + "/button/button3.html?width=69&url=";
+    var write_string="<iframe src=\"" + base_url + "/button/button3.html?width=69";
 
-    if (window.reddit_url)  {
-        write_string += encodeURIComponent(reddit_url);
-    }
-    else {
-        write_string += encodeURIComponent(window.location.href);
-    }
+    write_string += '&id=' + encodeURIComponent(id);
+
     if (window.reddit_title) {
         write_string += '&title=' + encodeURIComponent(window.reddit_title);
     }
