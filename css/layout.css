@@ -37,7 +37,7 @@ body {
 }
 
 #video-display {
-    border-radius: 15px;
+    border-radius: 0px;
     -moz-border-radius: 15px;
     width: 670px;
     min-height: 590px;
@@ -102,10 +102,10 @@ body {
 #video-list img {
     min-width: 60px;
     height: 60px;
-    margin: 0 2px;
+    margin: 0 5px;
     vertical-align: middle;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
     cursor: hand;
     cursor: pointer;
 }
@@ -125,7 +125,6 @@ body {
     margin-bottom: 2px;
     cursor: hand;
     cursor: pointer;
-    border-radius: 10px 0 0 10px;
     -moz-border-radius: 10px 0 0 10px;
 }
 
@@ -140,9 +139,10 @@ body {
 
 #channel-name {
     width: 85%;
-    border-radius: 7px;
+    border-radius: 3px;
     padding: 3px;
     text-align: center;
+    border: none;
 }
 
 #header {
@@ -153,10 +153,22 @@ body {
     font-size: small;
 }
 
+select{
+    border: none;
+    padding: 0;
+    margin: 2px 0 0 0;
+    background-color: #000;
+    color: gray;
+    height: 15px;
+    font-size: 10px;
+    vertical-align: top;
+    text-align: center;
+}
+
 #options {
     font-size: x-small;
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
     right: 15px;
 }
 
@@ -172,10 +184,11 @@ body {
 #css li {
     display: inline;
     list-style: none;    
+    vertical-align: super;
 }
 
 form label {
-    vertical-align: top;
+    vertical-align: super;
 }
 
 #footer {
@@ -201,9 +214,11 @@ form label {
 }
 #next-button {
     float: right;
+    margin-top: 25px;
 }
 #prev-button {
     float: left;
+    margin-top: 25px;
 }
 
 #channel-list .chan-selected, #promo-channel .chan-selected {
@@ -235,12 +250,12 @@ form label {
     text-align: center;
     margin-bottom: 0.5em;
     padding: 6px 16px;
-    border-radius: 10px;
+    border-radius: 2px;
     -moz-border-radius: 10px;
 }
 
 a.nav-button:hover {
-    padding: 5px 15px;
+    padding: 5px 15px 2px 15px;
     border: 1px solid gray;
     text-decoration: none;
 }
@@ -273,6 +288,11 @@ a.nav-button:hover {
     float: right;
 }
 
+li a {
+    vertical-align: sub;
+}
+
+
 a {
     color: inherit;
     cursor: hand;
@@ -286,3 +306,4 @@ a:link, a:visited, a:active {
 a:hover {
     text-decoration: underline;
 }
+

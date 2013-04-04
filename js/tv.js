@@ -559,7 +559,7 @@ function loadVideo(video) {
 
         addListeners(Globals.videos[this_chan].video[selected_video].domain);
 
-        var reddit_string = redditButton('t3_' + Globals.videos[this_chan].video[selected_video].id);
+        var reddit_string = redditButton(Globals.videos[this_chan].video[selected_video].url);
         var $vote_button = $('#vote-button');
         $vote_button.stop(true,true).fadeOut('slow', function() {
                 $vote_button.html(reddit_string).fadeTo('slow', 1);
@@ -1070,16 +1070,54 @@ function checkAnchor(){
 }
 
 /* Reddit Functions */
-function redditButton(id){
-    var reddit_string="<iframe src=\"http://www.reddit.com/static/button/button1.html?width=120";
-    reddit_string += '&id=' + id;
+function redditButton(url){
+    ///var reddit_string="<iframe src=\"http://www.reddit.com/static/button/button1.html?width=120";
+    ///reddit_string += '&id=' + id;
     //reddit_string += '&css=' + encodeURIComponent(window.reddit_css);
-    //reddit_string += '&bgcolor=' + encodeURIComponent(window.reddit_bgcolor);
+    //reddit_string += '&bgcolor=' + "black";
     //reddit_string += '&bordercolor=' + encodeURIComponent(window.reddit_bordercolor);
-    reddit_string += '&newwindow=' + encodeURIComponent('1');
-    reddit_string += "\" height=\"22\" width=\"150\" scrolling='no' frameborder='0'></iframe>";
-    
-    return reddit_string;
+    //reddit_string += '&newwindow=' + encodeURIComponent('1');
+    //reddit_string += "\" height=\"22\" width=\"150\" scrolling='no' frameborder='0' reddit_bgcolor='black'></iframe>";
+
+    var bg = $("#video-display").css("background-color");
+    window.reddit_bgcolor = bg;
+    window.reddit_bordercolor = bg;
+    window.reddit_url = url;
+
+    if ('https:' == document.location.protocol) {
+        var base_url = 'https://redditstatic.s3.amazonaws.com'
+    } else {
+        var base_url = 'http://www.reddit.com/static'
+    }
+
+    var write_string="<iframe src=\"" + base_url + "/button/button3.html?width=69&url=";
+
+    if (window.reddit_url)  {
+        write_string += encodeURIComponent(reddit_url);
+    }
+    else {
+        write_string += encodeURIComponent(window.location.href);
+    }
+    if (window.reddit_title) {
+        write_string += '&title=' + encodeURIComponent(window.reddit_title);
+    }
+    if (window.reddit_target) {
+        write_string += '&sr=' + encodeURIComponent(window.reddit_target);
+    }
+    if (window.reddit_css) {
+        write_string += '&css=' + encodeURIComponent(window.reddit_css);
+    }
+    if (window.reddit_bgcolor) {
+        write_string += '&bgcolor=' + encodeURIComponent(window.reddit_bgcolor);
+    }
+    if (window.reddit_bordercolor) {
+        write_string += '&bordercolor=' + encodeURIComponent(window.reddit_bordercolor);
+    }
+    if (window.reddit_newwindow) {
+        write_string += '&newwindow=' + encodeURIComponent(window.reddit_newwindow);}
+    write_string += "\" height=\"52\" width=\"69\" scrolling='no' frameborder='0'></iframe>";
+
+    return write_string;
 }
 
 /* Utility Functions */
