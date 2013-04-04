@@ -265,6 +265,7 @@ function loadSettings() {
 function loadTheme(id) {
     $('#theme').attr('href', 'css/theme_' + id + '.css');
     $.jStorage.set('theme', id);
+    Globals.theme = id;
 }
 
 function displayChannels() {
