@@ -211,11 +211,9 @@ form label {
 }
 #next-button {
     float: right;
-    margin-top: 25px;
 }
 #prev-button {
     float: left;
-    margin-top: 25px;
 }
 
 #channel-list .chan-selected, #promo-channel .chan-selected {
@@ -245,14 +243,24 @@ form label {
 .nav-button {
     display: none;
     text-align: center;
-    margin-bottom: 0.5em;
-    padding: 6px 16px;
+    padding: 0px 2px 7px 2px;
     border-radius: 2px;
     -moz-border-radius: 10px;
+    width: 85px;
+    transition: box-shadow 0.2s, color 0.2s;
+    -moz-transition: box-shadow 0.2s, color 0.2s;
+    -webkit-transition: box-shadow 0.2s, color 0.2s;
+    -o-transition: box-shadow 0.2s, color 0.2s;
+}
+
+* {
+    transition: color 0.5s, background-color 0.2s;
+    -moz-transition: color 0.5s, background-color 0.2s;
+    -webkit-transition: color 0.5s, background-color 0.2s;
+    -o-transition: color 0.5s, background-color 0.2s;
 }
 
 a.nav-button:hover {
-    padding: 5px 15px 2px 15px;
     border: 1px solid gray;
     text-decoration: none;
 }

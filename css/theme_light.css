@@ -181,16 +181,6 @@ input[type="checkbox"] {
     background-image: none;
 }
 
-* {
-    transition: color 0.5s;
-    -moz-transition: color 0.5s;
-    -webkit-transition: color 0.5s;
-    -o-transition: color 0.5s;
-    transition: background-color 0.2s;
-    -moz-transition: background-color 0.2s;
-    -webkit-transition: background-color 0.2s;
-    -o-transition: background-color 0.2s;
-}
 
 .nav-button {
     -moz-box-shadow: 1px 1px 1px white, inset 1px 1px 1px white;
@@ -201,7 +191,6 @@ input[type="checkbox"] {
     background-color: #ccc;
     border: none;
     text-decoration: none;
-    padding: 5px 15px 2px 15px;
 }
 
 a.nav-button:hover {
