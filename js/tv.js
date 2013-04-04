@@ -81,7 +81,7 @@ var Globals = {
     content_minwidth: 130,  // minimum width of #content w/o width of player
     content_minheight: 320, // minimum height of #content w/o height of player
     vd_minwidth: 30,        // minimum width of #video-display w/o width of player
-    vd_minheight: 213      // minimum height of #video-display w/o height of player
+    vd_minheight: 224      // minimum height of #video-display w/o height of player
 };
 
 /* MAIN (Document Ready) */
@@ -436,7 +436,7 @@ function loadVideoList(chan) {
         .stop(true, true)
         .html($list)
         .show()
-        .animate({ height: '88px', padding: '5px' }, 1000, function() {
+        .animate({ height: '70px', padding: '5px' }, 1000, function() {
             $('img').lazyload({
                 effect : "fadeIn",
                 container: $("#video-list")
