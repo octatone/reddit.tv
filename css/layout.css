@@ -155,14 +155,18 @@ body {
 
 #options {
     font-size: x-small;
-    position: absolute;
-    bottom: 0;
-    right: 15px;
+    width: 100%;
+}
+
+#options form {
+	line-height: 25px;
 }
 
 #css {
+    float: right;
     margin: 0 0 0 15px;
     padding: 0;
+    
 }
 
 #css ul {
