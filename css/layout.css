@@ -37,7 +37,7 @@ body {
 }
 
 #video-display {
-    border-radius: 15px;
+    border-radius: 0px;
     -moz-border-radius: 15px;
     width: 670px;
     min-height: 590px;
@@ -102,10 +102,10 @@ body {
 #video-list img {
     min-width: 60px;
     height: 60px;
-    margin: 0 2px;
+    margin: 0 5px;
     vertical-align: middle;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
     cursor: hand;
     cursor: pointer;
 }
@@ -125,7 +125,6 @@ body {
     margin-bottom: 2px;
     cursor: hand;
     cursor: pointer;
-    border-radius: 10px 0 0 10px;
     -moz-border-radius: 10px 0 0 10px;
 }
 
@@ -140,9 +139,10 @@ body {
 
 #channel-name {
     width: 85%;
-    border-radius: 7px;
+    border-radius: 3px;
     padding: 3px;
     text-align: center;
+    border: none;
 }
 
 #header {
@@ -153,10 +153,20 @@ body {
     font-size: small;
 }
 
+select{
+    border: none;
+    padding: 0;
+    margin: 2px 0 0 0;
+    height: 15px;
+    font-size: 10px;
+    vertical-align: top;
+    text-align: center;
+}
+
 #options {
     font-size: x-small;
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
     right: 15px;
 }
 
@@ -172,10 +182,11 @@ body {
 #css li {
     display: inline;
     list-style: none;    
+    vertical-align: super;
 }
 
 form label {
-    vertical-align: top;
+    vertical-align: super;
 }
 
 #footer {
@@ -190,7 +201,6 @@ form label {
     margin-top: 15px;
     margin-left: 100px;
     padding: 10px;
-    border-radius: 10px;
     text-align: center;
 }
 
@@ -233,14 +243,24 @@ form label {
 .nav-button {
     display: none;
     text-align: center;
-    margin-bottom: 0.5em;
-    padding: 6px 16px;
-    border-radius: 10px;
+    padding: 0px 2px 7px 2px;
+    border-radius: 2px;
     -moz-border-radius: 10px;
+    width: 85px;
+    transition: box-shadow 0.2s, color 0.2s;
+    -moz-transition: box-shadow 0.2s, color 0.2s;
+    -webkit-transition: box-shadow 0.2s, color 0.2s;
+    -o-transition: box-shadow 0.2s, color 0.2s;
+}
+
+* {
+    transition: color 0.5s, background-color 0.2s;
+    -moz-transition: color 0.5s, background-color 0.2s;
+    -webkit-transition: color 0.5s, background-color 0.2s;
+    -o-transition: color 0.5s, background-color 0.2s;
 }
 
 a.nav-button:hover {
-    padding: 5px 15px;
     border: 1px solid gray;
     text-decoration: none;
 }
@@ -273,6 +293,11 @@ a.nav-button:hover {
     float: right;
 }
 
+li a {
+    vertical-align: sub;
+}
+
+
 a {
     color: inherit;
     cursor: hand;
@@ -286,3 +311,4 @@ a:link, a:visited, a:active {
 a:hover {
     text-decoration: underline;
 }
+
