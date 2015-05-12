@@ -1,46 +1,46 @@
-@media (min-width:1123px) and (max-width:1318px) {
+@media (max-width:1170px) {
 
   #gutter-1 {
-    left:-90px;
+
+    left: 0px !important;
+    margin-left: auto !important;
   }
 
   #gutter-2 {
-    right: 4% !important;
-  }
-}
-
-@media (max-width:1122px) {
-
-  #gutter-1 {
-    right:0px;
-  }
-
-  #gutter-2 {
-    display: none;
+    right: 0px !important;
+    margin-right: auto !important;
   }
 }
 
 #gutter-1 {
-  top: 48px;
+  left: 50%;
+  margin-left: -575px;
+  top: 0px;
   z-index: -1;
   position: absolute;
-  width: 256px;
-  //background: url(../img/left.png);
-  height: 612px;
+  width: 500px;
+  background-repeat: no-repeat;
+  background: url("../img/left-big-2.jpg");
+  height: 600px;
 }
 
 #gutter-2 {
-  top: 50px;
-  width: 150px;
-  //background: url(../img/right.png);
+  right: 50%;
+  margin-right: -575px;
+  top: 0px;
+  width: 499px;
   position: absolute;
-  z-index: -1;
-  right: 65px;
-  height: 599px;
+  z-index: -2;
+  height: 610px;
+  background-repeat: no-repeat;
+  background: url("../img/right-big-2.jpg");
 }
 
 body {
-    background-color: white;
+
+    min-width: 1170px;
+    background-color: black;
+//    background-color: white;
 }
 
 #video-display {
@@ -76,12 +76,15 @@ body {
 }
 
 #channel-list li, #promo-channel li {
-    color: gray;
+    color: black;
+    font-weight: bold;
+    background: rgba(255,255,255, 0.2);
 }
 
 #channel-list li:hover, #promo-channel li:hover {
     background-color: #e0e0e0;
     background-color: rgba(0,0,0,0.1);
+    color: white;
 }
 
 #about {
