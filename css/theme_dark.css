@@ -1,50 +1,9 @@
-@media (max-width:1170px) {
-
-  #gutter-1 {
-
-    left: 0px !important;
-    margin-left: auto !important;
-  }
-
-  #gutter-2 {
-    right: 0px !important;
-    margin-right: auto !important;
-  }
-}
-
-#gutter-1 {
-  left: 50%;
-  margin-left: -575px;
-  top: 0px;
-  z-index: -1;
-  position: absolute;
-  width: 500px;
-  background-repeat: no-repeat;
-  background: url("../img/left-big-2.jpg");
-  height: 600px;
-}
-
-#gutter-2 {
-  right: 50%;
-  margin-right: -575px;
-  top: 0px;
-  width: 499px;
-  position: absolute;
-  z-index: -2;
-  height: 610px;
-  background-repeat: no-repeat;
-  background: url("../img/right-big-2.jpg");
-}
-
 body {
-    background-color: black;
+    background-color: #EFD99A;
 }
 
 #video-display {
-    -moz-box-shadow: 5px 5px 5px darkblue;
-    -webkit-box-shadow: 5px 5px 5px darkblue;
-    box-shadow: 5px 5px 5px darkblue;
-    background-color: #575757;
+    background-color: #384643;
 }
 
 #video-source {
@@ -146,5 +105,6 @@ a.nav-button:hover {
 }
 
 .loading {
-    background-image: url('../img/loading_dark.gif');
+    background-image: url('../img/loading.gif');
+    background-repeat: repeat;
 }
