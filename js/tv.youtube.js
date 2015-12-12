@@ -1,70 +1,18 @@
 /*
  *  youtube singleton oh yeah!
  */
+ // 1. This code loads the IFrame Player API code asynchronously.
+ var tag = document.createElement('script');
+ tag.src = "https://www.youtube.com/iframe_api";
+ var firstScriptTag = document.getElementsByTagName('script')[0];
+ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+
 var youtube = {
     obj: null, //will hold the current youtube embed
 
-    togglePlay: function(){
-        //unstarted (-1), ended (0), playing (1),
-        //paused (2), buffering (3), video cued (5)
-        if(youtube.obj.getPlayerState() !== 1){
-            youtube.obj.playVideo();
-        }else{
-            youtube.obj.pauseVideo();
-        }
-    },
-
-    stateListener: function(state){
-
-        if (Globals.cur_chan === -1) {
-
-            if (state === 0) {
-
-                loadNextPromo();
-            }
-            else if (state === -1) {
-
-                youtube.togglePlay();
-            }
-
-            return;
-        }
-
-        if(Globals.auto){ //global scope
-            if(state === 0){
-                loadVideo('next');  //tv.js
-            }else if(state === -1){
-                youtube.togglePlay();
-            }else if(state === 1){
-                var qual = youtube.obj.getPlaybackQuality();
-                var avail = youtube.obj.getAvailableQualityLevels();
-                if((qual === 'small' || qual === 'medium') && avail.indexOf('large') !== -1){
-                    youtube.obj.setPlaybackQuality('large');
-                }
-            }
-        }
-    },
-
-    errorListener: function(error){
-        consoleLog('youtube error received: '+error);
-        loadVideo('next');
-    },
-
     createEmbed: function(url){
-        var ID, time, hours, minutes, seconds, total_seconds, parts, data = {};
-
-        time = url.match(/(&|&amp;|\?|#)t=([HhMmSs0-9]+)/);
-        if(time !== null){
-            time = time[2];
-            hours = time.match(/(\d+)h/i);
-            minutes = time.match(/(\d+)m/i);
-            seconds = time.match(/(\d+)s/i);
-
-            total_seconds = hours !== null ? parseInt(hours[1])*60*60 : 0;
-            total_seconds += minutes !== null ? parseInt(minutes[1])*60 : 0;
-            total_seconds += seconds !== null ? parseInt(seconds[1]) : 0;
-        }
-        time = total_seconds > 0 ? '&start='+total_seconds : '';
+        var ID, parts, data = {};
 
         if(url.match(/(\?v\=|&v\=|&amp;v=)/)){
             parts = url.split('v=');
@@ -75,9 +23,10 @@ var youtube = {
         }
 
         if(ID){
-
             data.embed = "&lt;div class=\"embed-container\"&gt;"
-            +"&lt;iframe src=\"http://www.youtube.com/embed/"+ID+"?autoplay=1\" frameborder=\"0\" allowfullscreen &gt;"
+            +"&lt;iframe id=\"player\" type=\"text/html\" src=\"http://www.youtube.com/embed/"+ID
+            +"?autoplay=1&amp;controls=0&amp;iv_load_policy=3&amp;rel=0&amp;showinfo=0&amp;cc_load_policy=1&amp;disablekb=1&amp;showinfo=0&amp;autohide=1&amp;color=white&amp;enablejsapi=1\""
+            +"frameborder=\"0\" allowfullscreen &gt;"
             +"&lt;/iframe&gt;"
             +"&lt;/div&gt;";
             data.thumbnail = "http://i2.ytimg.com/vi/"+ID+"/hqdefault.jpg";
@@ -89,23 +38,44 @@ var youtube = {
 
     // prepares embed code for js api access
     prepEmbed: function(embed) {
-        var js_str = 'version=3&enablejsapi=1&playerapiid=ytplayer';
+        var js_str = 'version=3&enablejsapi=1&playerapiid=player';
 
         embed = embed.replace(/version\=3/gi, js_str);
-        embed = embed.replace(/\<embed/i,'<embed id="ytplayer"');
-        embed = embed.replace(/\<iframe/i,'<iframe id="ytplayer"');
+        embed = embed.replace(/\<embed/i,'<embed id="player"');
 
         return embed;
     }
 };
 
-/*
- *  youtube listener - called by youtube flash/html5 when present
- *  MUST REMAIN IN GLOBAL SCOPE
- */
-function onYouTubePlayerReady(playerId) {
-    youtube.obj = document.getElementById("ytplayer");
-    youtube.obj.addEventListener("onStateChange", "youtube.stateListener", true);
-    youtube.obj.addEventListener("onError", "youtube.errorListener", true);
-    youtube.stateListener(-1);
+// 2. This function creates an <iframe> (and YouTube player)
+//    after the API code downloads.
+var player;
+function onYouTubeIframeAPIReady() {
+  var player;
+  player = new YT.Player('player', {
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange,
+      'onError': onPlayerError
+    }
+    });
+}
+// 4. The API calls this function when the player's state changes.
+function onPlayerStateChange(event) {
+  var done = false;
+  if (event.data == YT.PlayerState.ENDED && !done) {
+    loadVideo('next');  //tv.js
+    boxy();
+    done = true;
+  }
+}
+
+function onPlayerError(event) {
+  loadVideo('next');  //tv.js
+  boxy();
+}
+
+function onPlayerReady(event) {
+  event.target.setVolume(100);
+  event.target.playVideo();
 }

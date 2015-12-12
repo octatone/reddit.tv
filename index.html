@@ -42,13 +42,11 @@
 <body>
 <div id="content-wrapper">
   <div id="header">
-    &nbsp;
     <div id="options">
       <ul id="css" class="right">
               <li><a href="#" rel="light">light</a></li>
               <li><a href="#" rel="dark">dark</a></li>
       </ul>
-
       <form class="right">
         <label for="sorting">sorting</label>
         <select id="sorting">
@@ -58,25 +56,23 @@
           <option value="top:month">top month</option>
           <option value="top:year">top year</option>
         </select>
-        <input type="checkbox" id="auto" checked/>
-          <label for="auto">autoplay/advance</label>
         <input type="checkbox" id="shuffle"/>
           <label for="auto">shuffle</label>
-        <input type="checkbox" id="fill"/>
-          <label for="fill">fill screen</label>
+        <button id="full">Fullscreen</button>
         <input type="checkbox" id="sfw" checked/>
           <label for="sfw">sfw</label>
+        <div id="video-source"></div>
       </form>
     </div>
     <div id="video-title"></div>
-    <div id="video-nav">
-      <a id="prev-button" class="nav-button">&lt; PREV</a>
-      <a id="next-button" class="nav-button">NEXT &gt;</a>
-    </div>
-    <div id="video-source"></div>
-    <div id="footer">keyboard shortcuts: ← ↑ ↓ → spacebar f c</div>
+
+    <div id="footer">Keyboard Shortcuts: ← → f c</div>
   </div>
   <div id="content">
+    <div id="video-nav">
+      <a id="prev-button" class="nav-button">&lt;</a>
+      <a id="next-button" class="nav-button">&gt;</a>
+    </div>
     <div id="video-display">
       <div id="video-embed"></div>
     </div>

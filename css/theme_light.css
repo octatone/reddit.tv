@@ -56,7 +56,7 @@ body {
 }
 
 #footer {
-    color: lightgray;
+    color: #A7976A;
 }
 
 #also-like {
@@ -92,18 +92,22 @@ body {
     background-color: white;
 }
 
-.nav-button {
-    -moz-box-shadow: 1px 1px 1px black, inset 1px 1px 1px white;
-    -webkit-box-shadow: 1px 1px 1px black, inset 1px 1px 1px white;
-    box-shadow: 1px 1px 1px black, inset 1px 1px 1px white;
-    text-shadow: 0px 1px 1px hsla(0,0%,100%,.7);
-    color: black;
-    background-color: #cee3f8;
+.nav-button{
+  border-radius: 60px;
+  -webkit-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0);
+  padding: 8px 14px 8px 16px;
+  text-decoration: none;
+  transition: background 0.2s;
 }
 
-a.nav-button:hover {
-    border: 1px solid gray;
-    color: darkblue;
+.nav-button:hover {
+  background: rgba(184, 74, 46, 0.4);
+  text-decoration: none;
 }
 
 .loading {

@@ -112,6 +112,7 @@ body {
     -moz-border-radius: 15px 15px 0 0;
     padding: 12px 15px 6px 15px;
     white-space: wrap;
+    display: none;
 }
 
 #video-title a {
@@ -119,7 +120,22 @@ body {
 }
 
 #video-nav {
-    padding: 0 15px 15px 15px;
+    position: absolute;
+    bottom: 35px;
+    left: 45px;
+    z-index: 90;
+}
+@media screen and (max-width: 1580px){
+  #video-nav{bottom: 32px;}
+}
+@media screen and (max-width: 1490px){
+  #video-nav{bottom: 27px;}
+}
+@media screen and (max-width: 1350px){
+  #video-nav{bottom: 24px;}
+}
+@media screen and (max-width: 1240px){
+  #video-nav{bottom: 19px;}
 }
 
 #video-list {
@@ -269,17 +285,13 @@ form label {
 .nav-button {
     display: none;
     text-align: center;
-    margin-bottom: 0.5em;
+    margin: 0 10px 10px;
     padding: 6px 16px;
     border-radius: 10px;
     -moz-border-radius: 10px;
 }
 
-a.nav-button:hover {
-    padding: 5px 15px;
-    border: 1px solid gray;
-    text-decoration: none;
-}
+
 
 .user-chan:hover .remove-chan {
     visibility: visible;

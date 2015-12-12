@@ -18,27 +18,7 @@ var Globals = {
 
 
     /* Video Domains */
-    domains: [
-        '5min.com', 'abcnews.go.com', 'animal.discovery.com', 'animoto.com', 'atom.com',
-        'bambuser.com', 'bigthink.com', 'blip.tv', 'break.com',
-        'cbsnews.com', 'cnbc.com', 'cnn.com', 'colbertnation.com', 'collegehumor.com',
-        'comedycentral.com', 'crackle.com', 'dailymotion.com', 'dsc.discovery.com', 'discovery.com',
-        'dotsub.com', 'edition.cnn.com', 'escapistmagazine.com', 'espn.go.com',
-        'fancast.com', 'flickr.com', 'fora.tv', 'foxsports.com',
-        'funnyordie.com', 'gametrailers.com', 'godtube.com', 'howcast.com', 'hulu.com',
-        'justin.tv', 'kinomap.com', 'koldcast.tv', 'liveleak.com', 'livestream.com',
-        'mediamatters.org', 'metacafe.com', 'money.cnn.com',
-        'movies.yahoo.com', 'msnbc.com', 'nfb.ca', 'nzonscreen.com',
-        'overstream.net', 'photobucket.com', 'qik.com', 'redux.com',
-        'revision3.com', 'revver.com', 'schooltube.com',
-        'screencast.com', 'screenr.com', 'sendables.jibjab.com',
-        'spike.com', 'teachertube.com', 'techcrunch.tv', 'ted.com',
-        'thedailyshow.com', 'theonion.com', 'traileraddict.com', 'trailerspy.com',
-        'trutv.com', 'twitvid.com', 'ustream.com', 'viddler.com', 'video.google.com',
-        'video.nationalgeographic.com', 'video.pbs.org', 'video.yahoo.com', 'vids.myspace.com', 'vimeo.com',
-        'wordpress.tv', 'worldstarhiphop.com', 'xtranormal.com',
-        'youtube.com', 'youtu.be', 'zapiks.com'
-        ],
+    domains: ['youtube.com', 'youtu.be'],
 
     sorting: 'hot',
 
@@ -135,17 +115,14 @@ $().ready(function(){
             case arrow.right: case 75: // k
                 loadVideo('next');
                 break;
-            case 32:
+            /*case 32:
                 togglePlay();
-                break;
+                break; */
             case 70:
-                $('#fill').attr('checked', true);
-                fillScreen();
+                launchFullScreen(document.getElementById("player"));
                 break;
             case 27:
-                if($('#fill').is(':checked')){
-                    fillScreen();
-                }
+                  launchFullScreen(document.getElementById("player"));
                 break;
             case 67:
                 window.open($('#video-title>a').attr('href'), '_blank');
@@ -209,39 +186,6 @@ function loadSettings() {
 function loadTheme(id) {
     $('#theme').attr('href', 'css/theme_' + id + '.css');
     $.jStorage.set('theme', id);
-}
-
-function displayChannel(chan){
-    var title, display_title, class_str='', remove_str='';
-
-    title = Globals.channels[chan].feed.split("/");
-    title = "/"+title[1]+"/"+title[2];
-
-    display_title = Globals.channels[chan].channel.length > 8 ?
-        Globals.channels[chan].channel.replace(/[aeiou]/gi,'').substr(0,7) :
-        Globals.channels[chan].channel;
-
-    if(isUserChan(Globals.channels[chan].channel)){
-        class_str = 'class="user-chan"';
-        remove_str = '<a id="remove-'+chan+'" class="remove-chan">-</a>';
-    }
-
-    $('#channel-list>ul').append('<li id="channel-'+chan+'" title="'+title+'" '+class_str+'>'+display_title+remove_str+'</li>');
-    $('#channel-'+chan).bind(
-        'click',
-        {channel: Globals.channels[chan].channel, feed: Globals.channels[chan].feed},
-        function(event) {
-            var parts = event.data.feed.split("/");
-            window.location.hash = "/"+parts[1]+"/"+parts[2]+"/";
-        }
-    );
-    $('#remove-'+chan).bind(
-        'click',
-        {channel: chan},
-        function(event) {
-            removeChan(event.data.channel);
-        }
-    );
 }
 
 function loadChannel(channel, video_id) {
@@ -315,7 +259,7 @@ function loadChannel(channel, video_id) {
                     $video_embed.removeClass('loading');
                 }else{
                     $video_embed.removeClass('loading');
-                    alert('No videos found in '+Globals.channels[this_chan].channel);
+                    alert('No videos found.');
                 }
             },
             error: function(jXHR, textStatus, errorThrown) {
@@ -358,7 +302,7 @@ function loadVideoList(chan) {
         }
 
         $thumbnail
-            .attr('src', 'img/noimage.png')
+            .attr('src', 'img/loading.gif')
             .attr('data-original', getThumbnailUrl(this_chan, i))
             .click( function () {
                 loadVideo( Number( $(this).attr('rel') ));
@@ -467,11 +411,12 @@ function loadVideo(video) {
         if(!hash){
             var feed = Globals.channels[this_chan].feed;
             parts = feed.split("/");
-            hash = '/'+parts[1]+'/'+parts[2]+'/'+Globals.videos[this_chan].video[selected_video].id;
+            // hash = '/'+parts[1]+'/'+parts[2]+'/'+Globals.videos[this_chan].video[selected_video].id;
+            hash = '/universe/'+Globals.videos[this_chan].video[selected_video].id;
         }else{
             var anchor = hash.substring(1);
             parts = anchor.split("/"); // #/r/videos/id
-            hash = '/'+parts[1]+'/'+parts[2]+'/'+Globals.videos[this_chan].video[selected_video].id;
+            hash = '/universe/'+Globals.videos[this_chan].video[selected_video].id;
         }
         Globals.current_anchor = '#'+hash;
         window.location.hash = hash;
@@ -494,11 +439,13 @@ function loadVideo(video) {
         $video_embed.html(embed);
         $video_embed.removeClass('loading');
 
+        onYouTubeIframeAPIReady();
+
         addListeners(Globals.videos[this_chan].video[selected_video].domain);
 
-        var video_source_text = 'Source: ' +
+        var video_source_text = '' +
             '<a href="' + Globals.videos[this_chan].video[selected_video].url + '" target="_blank">' +
-            Globals.videos[this_chan].video[selected_video].domain +
+            'Source' +
             '</a>';
         var $video_source = $('#video-source');
         $video_source.stop(true,true).fadeOut('slow', function() {
@@ -507,6 +454,7 @@ function loadVideo(video) {
 
         resizePlayer();
         fillScreen();
+        boxy();
     }
 }
 
@@ -623,43 +571,10 @@ function getThumbnailUrl(chan, video_id) {
     else if (Globals.videos[chan].video[video_id].media.oembed) {
         return Globals.videos[chan].video[video_id].media.oembed.thumbnail_url !== undefined ?
             Globals.videos[chan].video[video_id].media.oembed.thumbnail_url :
-            'img/noimage.png';
+            'img/loading.gif';
     }
     else {
-        return 'img/noimage.png';
-    }
-}
-
-function chgChan(up_down) {
-    var old_chan = Globals.cur_chan, this_chan = old_chan;
-
-    if(up_down === 'up' && this_chan > 0){
-        this_chan--;
-        while(Globals.channels[this_chan].channel === '' && this_chan > 0){
-            this_chan--;
-        }
-    }else if(up_down === 'up'){
-        this_chan = Globals.channels.length-1;
-        while(Globals.channels[this_chan].channel === '' && this_chan > 0){
-            this_chan--;
-        }
-    }else if(up_down !== 'up' && this_chan < Globals.channels.length-1){
-        this_chan++;
-        while(Globals.channels[this_chan].channel === ''){
-            this_chan++;
-        }
-    }else if(up_down !== 'up'){
-        this_chan = 0;
-        while(Globals.channels[this_chan].channel === ''){
-            this_chan++;
-        }
-    }
-
-    if(this_chan !== old_chan && Globals.channels[this_chan].channel !== ''){
-        var parts = Globals.channels[this_chan].feed.split("/");
-        window.location.hash = "/"+parts[1]+"/"+parts[2]+"/";
-    }else if(this_chan !== old_chan){
-        Globals.cur_chan = this_chan;
+        return 'img/loading.gif';
     }
 }
 
@@ -797,7 +712,7 @@ function resizePlayer() {
     sitename = Globals.videos[Globals.cur_chan].video[Globals.cur_video].domain;
 
     if(sitename == 'youtube.com' || sitename == 'youtu.be') {
-        player = $('#ytplayer');
+        player = $('#player');
     }
     else if(sitename == 'vimeo.com') {
         player = $('#vimeoplayer');
@@ -878,28 +793,24 @@ function checkAnchor(){
             var anchor = Globals.current_anchor.substring(1);
             var parts = anchor.split("/"); // #/r/videos/id
             parts = $.map(parts, stripHTML);
-            if(parts[1] === 'promo'){
-                loadPromo(parts[2], parts[3], parts[4]);
-            }else{
-                var feed = "/"+parts[1]+"/"+parts[2]+"/";
-                var new_chan_name = getChanName(feed);
-                if(!new_chan_name){
-                    addChannel(parts[2]);
-                    new_chan_name = getChanName(feed);
-                }
-                var new_chan_num = getChan(new_chan_name);
-                if(new_chan_name !== undefined && new_chan_num !== Globals.cur_chan){
-                    if(parts[3] === undefined || parts[3] === null || parts[3] === ''){
-                        loadChannel(new_chan_name, null);
-                    }else{
-                        loadChannel(new_chan_name, parts[3]);
-                    }
+            var feed = "/universe/";
+            var new_chan_name = "NotTimAndEric";
+            if(!new_chan_name){
+                addChannel("NotTimAndEric");
+                new_chan_name = "NotTimAndEric";
+            }
+            var new_chan_num = getChan(new_chan_name);
+            if(new_chan_name !== undefined && new_chan_num !== Globals.cur_chan){
+                if(parts[2] === undefined || parts[2] === null || parts[2] === ''){
+                    loadChannel(new_chan_name, null);
                 }else{
-                    if(Globals.videos[new_chan_num] !== undefined){
-                        loadVideoById(parts[3]);
-                    }else{
-                        loadChannel(new_chan_name, parts[3]);
-                    }
+                    loadChannel(new_chan_name, parts[2]);
+                }
+            }else{
+                if(Globals.videos[new_chan_num] !== undefined){
+                    loadVideoById(parts[2]);
+                }else{
+                    loadChannel(new_chan_name, parts[2]);
                 }
             }
         }
@@ -983,7 +894,7 @@ function boxy(){
         'height': contH3 + 'px',
         'margin': '0 auto ' + contB3 + 'px'
     });
-    $('#ytplayer').css({
+    $('#player').css({
         'width': contW3 + 'px',
         'height': contH3 + 'px'
     });
@@ -999,3 +910,34 @@ $( window ).resize(function() {
       boxy();
     }, 0);
 });
+
+
+// Find the right method, call on correct element
+function launchFullScreen(element) {
+  if(element.requestFullScreen) {
+    element.requestFullScreen();
+  } else if(element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if(element.webkitRequestFullScreen) {
+    element.webkitRequestFullScreen();
+  }
+}
+// Whack fullscreen
+function exitFullscreen() {
+  if(document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if(document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if(document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  }
+}
+
+$( document ).ready(function() {
+  $('#full').click(function(){
+    launchFullScreen(document.getElementById("player"));
+  })
+});
+
+//$("#full").click(launchFullScreen(document.documentElement)); // the whole page
+// launchFullScreen(document.getElementById("videoElement")); // any individual element
