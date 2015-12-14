@@ -7,7 +7,7 @@ body {
 }
 
 #video-source {
-    color: #5f99cf;
+    color: rgba(0, 0, 0, 0.32);
 }
 
 #video-title {
@@ -55,6 +55,10 @@ body {
 #footer {
     color: #A7976A;
 }
+#footer span{
+    color: #FDE6A1;
+    font-weight: 700;
+}
 
 #also-like {
     background: #eee;
@@ -97,7 +101,7 @@ body {
   color: #ffffff;
   font-size: 12px;
   background: rgba(0, 0, 0, 0);
-  padding: 8px 14px 8px 16px;
+  padding: 4px 14px 4px 16px;
   text-decoration: none;
   transition: background 0.2s;
 }

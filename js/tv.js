@@ -1,3 +1,9 @@
+if ( window.localStorage.getItem('mainChannel') === '' || localStorage.getItem("mainChannel") === null){
+  window.localStorage.setItem('mainChannel','nottimanderic');
+}
+
+var mainChannel = window.localStorage.getItem('mainChannel');
+
 /* Globals */
 var Globals = {
     /* build uri for search type channels */
@@ -12,7 +18,7 @@ var Globals = {
 
     /* Channels Object */
     channels: [
-        {channel: 'NotTimAndEric', type: 'normal', feed: '/r/nottimanderic/'}
+        {channel: 'NotTimAndEric', type: 'normal', feed: '/r/' + mainChannel + '/'}
         ],
 
 
@@ -30,8 +36,8 @@ var Globals = {
     cur_vid_req: null,
     current_anchor: null,
     auto: true,
-    sfw: true,
-    shuffle: false,
+    sfw: false,
+    shuffle: true,
     shuffled: [],
     theme: 'light',
 
@@ -47,22 +53,10 @@ $().ready(function(){
     loadTheme(Globals.theme);
 
 
-
-        loadChannel("NotTimAndEric", null);
-
+    loadChannel("NotTimAndEric", null);
 
 
     /* Bindings */
-    var $filloverlay = $('#fill-overlay'), $fillnav = $('#fill-nav');
-    $filloverlay.mouseenter(function() {
-        $fillnav.slideDown('slow');
-    });
-    $filloverlay.mouseleave(function() {
-        $fillnav.slideUp('slow');
-    });
-    $fillnav.click(function(){
-        fillScreen();
-    });
     $('#css li a').click(function() {
         loadTheme($(this).attr('rel'));
         return false;
@@ -86,9 +80,6 @@ $().ready(function(){
         }
         $.jStorage.set('sfw', Globals.sfw);
         showHideNsfwThumbs(Globals.sfw, Globals.cur_chan);
-    });
-    $('#fill').click(function() {
-        fillScreen();
     });
     $('#next-button').click(function() {
         loadVideo('next');
@@ -114,6 +105,13 @@ $().ready(function(){
                 break;
             case arrow.right: case 75: // k
                 loadVideo('next');
+                break;
+            case 72:
+                hackMode();
+                break;
+            case 73:
+                window.localStorage.setItem('mainChannel','nottimanderic');
+                reload();
                 break;
             /*case 32:
                 togglePlay();
@@ -224,6 +222,7 @@ function loadChannel(channel, video_id) {
         Globals.cur_chan_req = $.ajax({
             url: "http://www.reddit.com"+feed,
             dataType: "jsonp",
+            crossDomain: true,
             jsonp: "jsonp",
             success: function(data) {
                 Globals.videos[this_chan] = {};
@@ -444,8 +443,8 @@ function loadVideo(video) {
         addListeners(Globals.videos[this_chan].video[selected_video].domain);
 
         var video_source_text = '' +
-            '<a href="' + Globals.videos[this_chan].video[selected_video].url + '" target="_blank">' +
-            'Source' +
+            '<a href="' + Globals.videos[this_chan].video[selected_video].url + '" target="_blank" title="Watch on Youtube">' +
+            '<i class="material-icons md-18">&#xE04A;</i>' +
             '</a>';
         var $video_source = $('#video-source');
         $video_source.stop(true,true).fadeOut('slow', function() {
@@ -453,7 +452,6 @@ function loadVideo(video) {
         });
 
         resizePlayer();
-        fillScreen();
         boxy();
     }
 }
@@ -601,11 +599,11 @@ function formatFeedURI(channel_obj){
 
     if (channel_obj.type === 'search' && sorting.length === 1) {
 
-        uri = channel_obj.feed + Globals.search_str + '&limit=200';
+        uri = channel_obj.feed + Globals.search_str + '&limit=100';
     }
     else {
 
-        uri = channel_obj.feed + sortType + '.json?limit=200' + sortOption;
+        uri = channel_obj.feed + sortType + '.json?limit=100' + sortOption;
     }
 
     console.log(uri);
@@ -680,24 +678,6 @@ function addListeners (type) {
     switch (type) {
     case 'vimeo.com':
         vimeo.addListeners();
-    }
-}
-
-function fillScreen() {
-    var $object, $fill, $filloverlay, fill_screen_domains = ['youtube.com', 'youtu.be'];
-    if(fill_screen_domains.indexOf(Globals.videos[Globals.cur_chan].video[Globals.cur_video].domain) !== -1){
-        $object = $('#video-embed embed');
-        $fill = $('#fill');
-        $filloverlay = $('#fill-overlay');
-        if($object.hasClass('fill-screen')){
-            $fill.attr('checked', false);
-            $object.removeClass('fill-screen');
-            $filloverlay.css('display', 'none');
-        }else if($fill.is(':checked')){
-            $fill.attr('checked', true);
-            $object.addClass('fill-screen');
-            $filloverlay.css('display', 'block');
-        }
     }
 }
 
@@ -939,5 +919,29 @@ $( document ).ready(function() {
   })
 });
 
-//$("#full").click(launchFullScreen(document.documentElement)); // the whole page
-// launchFullScreen(document.getElementById("videoElement")); // any individual element
+function hackMode(){
+
+  //Show the hack screen
+  $("#hack-mode").show(0, function(){
+    $("#hack-mode-input").focus();
+  });
+
+  //Remove default input functionality (enter)
+  var input = $('#hack-mode-input');
+  $(input).keydown(function (e) {
+    if (e.which == 13) {
+      $(input).submit();
+      window.localStorage.setItem('mainChannel', input.val());
+      reload();
+      return false;    //<---- Add this line
+    }
+  });
+
+}
+
+
+
+function reload(){
+  var re = /^https?:\/\/[^/]+/i;
+  window.location.href = re.exec(window.location.href)[0];
+}

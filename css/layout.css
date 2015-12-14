@@ -5,7 +5,7 @@ body {
     width: 100%;
     height: 100%;
     position: absolute;
-    // min-width: 1170px;
+    min-width: 992px;
 }
 
 #content-wrapper {
@@ -106,8 +106,10 @@ body {
     line-height: 1em;
     height: 15px;
 }
-
-
+#video-source a i {
+  font-size: 17px;
+  vertical-align: middle;
+}
 
 .embed-container {
 }
@@ -135,77 +137,54 @@ body {
     text-decoration: none;
 }
 
+#full {
+    position: absolute;
+    bottom: 33px;
+    right: 45px;
+    z-index: 90;
+    border-radius: 60px;
+    border: 0;
+    -webkit-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0);
+    padding: 4px 14px 4px 16px;
+    text-decoration: none;
+    transition: background 0.2s;
+    margin-bottom: 10px;
+    outline: none;
+    cursor: pointer;
+}
+#full:hover {
+  background: rgba(184, 74, 46, 0.4);
+  text-decoration: none;
+}
+
 #video-nav {
     position: absolute;
-    bottom: 35px;
+    bottom: 33px;
     left: 45px;
     z-index: 90;
 }
 @media screen and (max-width: 1580px){
-  #video-nav{bottom: 32px;}
+  #video-nav, #full{bottom: 29px;}
 }
 @media screen and (max-width: 1490px){
-  #video-nav{bottom: 27px;}
+  #video-nav, #full{bottom: 24px;}
 }
 @media screen and (max-width: 1350px){
-  #video-nav{bottom: 24px;}
+  #video-nav, #full{bottom: 20px;}
 }
 @media screen and (max-width: 1240px){
-  #video-nav{bottom: 19px;}
+  #video-nav, #full{bottom: 15px;}
 }
-
-#video-list {
-    display: none;
-    clear: both;
-    white-space: nowrap;
-    overflow: auto;
-    overflow-y: hidden;
-    margin: 0 15px 15px 15px;
-    text-align: center;
-    border-radius: 10px 10px 0 0;
-    -moz-border-radius: 10px 10px 0 0;
-    height: 0;
-    padding: 0;
-    display: none !important;
+@media screen and (max-width: 1100px){
+  #video-nav, #full{bottom: 11px;}
 }
-
-#video-list img {
-    min-width: 60px;
-    height: 60px;
-    margin: 0 2px;
-    vertical-align: middle;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    cursor: hand;
-    cursor: pointer;
-}
-
-#channel-list, #promo-channel {
-    font-size: small;
-}
-
-#channel-list ul, #promo-channel ul { /* remove bullets and list indents */
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-#channel-list li, #promo-channel li {
-    padding: 1px 15px;
-    margin-bottom: 2px;
-    cursor: hand;
-    cursor: pointer;
-    border-radius: 10px 0 0 10px;
-    -moz-border-radius: 10px 0 0 10px;
-}
-
-#add-channel {
-    text-align: center;
-    margin-top: 15px;
-}
-
-#channel-add {
-    margin-top: 5px;
+@media screen and (max-width: 1000px){
+  #video-nav, #full{bottom: 9px;}
 }
 
 #channel-name {
@@ -223,9 +202,16 @@ body {
 #options {
     font-size: x-small;
     position: fixed;
-    bottom: 0;
+    top: 5px;
     right: 15px;
     z-index: 90;
+}
+
+select#sorting {
+    background: rgb(239, 217, 154);
+    border: 1px dashed #B3A478;
+    color: #9E9169;
+    vertical-align: sub;
 }
 
 #css {
@@ -243,15 +229,26 @@ body {
 }
 
 form label {
-    vertical-align: top;
+    vertical-align: middle;
+}
+
+input#shuffle,
+input#sfw,
+#video-source {
+    vertical-align: middle;
+    margin-left: 20px;
 }
 
 #footer {
     font-size: x-small;
     clear: both;
     padding-top: 15px;
-    margin-left: 100px;
     text-align: center;
+    z-index: 80;
+    position: absolute;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
 }
 
 #also-like {
@@ -352,3 +349,51 @@ a:link, a:visited, a:active {
 a:hover {
     text-decoration: underline;
 }
+
+#hack-mode {
+    position: fixed;
+    z-index: 100;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgb(0, 0, 0);
+    display: none;
+}
+#hack-mode h4{
+  display: block;
+  margin: 2% auto;
+  padding: 0.5em;
+  text-align: center;
+  font-size: 4em;
+  background: black;
+  color: green;
+  font-family: 'VT323', monospace;
+  outline: none;
+}
+#hack-mode p{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.7em;
+  padding: 1% 10%;
+  color: green;
+  font-family: 'VT323', monospace;;
+}
+#hack-mode input{
+  display: block;
+  margin: 10% auto;
+  padding: 0.5em;
+  font-size: 3em;
+  background: black;
+  border: 4px dashed green;
+  color: green;
+  font-family: 'VT323', monospace;
+  outline: none;
+}
+#hack-mode input::-webkit-input-placeholder{color: rgba(0, 128, 0, 0.26);}
+#hack-mode input:-ms-input-placeholder{color: rgba(0, 128, 0, 0.26);}
+#hack-mode input::-ms-input-placeholder{color: rgba(0, 128, 0, 0.26);}
+#hack-mode input::-moz-placeholder{color: rgba(0, 128, 0, 0.26);}
+#hack-mode input:-moz-placeholder{color: rgba(0, 128, 0, 0.26);}
+#hack-mode input::placeholder {color: rgba(0, 128, 0, 0.26);}
