@@ -43,8 +43,45 @@
 </script>
 </head>
 <body>
+<div id="splash"></div>
 <div id="content-wrapper">
   <div id="header">
+    <div id="about"><i class="material-icons">&#xE88E;</i> About</div>
+    <div id="about-content-wrap">
+      <div id="about-content">
+        <i class="material-icons" id="about-content-exit">&#xE5C9;</i>
+        <h2>About</h2>
+        <p class="disclaimer">
+          <strong>Disclaimer:</strong>
+          This website isn't endorsed by <em>[adult swim]</em>, <em>Cartoon Network</em>, or anyone officially involved in producing or managing <em>Rick and Morty</em>, and doesn't reflect the views or opinions of any of them. <em>Rick and Morty</em> and <em>[adult swim]</em> are trademarks or registered trademarks of <em>The Cartoon Network, Inc</em>. This is a non-commercial, nonprofit, silly project made for fans by a fan, and will be taken down if a legal request is send alongside a video of Dan Harmon and Justin Roiland making out. <em>Wubbalubbadubdub!</em></p>
+
+          <p><h3>Who did this?</h3><br/>
+            Me. I mean, <a href="http://unaiyecora.com" target="_blank">Unai Yécora</a>, a web designer/developer from Spain.</p>
+
+          <p><h3>And how did you do it?</h3><br/>
+            Well, 20% of the job was using crystallized Zanthonite to conduct electrons across dimensions.
+            The other 80% was using <a href="https://github.com/octatone/reddit.tv"> the old reddit.tv code</a> to pull videos from reddit.
+            More precisely, from <a href="https://www.reddit.com/r/nottimanderic">/r/NotTimAndEric</a>.
+            And a lot of coding, since the reddit.tv code was last updated many years ago.
+            You can find my new code <a href="https://github.com/UnaiYecora/Interdimensional-Cable">here</a>, in case you want to fork it, improve it or whatever you want to do with it.</p>
+
+          <p><h3>So, can I use t<strong>h</strong>is with ot<strong>h</strong>er subreddits?</h3><br/>
+            Yea<strong>h</strong>, t<strong>h</strong>ere's a way. It's a bit buggy, but you can use it. You just need to find out <strong>h</strong>ow :D</p>
+
+          <p><h3>Wenna help out?</h3><br/>Although this is a non-commercial personal project, the domain and hosting cost money. Not much, but some bucks that I should not be spending in this flapdoodle. So, if you enjoy the site and want to collaborate, I would take any loose change you have. Thanks (:</p>
+
+          <p style="font-size: smaller; color: #988B64;">(Once the hosting/domain is paid, I'll remove the donation button)</p><br/>
+
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+          <input type="hidden" name="cmd" value="_s-xclick">
+          <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+          ">
+          <input type="image" src="http://interdimensionaltv.com/img/donate.png" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+          <img alt="" border="0" src="https://www.paypalobjects.com/es_ES/i/scr/pixel.gif" width="1" height="1">
+          </form>
+
+      </div>
+    </div>
     <div id="options">
       <ul id="css" class="right" style="display:none;">
               <li><a href="#" rel="light">light</a></li>
@@ -68,7 +105,6 @@
       </form>
     </div>
     <div id="video-title"></div>
-
     <div id="footer">Keyboard Shortcuts: ← → f c <span>h</span></div>
   </div>
   <div id="content">

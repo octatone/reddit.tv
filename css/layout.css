@@ -67,13 +67,6 @@ body {
     padding-top: 0px !important;
 }
 
-#about {
-    margin-top: 15px;
-    padding-top: 15px;
-    font-size: x-small;
-    text-align: center;
-}
-
 #video-display {
     border-radius: 15px;
     -moz-border-radius: 15px;
@@ -105,10 +98,14 @@ body {
     font-size: 10px;
     line-height: 1em;
     height: 15px;
+    transition: color 0.3s;
 }
 #video-source a i {
   font-size: 17px;
   vertical-align: middle;
+}
+#video-source:hover{
+  color: #000;
 }
 
 .embed-container {
@@ -242,7 +239,7 @@ input#sfw,
 #footer {
     font-size: x-small;
     clear: both;
-    padding-top: 15px;
+    padding: 8px 0;
     text-align: center;
     z-index: 80;
     position: absolute;
@@ -321,7 +318,6 @@ input#sfw,
     background-repeat: no-repeat;
     background-position: center center;
     min-width: 100%;
-    min-height: 696px;
 }
 
 .fill-screen {
@@ -397,3 +393,96 @@ a:hover {
 #hack-mode input::-moz-placeholder{color: rgba(0, 128, 0, 0.26);}
 #hack-mode input:-moz-placeholder{color: rgba(0, 128, 0, 0.26);}
 #hack-mode input::placeholder {color: rgba(0, 128, 0, 0.26);}
+
+#splash {
+    position: fixed;
+    z-index: 900;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: url('../img/tv01.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: 0.5s;
+    display: block;
+}
+
+#about{
+  color: gray;
+  font-size: 0.9em;
+  position: fixed;
+  top: 5px;
+  left: 15px;
+  z-index: 90;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+#about:hover{
+  color: #000;
+}
+#about i {
+    font-size: 1.4em;
+    vertical-align: sub;
+}
+
+#about-content-wrap{
+  display: none;
+  background: rgba(38, 49, 45, 0.88);
+  position: fixed;
+  z-index: 600;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 10%;
+  overflow: auto;
+}
+#about-content {
+    background: #EFD99A;
+    max-width: 720px;
+    padding: 20px;
+    margin: 0 auto;
+    text-align: center;
+    color: #000;
+    border-radius: 10px;
+    position: relative;
+}
+#about-content h2 {
+    font-size: 2.5em;
+    margin: 0 0 20px 0;
+    color: #61583E;
+}
+#about-content h3 {
+    margin: 30px 0 -5px;
+}
+#about-content a {
+    color: #AF6700;
+    border-bottom: 1px dashed;
+    transition: all 0.3s;
+}
+#about-content a:hover {
+  text-decoration: none;
+  background: rgba(175, 103, 0, 0.14);
+  color: black;
+}
+
+#about-content-exit{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.4);
+  transition: color 0.3s;
+}
+#about-content-exit:hover{color: rgba(0,0,0,0.75);}
+
+.disclaimer {
+    text-align: left;
+    background: #DAC68C;
+    border-left: 5px solid #90835C;
+    padding: 10px 20px 10px 10px;
+    font-size: 0.8em;
+    color: #635A3F;
+}

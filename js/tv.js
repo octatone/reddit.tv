@@ -1,3 +1,17 @@
+$( document ).ready(function() {
+  $('#content-wrapper').hide();
+  setTimeout(function() {
+     $('#splash').fadeTo(1);
+     $('#content-wrapper').show();
+  }, 500 );
+  setTimeout(function() {
+     $('#splash').fadeTo(1500, 0, function(){
+       $(this).hide();
+     });
+     boxy()
+  }, 4000 );
+});
+
 if ( window.localStorage.getItem('mainChannel') === '' || localStorage.getItem("mainChannel") === null){
   window.localStorage.setItem('mainChannel','nottimanderic');
 }
@@ -49,6 +63,8 @@ var Globals = {
 
 /* MAIN (Document Ready) */
 $().ready(function(){
+setTimeout(function() {
+console.log("I'm done waiting!")
     loadSettings();
     loadTheme(Globals.theme);
 
@@ -130,10 +146,6 @@ $().ready(function(){
         }
     });
 
-    $(window).resize(function() {
-        resizePlayer();
-    });
-
     /* clear add sr on click */
     $('#channel-name').click(function(){
         $(this).val('');
@@ -148,6 +160,7 @@ $().ready(function(){
     }else{
         setInterval(checkAnchor, 100);
     }
+}, 6000);
 });
 
 /* Main Functions */
@@ -451,7 +464,6 @@ function loadVideo(video) {
             $video_source.html(video_source_text).fadeIn('slow');
         });
 
-        resizePlayer();
         boxy();
     }
 }
@@ -681,62 +693,6 @@ function addListeners (type) {
     }
 }
 
-function resizePlayer() {
-    if(typeof(Globals.cur_chan) == 'undefined' ||
-       typeof(Globals.videos[Globals.cur_chan]) == 'undefined') {
-        setTimeout(resizePlayer, 100);
-        return;
-    }
-
-    consoleLog('window size changed: ' + $(window).width() + 'x' + $(window).height());
-    sitename = Globals.videos[Globals.cur_chan].video[Globals.cur_video].domain;
-
-    if(sitename == 'youtube.com' || sitename == 'youtu.be') {
-        player = $('#player');
-    }
-    else if(sitename == 'vimeo.com') {
-        player = $('#vimeoplayer');
-    }
-    else {
-        consoleLog('unsupported player: '+sitename);
-        return;
-    }
-
-    curr_player_width = player.width();
-    curr_player_height = player.height();
-    win_width = $(window).width();
-    win_height = $(window).height();
-
-    // consoleLog('content_min size: ' + (Globals.content_minwidth+curr_player_width) + 'x' + (Globals.content_minheight+curr_player_height));
-    // consoleLog('vd_min size: ' + (Globals.vd_minwidth+curr_player_width) + 'x' + (Globals.vd_minheight+curr_player_height));
-
-    if(win_width < 853+Globals.content_minwidth || win_height < 505+Globals.content_minheight) {
-        player_width  = 640;
-        player_height = 385;
-    }
-    else if(win_width < 1280+Globals.content_minwidth || win_height < 745+Globals.content_minheight) {
-        player_width  = 1255;
-        player_height = 681;
-    }
-    else {
-        player_width  = 1280;
-        player_height = 745;
-    }
-
-    if(player_width == curr_player_width) { return; }  // nothing to do
-    consoleLog('resizing player to '+player_width+'x'+player_height);
-    player.width(player_width);
-    player.height(player_height);
-    player_width = player.width();    // player may not accept our request
-    player_height = player.height();
-
-    consoleLog('new player size: '+player_width+'x'+player_height);
-
-    $('#content').width(player_width + Globals.content_minwidth);
-    $('#video-display').width(player_width + Globals.vd_minwidth);
-    $('#video-display').height(player_height + Globals.vd_minheight);
-}
-
 function togglePlay(){
     switch(Globals.videos[Globals.cur_chan].video[Globals.cur_video].domain){
     case 'youtube.com': case 'youtu.be':
@@ -866,6 +822,7 @@ var delay = (function(){
 function boxy(){
   $('#video-display').fadeOut( 0, function() {
     var contW = $('#content').width();
+    var contH = $('#content').height();
     var contW3 = contW*1430/1632;
     var contH3 = contW*777/1632;
     var contB3 = contW*90/1632;
@@ -939,9 +896,20 @@ function hackMode(){
 
 }
 
-
-
 function reload(){
   var re = /^https?:\/\/[^/]+/i;
   window.location.href = re.exec(window.location.href)[0];
 }
+
+//About
+$( document ).ready(function() {
+  $("#about").click(function(){
+    $("#about-content-wrap").fadeIn(200);
+  });
+  $("#about-content-exit, #about-content-wrap").click(function(){
+    $("#about-content-wrap").fadeOut(200);
+  });
+  $('#about-content').click(function(event){
+      event.stopPropagation();
+  });
+});

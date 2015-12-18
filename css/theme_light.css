@@ -43,17 +43,14 @@ body {
     color: white;
 }
 
-#about {
-    border-top: 1px dashed lightgray;
-    color: gray;
-}
-
 #header {
     color: gray;
 }
 
 #footer {
     color: #A7976A;
+    background: #EFD99A;
+    box-shadow: 0px 1px 4px rgba(150, 130, 73, 0.13);
 }
 #footer span{
     color: #FDE6A1;
