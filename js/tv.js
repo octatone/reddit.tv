@@ -99,9 +99,11 @@ console.log("I'm done waiting!")
     });
     $('#next-button').click(function() {
         loadVideo('next');
+        playSound();
     });
     $('#prev-button').click(function() {
         loadVideo('prev');
+        playSound();
     });
     $('#video-list').bind('mousewheel', function(event,delta){
         this.scrollLeft -= (delta * 30);
@@ -118,9 +120,11 @@ console.log("I'm done waiting!")
             switch (keyCode) {
             case arrow.left:  case 74: // j
                 loadVideo('prev');
+                playSound();
                 break;
             case arrow.right: case 75: // k
                 loadVideo('next');
+                playSound();
                 break;
             case 72:
                 hackMode();
@@ -221,8 +225,6 @@ function loadChannel(channel, video_id) {
     title = Globals.channels[this_chan].feed.split("/");
     title = "/"+title[1]+"/"+title[2];
 
-    $video_title.html('Loading '+title+' ...');
-    $video_embed.addClass('loading');
     $video_embed.empty();
 
     $('#channel-list>ul>li').removeClass('chan-selected');
@@ -268,9 +270,7 @@ function loadChannel(channel, video_id) {
                         Globals.cur_video = 0;
                         loadVideo('first');
                     }
-                    $video_embed.removeClass('loading');
                 }else{
-                    $video_embed.removeClass('loading');
                     alert('No videos found.');
                 }
             },
@@ -438,7 +438,6 @@ function loadVideo(video) {
         var $video_embed = $('#video-embed');
 
         $video_embed.empty();
-        $video_embed.addClass('loading');
 
         var embed = $.unescapifyHTML(Globals.videos[this_chan].video[selected_video].media_embed.content);
         embed = prepEmbed(embed, Globals.videos[this_chan].video[selected_video].domain);
@@ -449,7 +448,6 @@ function loadVideo(video) {
                                + ' title="' + Globals.videos[this_chan].video[selected_video].title_quot + '">'
                                + Globals.videos[this_chan].video[selected_video].title_unesc + '</a>');
         $video_embed.html(embed);
-        $video_embed.removeClass('loading');
 
         onYouTubeIframeAPIReady();
 
@@ -913,3 +911,11 @@ $( document ).ready(function() {
       event.stopPropagation();
   });
 });
+
+
+audioElement = document.createElement('audio');
+audioElement.setAttribute('src', 'audio/channel3.mp3');
+
+var playSound = function(){
+  $(".embed-container").hide(0, function(){audioElement.play()}).delay(650).show(0);
+}
