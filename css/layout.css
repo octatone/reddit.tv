@@ -2,6 +2,10 @@ body {
     margin: 0;
     padding: 0;
     font-family: verdana,arial,helvetica,sans-serif;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    min-width: 992px;
 }
 
 #content-wrapper {
@@ -9,11 +13,45 @@ body {
 }
 
 #content {
-    width: 770px;
     margin-left: auto;
     margin-right: auto;
-    padding-right: 100px;
 }
+#content {
+    background-color: rgba(255, 255, 255, 0) !important;
+    background-image: url('../img/tv.png');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: bottom;
+    overflow: visible;
+    position: absolute !important;
+    bottom: 0;
+    height: 100% !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    left: 0;
+    right: 0;
+    display: block;
+    background-size: contain;
+    max-width: 1632px;
+    min-height: 1000px;
+}
+@media screen and (min-width: 1455px){
+  #content{background-size: contain;}
+}
+
+/* Full Screen Player kind of
+@media screen and (max-width: 850px){
+  #player{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+*/
 
 #sidebar {
     float: left;
@@ -29,26 +67,29 @@ body {
     padding-top: 0px !important;
 }
 
-#about {
-    margin-top: 15px;
-    padding-top: 15px;
-    font-size: x-small;
-    text-align: center;
-}
-
 #video-display {
     border-radius: 15px;
     -moz-border-radius: 15px;
-    width: 670px;
-    min-height: 590px;
-    float: left;
+}
+#video-display {
+    background-color: rgba(255, 255, 255, 0) !important;
+    margin: 92px auto;
+    display: block;
+    float: none;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+@media screen and (min-width: 1455px){
+  #video-display{// max-width: 1255px;}
 }
 
 #video-embed {
-    padding: 0px 15px 0px 15px;
     text-align: center;
-    min-width: 640px;
-    min-height: 480px;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 #video-source {
@@ -57,15 +98,26 @@ body {
     font-size: 10px;
     line-height: 1em;
     height: 15px;
+    transition: color 0.3s;
+}
+#video-source a i {
+  font-size: 17px;
+  vertical-align: middle;
+}
+#video-source:hover{
+  color: #000;
 }
 
-#video-embed>embed, #video-embed>object, #video-embed>object>embed, #video-embed>div>object>embed, #video-embed>div, #video-embed>iframe {
-    padding: 0 !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    text-align: center !important;
-    min-width: 640px !important;
-    min-height: 480px !important;
+.embed-container {
+}
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 #video-title {
@@ -75,67 +127,61 @@ body {
     -moz-border-radius: 15px 15px 0 0;
     padding: 12px 15px 6px 15px;
     white-space: wrap;
+    display: none;
 }
 
 #video-title a {
     text-decoration: none;
 }
 
+#full {
+    position: absolute;
+    bottom: 33px;
+    right: 45px;
+    z-index: 90;
+    border-radius: 60px;
+    border: 0;
+    -webkit-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0);
+    padding: 4px 14px 4px 16px;
+    text-decoration: none;
+    transition: background 0.2s;
+    margin-bottom: 10px;
+    outline: none;
+    cursor: pointer;
+}
+#full:hover {
+  background: rgba(184, 74, 46, 0.4);
+  text-decoration: none;
+}
+
 #video-nav {
-    padding: 0 15px 15px 15px;
+    position: absolute;
+    bottom: 33px;
+    left: 45px;
+    z-index: 90;
 }
-
-#video-list {
-    display: none;
-    clear: both;
-    white-space: nowrap;
-    overflow: auto;
-    overflow-y: hidden;
-    margin: 0 15px 15px 15px;
-    text-align: center;
-    border-radius: 10px 10px 0 0;
-    -moz-border-radius: 10px 10px 0 0;
-    height: 0;
-    padding: 0;
+@media screen and (max-width: 1580px){
+  #video-nav, #full{bottom: 29px;}
 }
-
-#video-list img {
-    min-width: 60px;
-    height: 60px;
-    margin: 0 2px;
-    vertical-align: middle;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    cursor: hand;
-    cursor: pointer;
+@media screen and (max-width: 1490px){
+  #video-nav, #full{bottom: 24px;}
 }
-
-#channel-list, #promo-channel {
-    font-size: small;
+@media screen and (max-width: 1350px){
+  #video-nav, #full{bottom: 20px;}
 }
-
-#channel-list ul, #promo-channel ul { /* remove bullets and list indents */
-    list-style: none;
-    margin: 0;
-    padding: 0;
+@media screen and (max-width: 1240px){
+  #video-nav, #full{bottom: 15px;}
 }
-
-#channel-list li, #promo-channel li {
-    padding: 1px 15px;
-    margin-bottom: 2px;
-    cursor: hand;
-    cursor: pointer;
-    border-radius: 10px 0 0 10px;
-    -moz-border-radius: 10px 0 0 10px;
+@media screen and (max-width: 1100px){
+  #video-nav, #full{bottom: 11px;}
 }
-
-#add-channel {
-    text-align: center;
-    margin-top: 15px;
-}
-
-#channel-add {
-    margin-top: 5px;
+@media screen and (max-width: 1000px){
+  #video-nav, #full{bottom: 9px;}
 }
 
 #channel-name {
@@ -147,17 +193,22 @@ body {
 
 #header {
     position: relative;
-    margin-top: 3px;
-    margin-left: 100px;
-    padding: 0 15px;
     font-size: small;
 }
 
 #options {
     font-size: x-small;
-    position: absolute;
-    bottom: 0;
+    position: fixed;
+    top: 5px;
     right: 15px;
+    z-index: 90;
+}
+
+select#sorting {
+    background: rgb(239, 217, 154);
+    border: 1px dashed #B3A478;
+    color: #9E9169;
+    vertical-align: sub;
 }
 
 #css {
@@ -171,19 +222,30 @@ body {
 
 #css li {
     display: inline;
-    list-style: none;    
+    list-style: none;
 }
 
 form label {
-    vertical-align: top;
+    vertical-align: middle;
+}
+
+input#shuffle,
+input#sfw,
+#video-source {
+    vertical-align: middle;
+    margin-left: 20px;
 }
 
 #footer {
     font-size: x-small;
     clear: both;
-    padding-top: 15px;
-    margin-left: 100px;
+    padding: 8px 0;
     text-align: center;
+    z-index: 80;
+    position: absolute;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
 }
 
 #also-like {
@@ -233,17 +295,13 @@ form label {
 .nav-button {
     display: none;
     text-align: center;
-    margin-bottom: 0.5em;
+    margin: 0 10px 10px;
     padding: 6px 16px;
     border-radius: 10px;
     -moz-border-radius: 10px;
 }
 
-a.nav-button:hover {
-    padding: 5px 15px;
-    border: 1px solid gray;
-    text-decoration: none;
-}
+
 
 .user-chan:hover .remove-chan {
     visibility: visible;
@@ -259,6 +317,7 @@ a.nav-button:hover {
 .loading {
     background-repeat: no-repeat;
     background-position: center center;
+    min-width: 100%;
 }
 
 .fill-screen {
@@ -285,4 +344,145 @@ a:link, a:visited, a:active {
 
 a:hover {
     text-decoration: underline;
+}
+
+#hack-mode {
+    position: fixed;
+    z-index: 100;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgb(0, 0, 0);
+    display: none;
+}
+#hack-mode h4{
+  display: block;
+  margin: 2% auto;
+  padding: 0.5em;
+  text-align: center;
+  font-size: 4em;
+  background: black;
+  color: green;
+  font-family: 'VT323', monospace;
+  outline: none;
+}
+#hack-mode p{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.7em;
+  padding: 1% 10%;
+  color: green;
+  font-family: 'VT323', monospace;;
+}
+#hack-mode input{
+  display: block;
+  margin: 10% auto;
+  padding: 0.5em;
+  font-size: 3em;
+  background: black;
+  border: 4px dashed green;
+  color: green;
+  font-family: 'VT323', monospace;
+  outline: none;
+}
+#hack-mode input::-webkit-input-placeholder{color: rgba(0, 128, 0, 0.26);}
+#hack-mode input:-ms-input-placeholder{color: rgba(0, 128, 0, 0.26);}
+#hack-mode input::-ms-input-placeholder{color: rgba(0, 128, 0, 0.26);}
+#hack-mode input::-moz-placeholder{color: rgba(0, 128, 0, 0.26);}
+#hack-mode input:-moz-placeholder{color: rgba(0, 128, 0, 0.26);}
+#hack-mode input::placeholder {color: rgba(0, 128, 0, 0.26);}
+
+#splash {
+    position: fixed;
+    z-index: 900;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: url('../img/tv01.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: 0.5s;
+    display: block;
+}
+
+#about{
+  color: gray;
+  font-size: 0.9em;
+  position: fixed;
+  top: 5px;
+  left: 15px;
+  z-index: 90;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+#about:hover{
+  color: #000;
+}
+#about i {
+    font-size: 1.4em;
+    vertical-align: sub;
+}
+
+#about-content-wrap{
+  display: none;
+  background: rgba(38, 49, 45, 0.88);
+  position: fixed;
+  z-index: 600;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 5% 50px 2%;
+  overflow: auto;
+}
+#about-content {
+    background: #EFD99A;
+    max-width: 720px;
+    padding: 20px;
+    margin: 0 auto;
+    text-align: center;
+    color: #000;
+    border-radius: 10px;
+    position: relative;
+}
+#about-content h2 {
+    font-size: 2.5em;
+    margin: 0 0 20px 0;
+    color: #61583E;
+}
+#about-content h3 {
+    margin: 30px 0 -5px;
+}
+#about-content a {
+    color: #AF6700;
+    border-bottom: 1px dashed;
+    transition: all 0.3s;
+}
+#about-content a:hover {
+  text-decoration: none;
+  background: rgba(175, 103, 0, 0.14);
+  color: black;
+}
+
+#about-content-exit{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.4);
+  transition: color 0.3s;
+}
+#about-content-exit:hover{color: rgba(0,0,0,0.75);}
+
+.disclaimer {
+    text-align: left;
+    background: #DAC68C;
+    border-left: 5px solid #90835C;
+    padding: 10px 20px 10px 10px;
+    font-size: 0.8em;
+    color: #635A3F;
 }

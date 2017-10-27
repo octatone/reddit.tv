@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-<title>reddit.tv</title>
+<title>Interdimensional TV</title>
 
 <link rel="shortcut icon" href="favicon.ico" />
 
@@ -21,11 +21,13 @@
 <script src="js/tv.vimeo.js" type="text/javascript"></script>
 <script src="js/tv.js" type="text/javascript"></script>
 
+<link href="https://fonts.googleapis.com/icon?family=VT323|Material+Icons" rel="stylesheet">
+
 <script type="text/javascript">
-  if(window.location.host.match('reddit.tv')){
+  if(window.location.host.match('interdimensionaltv.com')){
     consoleLog('Loading analytics ..');
     var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-12131688-3']);
+    _gaq.push(['_setAccount', 'UA-48517741-4']);
     _gaq.push(['_trackPageview']);
 
     (function() {
@@ -40,77 +42,90 @@
 </script>
 </head>
 <body>
-<div id="gutter-1"></div>
-<div id="gutter-2"></div>
+<div id="splash"></div>
 <div id="content-wrapper">
-  <div id="content">
-    <div id="header">
-      &nbsp;
-      <div id="options">
-        <ul id="css" class="right">
-                <li><a href="#" rel="light">light</a></li>
-                <li><a href="#" rel="dark">dark</a></li>
-        </ul>
+  <div id="header">
+    <div id="about"><i class="material-icons">&#xE88E;</i> About</div>
+    <div id="about-content-wrap">
+      <div id="about-content">
+        <i class="material-icons" id="about-content-exit">&#xE5C9;</i>
+        <h2>About</h2>
+        <p class="disclaimer">
+          <strong>Disclaimer:</strong>
+          This website isn't endorsed by <em>[adult swim]</em>, <em>Cartoon Network</em>, or anyone officially involved in producing or managing <em>Rick and Morty</em>, and doesn't reflect the views or opinions of any of them. <em>Rick and Morty</em> and <em>[adult swim]</em> are trademarks or registered trademarks of <em>The Cartoon Network, Inc</em>. This is a non-commercial, nonprofit, silly project made for fans by a fan, and will be taken down if a legal request is send alongside a video of Dan Harmon and Justin Roiland making out. <em>Wubbalubbadubdub!</em></p>
 
-        <form class="right">
-          <label for="sorting">sorting</label>
+          <p><h3>Who did this?</h3><br/>
+            Me. I mean, <a href="http://unaiyecora.com" target="_blank">Unai Yécora</a>, a web designer/developer from Spain.</p>
+
+          <p><h3>And how did you do it?</h3><br/>
+            Well, 20% of the job was using crystallized Zanthonite to conduct electrons across dimensions.
+            The other 80% was using <a href="https://github.com/octatone/reddit.tv"> the old reddit.tv code</a> to pull videos from reddit.
+            More precisely, from <a href="https://www.reddit.com/r/nottimanderic">/r/NotTimAndEric</a>.
+            And a lot of coding, since the reddit.tv code was last updated many years ago.
+            You can find my new code <a href="https://github.com/UnaiYecora/Interdimensional-Cable">here</a>, in case you want to fork it, improve it or whatever you want to do with it.</p>
+
+          <p><h3>Why the TV/screen/video doesn't fit in my computer/mobile screen?</h3><br/>
+            Cause is a pain in the ass to make it work on every possible screen size, and I can't spend that many hours in such a silly project. You can easily fix it by resizing the screen on your browser. But please send me a screenshot or something and I'll see what I can do.</p>
+
+          <p><h3>So, can I use t<strong style="color: rgba(0, 0, 0, 0.63);">h</strong>is with ot<strong style="color: rgba(0, 0, 0, 0.63);">h</strong>er subreddits?</h3><br/>
+            Yea<strong>h</strong>, t<strong>h</strong>ere's a way. It's a bit buggy, but you can use it. You just need to find out <strong>h</strong>ow :D</p>
+
+          <p><h3>Wanna help out?</h3><br/>Although this is a non-commercial personal project, the domain and hosting cost money. Not much, but some bucks that I should not be spending in this flapdoodle. So, if you enjoy the site and want to collaborate, I would take any loose change you have. Thanks (:</p>
+
+          <p style="font-size: smaller; color: #988B64;">(Once the hosting/domain is paid, I'll remove the donation button)</p><br/>
+
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+          <input type="hidden" name="cmd" value="_s-xclick">
+          <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHNwYJKoZIhvcNAQcEoIIHKDCCByQCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYCp3vR6F2dlLUSUqhVUW6UIiveYDVHiTkyCz9ba7nhMbZ5n+m5NOoIfVUycQmQQV03AxhqGRdz/L6wwfnx+s0Bwf+HzOjZZ4kP2dOhHGSajRpqqXxGpEB4E8Al6RMvg78xgUmQG+znZtPhBiV0rCw4lTdBJ/oLCC/LGwU2Hm9eZ8DELMAkGBSsOAwIaBQAwgbQGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIVFa83P+KFsaAgZDBPR9TtSNCtWg9B1AP78iLXLdubex9lS33WRIkIoAQCxt96UtM3TA/cwJAykATlZsxZiFxMqEmiF4JiV6XIF9tHhafLfMbkq4s9YcrIi2TN/AINbYWulbP6mJ1kwzMPWjJfzCBKGnR/bwyiz/GD7XQcwahD+qN7wkQGoeB8Q5wOGljrKlzxWxeJ4o/N7iMGGKgggOHMIIDgzCCAuygAwIBAgIBADANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wHhcNMDQwMjEzMTAxMzE1WhcNMzUwMjEzMTAxMzE1WjCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMFHTt38RMxLXJyO2SmS+Ndl72T7oKJ4u4uw+6awntALWh03PewmIJuzbALScsTS4sZoS1fKciBGoh11gIfHzylvkdNe/hJl66/RGqrj5rFb08sAABNTzDTiqqNpJeBsYs/c2aiGozptX2RlnBktH+SUNpAajW724Nv2Wvhif6sFAgMBAAGjge4wgeswHQYDVR0OBBYEFJaffLvGbxe9WT9S1wob7BDWZJRrMIG7BgNVHSMEgbMwgbCAFJaffLvGbxe9WT9S1wob7BDWZJRroYGUpIGRMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbYIBADAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAIFfOlaagFrl71+jq6OKidbWFSE+Q4FqROvdgIONth+8kSK//Y/4ihuE4Ymvzn5ceE3S/iBSQQMjyvb+s2TWbQYDwcp129OPIbD9epdr4tJOUNiSojw7BHwYRiPh58S1xGlFgHFXwrEBb3dgNbMUa+u4qectsMAXpVHnD9wIyfmHMYIBmjCCAZYCAQEwgZQwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tAgEAMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0xNTEyMTYwNTU1NTBaMCMGCSqGSIb3DQEJBDEWBBRTlr5M8WIS/jc4c4N+Z7Upovy5uzANBgkqhkiG9w0BAQEFAASBgBD6/TwXFWUP2za2btTtB24Yh2BjjJppezWilbGUZC1nvSecFMHV/SYHMozwN8qU/XuHISuPXk01DUxawapoL4CiUL4DEDdNKfErR15ud3riUxwJ2OknCuz+LQe1sIbXPGpoFwSMl09L6H6uSxkuySZ296ARhQlmaUp8TXHlivQV-----END PKCS7-----
+          ">
+          <input type="image" src="http://interdimensionaltv.com/img/donate.png" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+          <img alt="" border="0" src="https://www.paypalobjects.com/es_ES/i/scr/pixel.gif" width="1" height="1">
+          </form>
+
+      </div>
+    </div>
+    <div id="options">
+      <ul id="css" class="right" style="display:none;">
+              <li><a href="#" rel="light">light</a></li>
+              <li><a href="#" rel="dark">dark</a></li>
+      </ul>
+      <form class="right">
+        <label for="sorting"></label>
           <select id="sorting">
-            <option value="hot">hot</option>
-            <option value="top:day">top today</option>
-            <option value="top:week">top week</option>
-            <option value="top:month">top month</option>
-            <option value="top:year">top year</option>
+            <option value="hot">Hot</option>
+            <option value="top:day">Top today</option>
+            <option value="top:week">Top week</option>
+            <option value="top:month">Top month</option>
+            <option value="top:year">Top year</option>
+            <option value="top:all">Top all</option>
           </select>
-          <input type="checkbox" id="auto" checked/>
-            <label for="auto">autoplay/advance</label>
-          <input type="checkbox" id="shuffle"/>
-            <label for="auto">shuffle</label>
-          <input type="checkbox" id="fill"/>
-            <label for="fill">fill screen</label>
-          <input type="checkbox" id="sfw" checked/>
+          <input type="checkbox" id="shuffle" checked/>
+            <label for="auto">Shuffle</label>
+          <input type="checkbox" id="sfw"/>
             <label for="sfw">sfw</label>
-        </form>
-      </div>
+        <span id="video-source"></span>
+      </form>
     </div>
-    <div id="sidebar">
-      <div id="promo-channel"></div>
-      <div id="channel-list"></div>
-      <div id="add-channel">
-        <form id="add-channel-form" onSubmit="addChannel();return false;">
-          <input type="text" id="channel-name" value="subreddit" size="10"/>
-          <br/>
-          <input type="submit" id="channel-add" value="load"/>
-        </form>
-      </div>
-      <div id="about">
-        <a href="http://americancensorship.org" target="_blank">STOP CENSORSHIP</a>
-        <br/>
-        <br/><a href="http://reddit.com/r/reddit_tv" target="_blank" title="reddit.tv on reddit - bug reports, feature requests, channel suggestions">/r/reddit_tv</a>
-        <br/>
-        <br/><a href="https://github.com/octatone/reddit.tv" title="help improve reddit.tv" target="_blank">source</a>
-        <br/>
-        <br/><a href="mailto:marketing@reddit.com?subject=reddit.tv%20inquiry" title="advertise on reddit.tv" target="_blank">advertise</a>
-      </div>
+    <div id="video-title"></div>
+    <div id="footer">Keyboard Shortcuts: ← → f c <span>h</span></div>
+  </div>
+  <div id="content">
+    <div id="video-nav">
+      <a id="prev-button" class="nav-button"><i class="material-icons">&#xE314;</i></a>
+      <a id="next-button" class="nav-button"><i class="material-icons">&#xE315;</i></a>
     </div>
+    <button id="full"><i class="material-icons">&#xE5D0;</i></button>
     <div id="video-display">
-      <div id="video-title"></div>
-      <div id="video-embed"></div>
-      <div id="video-source"></div>
-      <div id="video-nav">
-        <a id="prev-button" class="nav-button">&lt; PREV</a>
-        <a id="next-button" class="nav-button">NEXT &gt;</a>
-        <div id="vote-button"></div>
-      </div>
-      <div id="video-list"></div>
+      <div id="video-embed" class="loading"></div>
     </div>
-    <div id="footer">keyboard shortcuts: ← ↑ ↓ → spacebar f c</div>
-    <div id="also-like">Enjoy reddit.tv?  You might also like <a href="http://radioreddit.com">radioreddit.com</a>!</div>
   </div>
 </div>
-<div id="fill-overlay">
-  <div id="fill-nav">
-    exit fill screen
-  </div>
-</div>
+<form id="hack-mode">
+  <h4>Hack Mode</h4>
+  <p>Write any subreddit here and press enter. If that subreddit has some Youtube videos, they should load in the TV.</p>
+  <p>Keep in mind that you won't be able to share the url of any particular video while doing this (they won't work).</p>
+  <p>To reset it you can use the shortcut "i".</p>
+  <input id="hack-mode-input" placeholder="nottimanderic"/>
+</form>
 </body>
 </html>
